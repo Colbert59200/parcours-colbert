@@ -1,0 +1,1830 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parcours Découverte — Lycée Colbert de Tourcoing</title>
+  <style>
+    :root {
+      --colbert-red: #9b1b30;
+      --colbert-red-dark: #741021;
+      --colbert-red-soft: #fff1f3;
+      --colbert-orange: #f59e0b;
+      --colbert-navy: #0f172a;
+      --colbert-slate: #334155;
+      --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      --card: #ffffff;
+      --border: #cbd5e1;
+      --text: #0f172a;
+      --muted: #64748b;
+      --success: #059669;
+      --success-bg: #ecfdf5;
+      --error: #dc2626;
+      --error-bg: #fef2f2;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+    }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text);
+      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* HEADER PLEINE LARGEUR */
+    header {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 3px solid var(--colbert-red);
+      padding: 10px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+    }
+    .header-inner {
+      width: 100%;
+      max-width: 1320px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .brand { display: flex; align-items: center; gap: 14px; }
+    .brand-title { font-weight: 900; font-size: 1.15rem; color: var(--colbert-navy); letter-spacing: -0.02em; }
+    .brand-sub { font-size: 0.8rem; color: var(--colbert-red); font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-admin {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      color: var(--colbert-slate);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-admin:hover { background: var(--colbert-navy); color: #ffffff; border-color: var(--colbert-navy); }
+
+    /* MAIN CONTAINER ÉLARGI */
+    main {
+      width: 100%;
+      max-width: 1320px;
+      margin: 18px auto 36px;
+      padding: 0 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #studentSection, #adminSection {
+      width: 100%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    #adminSection { display: none; }
+
+    /* STEPPER MODERNE */
+    .stepper {
+      width: 100%;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 14px 22px;
+      margin-bottom: 18px;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
+      border: 1px solid rgba(226, 232, 240, 0.9);
+    }
+    .stepper-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: var(--colbert-navy);
+    }
+    .step-badge-pill {
+      background: var(--colbert-red-soft);
+      color: var(--colbert-red);
+      padding: 3px 12px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+    }
+    .progress-track {
+      width: 100%;
+      height: 11px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--colbert-red) 0%, #e11d48 50%, var(--colbert-orange) 100%);
+      width: 25%;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 999px;
+    }
+    .step-dots {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 9px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .step-dots span.active { color: var(--colbert-red); font-weight: 800; }
+    .step-dots span.done { color: var(--success); font-weight: 700; }
+
+    /* CARD PLEINE LARGEUR */
+    .card {
+      width: 100%;
+      background: var(--card);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      flex: 1;
+    }
+    .card-body { padding: 28px 32px; }
+
+    .step-panel { display: none; }
+    .step-panel.active { display: block; animation: slideUp 0.3s ease; }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* BANNIÈRE VISUELLE EN HAUT DE CHAQUE ÉTAPE */
+    .hero-visual {
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(120deg, #1e293b 0%, #9b1b30 100%);
+    }
+    .hero-visual svg {
+      display: block;
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+    }
+    .hero-caption {
+      position: absolute;
+      bottom: 12px;
+      left: 24px;
+      right: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+    }
+    .hero-tag {
+      background: rgba(15, 23, 42, 0.82);
+      backdrop-filter: blur(4px);
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .step-heading {
+      font-size: 1.55rem;
+      font-weight: 900;
+      color: var(--colbert-navy);
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    /* ENCADRÉ CONSIGNE / INTRO */
+    .info-pill {
+      background: linear-gradient(to right, #fff1f3, #fff8f1);
+      border-left: 4px solid var(--colbert-red);
+      padding: 14px 18px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      font-size: 0.98rem;
+      color: #1e293b;
+      font-weight: 500;
+    }
+    .info-pill strong {
+      color: var(--colbert-red-dark);
+      font-weight: 800;
+    }
+
+    /* GRILLE RESPONSIVE LARGE POUR LES CHAMPS */
+    .fields-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .field-span-2 {
+      grid-column: span 2;
+    }
+
+    /* CHAMPS DE FORMULAIRE MODERNES */
+    .field-group {
+      background: #f8fafc;
+      padding: 16px 18px;
+      border-radius: 14px;
+      border: 1px solid #e2e8f0;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .field-group:focus-within {
+      background: #ffffff;
+      border-color: var(--colbert-red);
+      box-shadow: 0 4px 14px rgba(155, 27, 48, 0.08);
+    }
+    .field-label {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-weight: 800;
+      font-size: 0.98rem;
+      margin-bottom: 10px;
+      color: var(--colbert-navy);
+    }
+    .q-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--colbert-red-soft);
+      color: var(--colbert-red);
+      font-size: 0.95rem;
+      flex-shrink: 0;
+    }
+
+    select, input[type="text"] {
+      width: 100%;
+      padding: 13px 15px;
+      font-size: 0.98rem;
+      font-weight: 600;
+      border: 2px solid #cbd5e1;
+      border-radius: 10px;
+      background-color: #ffffff;
+      color: var(--text);
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    input[type="text"] { cursor: text; }
+    select:focus, input:focus {
+      outline: none;
+      border-color: var(--colbert-red);
+    }
+
+    .field-error {
+      border-color: var(--error) !important;
+      background: var(--error-bg) !important;
+    }
+    .field-error select, .field-error input {
+      border-color: var(--error) !important;
+    }
+    .error-msg {
+      display: none;
+      color: var(--error);
+      font-size: 0.84rem;
+      font-weight: 700;
+      margin-top: 6px;
+    }
+    .field-error .error-msg { display: block; }
+
+    .alert-banner {
+      display: none;
+      background: var(--error-bg);
+      border: 1px solid #fca5a5;
+      color: var(--error);
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin: 18px 32px 0;
+    }
+    .alert-banner.visible { display: block; }
+
+    /* BOUTONS */
+    .btn-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      margin-top: 26px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 15px 24px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform 0.12s, box-shadow 0.2s, background 0.2s;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--colbert-red) 0%, #be123c 100%);
+      color: #ffffff;
+      flex: 1;
+      box-shadow: 0 6px 16px rgba(155, 27, 48, 0.25);
+    }
+    .btn-primary:hover { background: linear-gradient(135deg, var(--colbert-red-dark) 0%, #9f1239 100%); }
+    .btn-secondary { background: #e2e8f0; color: var(--colbert-navy); min-width: 140px; }
+    .btn-secondary:hover { background: #cbd5e1; }
+    .btn-success {
+      background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+      color: #ffffff;
+      flex: 1;
+      box-shadow: 0 6px 16px rgba(5, 150, 105, 0.25);
+    }
+    .btn-success:hover { background: linear-gradient(135deg, #047857 0%, #059669 100%); }
+
+    /* CERTIFICAT DE RÉUSSITE */
+    .cert-wrapper {
+      background: linear-gradient(180deg, #fffdf9 0%, #fff7ed 100%);
+      border: 6px double var(--colbert-red);
+      border-radius: 18px;
+      padding: 32px 28px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 14px 30px rgba(155, 27, 48, 0.14);
+      margin-bottom: 22px;
+    }
+    .cert-logo-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .cert-badge {
+      display: inline-block;
+      background: var(--colbert-red);
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+    .cert-title {
+      font-size: 1.75rem;
+      font-weight: 900;
+      color: var(--colbert-navy);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 4px;
+    }
+    .cert-student {
+      font-size: 1.65rem;
+      font-weight: 900;
+      color: var(--colbert-red);
+      margin: 14px 0 4px;
+      border-bottom: 2px dashed #cbd5e1;
+      display: inline-block;
+      padding: 0 28px 4px;
+    }
+    .cert-college {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+    .cert-body {
+      font-size: 1.04rem;
+      color: var(--text);
+      max-width: 680px;
+      margin: 0 auto 20px;
+      line-height: 1.65;
+    }
+    .cert-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid #e2e8f0;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+    .ticket-box {
+      background: var(--colbert-red-soft);
+      border: 1px solid var(--colbert-red);
+      color: var(--colbert-red-dark);
+      font-weight: 800;
+      padding: 7px 14px;
+      border-radius: 8px;
+    }
+    .stamp {
+      border: 2px solid var(--success);
+      color: var(--success);
+      font-weight: 900;
+      padding: 5px 12px;
+      border-radius: 6px;
+      transform: rotate(-3deg);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+    }
+
+    /* ADMIN PANEL & STATISTIQUES PAR RÉPONSES */
+    .admin-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      background: #f8fafc;
+      padding: 14px 18px;
+      border-radius: 14px;
+      border: 1px solid #e2e8f0;
+      margin-bottom: 20px;
+    }
+    .admin-filter-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      min-width: 260px;
+    }
+    .admin-filter-box label {
+      font-weight: 800;
+      font-size: 0.88rem;
+      color: var(--colbert-navy);
+      white-space: nowrap;
+    }
+    .admin-filter-box select {
+      padding: 9px 12px;
+      font-size: 0.9rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .stat-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 16px;
+      text-align: center;
+    }
+    .stat-num { font-size: 1.75rem; font-weight: 900; color: var(--colbert-red); }
+    .stat-lbl { font-size: 0.82rem; font-weight: 700; color: var(--muted); }
+
+    .raffle-card {
+      background: linear-gradient(135deg, #fff1f3 0%, #fffbeb 100%);
+      border: 2px solid #fecdd3;
+      border-radius: 16px;
+      padding: 18px 20px;
+      margin-bottom: 24px;
+    }
+    .raffle-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .winner-banner {
+      background: #ffffff;
+      border: 2px solid var(--success);
+      color: var(--colbert-navy);
+      padding: 16px;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 800;
+      margin-top: 14px;
+      display: none;
+      box-shadow: 0 4px 12px rgba(5, 150, 105, 0.12);
+    }
+    .winner-banner .winner-name {
+      display: block;
+      font-size: 1.3rem;
+      color: var(--success);
+      margin-bottom: 4px;
+    }
+
+    /* BLOCS DE STATISTIQUES PAR QUESTION */
+    .question-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 14px;
+      margin-bottom: 24px;
+    }
+    .q-stat-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 16px 18px;
+    }
+    .q-stat-title {
+      font-size: 0.94rem;
+      font-weight: 800;
+      color: var(--colbert-navy);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .bar-item {
+      margin-bottom: 10px;
+    }
+    .bar-item:last-child { margin-bottom: 0; }
+    .bar-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 0.83rem;
+      font-weight: 700;
+      color: var(--colbert-slate);
+      margin-bottom: 4px;
+    }
+    .bar-count {
+      color: var(--colbert-red);
+      white-space: nowrap;
+      font-weight: 800;
+    }
+    .bar-bg {
+      width: 100%;
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--colbert-red), var(--colbert-orange));
+      border-radius: 999px;
+      transition: width 0.35s ease;
+    }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin-top: 10px; }
+    th, td { padding: 11px 10px; border-bottom: 1px solid #e2e8f0; text-align: left; }
+    th { background: #f8fafc; font-weight: 800; color: var(--colbert-navy); }
+    .table-wrap { overflow-x: auto; margin-bottom: 22px; }
+
+    /* RESPONSIVE MOBILE & TABLETTE */
+    @media (max-width: 768px) {
+      header { padding: 10px 14px; }
+      main { padding: 0 10px; margin: 12px auto 28px; }
+      .card-body { padding: 18px 16px; }
+      .alert-banner { margin: 14px 16px 0; }
+      .fields-grid, .question-stats-grid { grid-template-columns: 1fr; }
+      .field-span-2 { grid-column: span 1; }
+      .hero-visual svg { height: 165px; }
+      .hero-caption { left: 12px; right: 12px; }
+      .step-heading { font-size: 1.28rem; }
+    }
+
+    @media print {
+      header, .stepper, .no-print { display: none !important; }
+      body { background: #ffffff; }
+      main { margin: 0; max-width: 100%; padding: 0; }
+      .card { box-shadow: none; border: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- EN-TÊTE PLEINE LARGEUR AVEC LOGO OFFICIEL LYCÉE COLBERT -->
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <svg width="118" height="58" viewBox="0 0 240 118" xmlns="http://www.w3.org/2000/svg" aria-label="Logo Lycée Colbert Tourcoing">
+          <g transform="translate(65, 2)">
+            <path d="M55 48 C40 36, 18 36, 2 44 L16 12 C32 4, 48 6, 55 18 Z" fill="#9b1b30"/>
+            <path d="M55 48 C70 36, 92 36, 108 44 L94 12 C78 4, 62 6, 55 18 Z" fill="#b92b42"/>
+            <path d="M16 12 L2 44 M28 9 L18 40 M41 11 L35 39 M55 18 L55 48 M69 11 L75 39 M82 9 L92 40 M94 12 L108 44" stroke="#ffffff" stroke-width="1.6"/>
+            <path d="M12 22 C30 14, 45 16, 55 26 C65 16, 80 14, 98 22 M7 33 C27 25, 43 27, 55 37 C67 27, 83 25, 103 33" stroke="#ffffff" stroke-width="1.6" fill="none"/>
+            <rect x="96" y="4" width="7" height="7" fill="#781223" transform="rotate(12 96 4)"/>
+            <rect x="106" y="1" width="6" height="6" fill="#9b1b30" transform="rotate(18 106 1)"/>
+            <rect x="108" y="11" width="7" height="7" fill="#4a0a14" transform="rotate(8 108 11)"/>
+            <rect x="118" y="7" width="6" height="6" fill="#9b1b30" transform="rotate(22 118 7)"/>
+            <rect x="116" y="18" width="5" height="5" fill="#781223"/>
+          </g>
+          <text x="6" y="76" font-family="Arial, sans-serif" font-weight="900" font-size="27" fill="#1e293b" letter-spacing="1">COLBERT</text>
+          <text x="6" y="93" font-family="Arial, sans-serif" font-weight="700" font-size="14" fill="#9b1b30">Lycée Numérique</text>
+          <text x="6" y="105" font-family="Arial, sans-serif" font-size="7.5" fill="#334155">Enseignement général et technologique</text>
+          <text x="6" y="114" font-family="Arial, sans-serif" font-size="7.5" fill="#334155">Enseignement professionnel</text>
+          <circle cx="204" cy="68" r="14" fill="none" stroke="#f39200" stroke-width="3.2"/>
+          <text x="199" y="73" font-family="Arial, sans-serif" font-weight="900" font-size="15" fill="#f39200">E</text>
+          <text x="163" y="67" font-family="Arial, sans-serif" font-size="6.5" fill="#0284c7" font-weight="700">Lycée</text>
+          <text x="155" y="74" font-family="Arial, sans-serif" font-size="6.5" fill="#0284c7" font-weight="700">Numérique</text>
+          <rect x="186" y="88" width="8" height="10" fill="#002395"/>
+          <rect x="194" y="88" width="8" height="10" fill="#ffffff"/>
+          <rect x="202" y="88" width="8" height="10" fill="#ed2939"/>
+          <rect x="186" y="88" width="24" height="10" fill="none" stroke="#cbd5e1" stroke-width="0.5"/>
+          <line x1="146" y1="98" x2="146" y2="115" stroke="#64748b" stroke-width="1"/>
+          <text x="150" y="104" font-family="Arial, sans-serif" font-size="7" fill="#334155">2 Parvis J.P. Colbert</text>
+          <text x="150" y="113" font-family="Arial, sans-serif" font-size="7" fill="#334155">59208 Tourcoing</text>
+        </svg>
+        <div>
+          <div class="brand-title">Parcours Découverte</div>
+          <div class="brand-sub">Lycée Colbert • Tourcoing</div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button type="button" class="btn-admin" id="btnFullscreen" onclick="toggleFullscreen()">⛶ Plein écran</button>
+        <button type="button" class="btn-admin" onclick="toggleAdminView()">Espace Profs</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- VUE ÉLÈVE -->
+    <div id="studentSection">
+      <!-- BARRE DE PROGRESSION -->
+      <div class="stepper" id="stepperBox">
+        <div class="stepper-top">
+          <span id="stepLabel">Étape 1 sur 4</span>
+          <span class="step-badge-pill" id="stepPercent">25 %</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="step-dots">
+          <span id="dot1" class="active">1. Identité</span>
+          <span id="dot2">2. Formations</span>
+          <span id="dot3">3. Clubs & Vie</span>
+          <span id="dot4">4. Bilan</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div id="globalAlert" class="alert-banner">
+          Oups ! Complète les champs en rouge avant de passer à la suite.
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- ÉTAPE 1 : IDENTITÉ & ILLUSTRATION LYCÉE COLBERT       -->
+        <!-- ===================================================== -->
+        <section class="step-panel active" id="step1">
+          <div class="hero-visual">
+            <svg viewBox="0 0 1200 220" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-label="Illustration du Lycée Colbert de Tourcoing">
+              <defs>
+                <linearGradient id="skyColbert" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#0f172a"/>
+                  <stop offset="55%" stop-color="#1e293b"/>
+                  <stop offset="100%" stop-color="#9b1b30"/>
+                </linearGradient>
+              </defs>
+              <rect width="1200" height="220" fill="url(#skyColbert)"/>
+              <circle cx="1050" cy="45" r="85" fill="#f59e0b" opacity="0.16"/>
+              <circle cx="150" cy="190" r="110" fill="#9b1b30" opacity="0.35"/>
+              <rect x="260" y="64" width="680" height="126" rx="10" fill="#ffffff" opacity="0.96"/>
+              <rect x="495" y="42" width="210" height="148" rx="6" fill="#9b1b30"/>
+              <rect x="515" y="58" width="170" height="78" rx="4" fill="#38bdf8" opacity="0.35"/>
+              <line x1="557" y1="58" x2="557" y2="136" stroke="#ffffff" stroke-width="2" opacity="0.6"/>
+              <line x1="600" y1="58" x2="600" y2="136" stroke="#ffffff" stroke-width="2" opacity="0.6"/>
+              <line x1="643" y1="58" x2="643" y2="136" stroke="#ffffff" stroke-width="2" opacity="0.6"/>
+              <g fill="#cbd5e1">
+                <rect x="290" y="84" width="44" height="28" rx="3"/><rect x="350" y="84" width="44" height="28" rx="3"/><rect x="410" y="84" width="44" height="28" rx="3"/>
+                <rect x="290" y="126" width="44" height="28" rx="3"/><rect x="350" y="126" width="44" height="28" rx="3"/><rect x="410" y="126" width="44" height="28" rx="3"/>
+                <rect x="746" y="84" width="44" height="28" rx="3"/><rect x="806" y="84" width="44" height="28" rx="3"/><rect x="866" y="84" width="44" height="28" rx="3"/>
+                <rect x="746" y="126" width="44" height="28" rx="3"/><rect x="806" y="126" width="44" height="28" rx="3"/><rect x="866" y="126" width="44" height="28" rx="3"/>
+              </g>
+              <rect x="525" y="22" width="150" height="26" rx="13" fill="#f59e0b"/>
+              <text x="600" y="39" text-anchor="middle" font-family="Arial, sans-serif" font-weight="900" font-size="13" fill="#0f172a">LYCÉE COLBERT</text>
+              <rect x="0" y="188" width="1200" height="32" fill="#0f172a"/>
+              <circle cx="195" cy="160" r="26" fill="#10b981"/><rect x="191" y="176" width="8" height="14" fill="#78350f"/>
+              <circle cx="1005" cy="160" r="26" fill="#10b981"/><rect x="1001" y="176" width="8" height="14" fill="#78350f"/>
+            </svg>
+            <div class="hero-caption">
+              <span class="hero-tag">2 Parvis Jean-Baptiste Colbert • Tourcoing</span>
+              <span class="hero-tag" style="background:rgba(155,27,48,0.9);">Lycée Numérique</span>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <h2 class="step-heading">1. Bienvenue au Lycée Colbert !</h2>
+            <div class="info-pill">
+              <strong>Renseignements de l'élève :</strong> complétez vos informations ci-dessous pour valider votre visite.
+            </div>
+
+            <div class="fields-grid">
+              <div class="field-group" id="fg-prenom">
+                <label class="field-label" for="prenom">
+                  <span class="q-icon">👤</span> Ton prénom (pour ton certificat final)
+                </label>
+                <input type="text" id="prenom" placeholder="Écris ton prénom ici..." autocomplete="given-name" />
+                <div class="error-msg">Merci d'écrire ton prénom pour générer ton certificat.</div>
+              </div>
+
+              <div class="field-group" id="fg-niveau">
+                <label class="field-label" for="niveau">
+                  <span class="q-icon">🎓</span> Ton niveau actuel au collège
+                </label>
+                <select id="niveau">
+                  <option value="">-- Choisis ton niveau --</option>
+                  <option value="3ème">Classe de 3ème</option>
+                  <option value="4ème">Classe de 4ème</option>
+                  <option value="Autre">Autre niveau</option>
+                </select>
+                <div class="error-msg">Sélectionne ton niveau actuel.</div>
+              </div>
+
+              <div class="field-group field-span-2" id="fg-college">
+                <label class="field-label" for="college">
+                  <span class="q-icon">🏫</span> De quel collège viens-tu ?
+                </label>
+                <select id="college">
+                  <option value="">-- Sélectionne ton collège dans la liste --</option>
+                  <optgroup label="Tourcoing">
+                    <option value="Tourcoing - Collège Albert Roussel">Tourcoing - Collège Albert Roussel</option>
+                    <option value="Tourcoing - Collège Cardinal Liénart (EIC)">Tourcoing - Collège Cardinal Liénart (EIC)</option>
+                    <option value="Tourcoing - Collège Charles de Foucauld (EIC)">Tourcoing - Collège Charles de Foucauld (EIC)</option>
+                    <option value="Tourcoing - Collège Charles Péguy (EIC)">Tourcoing - Collège Charles Péguy (EIC)</option>
+                    <option value="Tourcoing - Collège Lucie Aubrac">Tourcoing - Collège Lucie Aubrac</option>
+                    <option value="Tourcoing - Collège Marie Curie">Tourcoing - Collège Marie Curie</option>
+                    <option value="Tourcoing - Collège Notre-Dame Immaculée">Tourcoing - Collège Notre-Dame Immaculée</option>
+                    <option value="Tourcoing - Collège Pierre Mendès France">Tourcoing - Collège Pierre Mendès France</option>
+                    <option value="Tourcoing - Collège Sacré-Cœur / Saint-Thomas">Tourcoing - Collège Sacré-Cœur / Saint-Thomas</option>
+                    <option value="Tourcoing - Collège Saint-Gabriel (EIC)">Tourcoing - Collège Saint-Gabriel (EIC)</option>
+                  </optgroup>
+                  <optgroup label="Roncq, Halluin, Neuville & Linselles">
+                    <option value="Halluin - Collège du Sacré-Cœur">Halluin - Collège du Sacré-Cœur</option>
+                    <option value="Halluin - Collège Lili Keller-Rosenberg">Halluin - Collège Lili Keller-Rosenberg</option>
+                    <option value="Linselles - Collège Sainte-Marie">Linselles - Collège Sainte-Marie</option>
+                    <option value="Neuville-en-Ferrain - Collège Jules Verne">Neuville-en-Ferrain - Collège Jules Verne</option>
+                    <option value="Neuville-en-Ferrain - Collège Saint-Joseph">Neuville-en-Ferrain - Collège Saint-Joseph</option>
+                    <option value="Roncq - Collège Paul Éluard">Roncq - Collège Paul Éluard</option>
+                    <option value="Roncq - Collège Saint-Thomas">Roncq - Collège Saint-Thomas</option>
+                  </optgroup>
+                  <optgroup label="Roubaix & Wattrelos">
+                    <option value="Roubaix - Collège Anne Frank">Roubaix - Collège Anne Frank</option>
+                    <option value="Roubaix - Collège Blaise Pascal">Roubaix - Collège Blaise Pascal</option>
+                    <option value="Roubaix - Collège Charles Baudelaire">Roubaix - Collège Charles Baudelaire</option>
+                    <option value="Roubaix - Collège Jean-Baptiste Lebas">Roubaix - Collège Jean-Baptiste Lebas</option>
+                    <option value="Roubaix - Collège Maxence Van Der Meersch">Roubaix - Collège Maxence Van Der Meersch</option>
+                    <option value="Roubaix - Collège Rosa Parks">Roubaix - Collège Rosa Parks</option>
+                    <option value="Roubaix - Collège Saint-Exupéry">Roubaix - Collège Saint-Exupéry</option>
+                    <option value="Roubaix - Collège Saint-Michel">Roubaix - Collège Saint-Michel</option>
+                    <option value="Roubaix - Collège Sainte-Marie">Roubaix - Collège Sainte-Marie</option>
+                    <option value="Roubaix - Collège Sévigné">Roubaix - Collège Sévigné</option>
+                    <option value="Roubaix - Collège Théodore Monod">Roubaix - Collège Théodore Monod</option>
+                    <option value="Wattrelos - Collège Émile Zola">Wattrelos - Collège Émile Zola</option>
+                    <option value="Wattrelos - Collège Gustave Nadaud">Wattrelos - Collège Gustave Nadaud</option>
+                    <option value="Wattrelos - Collège Pablo Neruda">Wattrelos - Collège Pablo Neruda</option>
+                    <option value="Wattrelos - Collège Saint-Joseph - La Salle">Wattrelos - Collège Saint-Joseph - La Salle</option>
+                  </optgroup>
+                  <optgroup label="Autres communes du bassin">
+                    <option value="Bondues - Collège Professeur Albert Debeyre">Bondues - Collège Professeur Albert Debeyre</option>
+                    <option value="Bondues - Institution La Croix Blanche">Bondues - Institution La Croix Blanche</option>
+                    <option value="Comines - Collège Philippe de Commynes">Comines - Collège Philippe de Commynes</option>
+                    <option value="Comines - Collège Saint-Joseph">Comines - Collège Saint-Joseph</option>
+                    <option value="Comines - Collège Saint-Jude">Comines - Collège Saint-Jude</option>
+                    <option value="Croix - Collège Boris Vian">Croix - Collège Boris Vian</option>
+                    <option value="Croix - Collège Notre-Dame des Victoires">Croix - Collège Notre-Dame des Victoires</option>
+                    <option value="Hem - Collège Raymond Devos">Hem - Collège Raymond Devos</option>
+                    <option value="Hem - Collège Saint-Paul">Hem - Collège Saint-Paul</option>
+                    <option value="Leers - Collège Jules Dutoit">Leers - Collège Jules Dutoit</option>
+                    <option value="Lys-lez-Lannoy - Collège Gambetta">Lys-lez-Lannoy - Collège Gambetta</option>
+                    <option value="Marcq-en-Barœul - Collège des Rouges Barres">Marcq-en-Barœul - Collège des Rouges Barres</option>
+                    <option value="Marcq-en-Barœul - Collège du Lazaro">Marcq-en-Barœul - Collège du Lazaro</option>
+                    <option value="Marcq-en-Barœul - Marcq Institution">Marcq-en-Barœul - Marcq Institution</option>
+                    <option value="Mouvaux - Collège Maxence Van Der Meersch">Mouvaux - Collège Maxence Van Der Meersch</option>
+                    <option value="Wasquehal - Collège Albert Calmette">Wasquehal - Collège Albert Calmette</option>
+                    <option value="Wasquehal - Collège Saint-Edmond">Wasquehal - Collège Saint-Edmond</option>
+                    <option value="Autre collège du bassin">Autre collège du bassin</option>
+                  </optgroup>
+                </select>
+                <div class="error-msg">Sélectionne ton collège dans le menu déroulant.</div>
+              </div>
+            </div>
+
+            <div class="btn-row">
+              <button type="button" class="btn btn-primary" onclick="goToStep(2)">Valider et continuer →</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================== -->
+        <!-- ÉTAPE 2 : MÉTIERS & FORMATIONS DU LYCÉE COLBERT       -->
+        <!-- ===================================================== -->
+        <section class="step-panel" id="step2">
+          <div class="hero-visual">
+            <svg viewBox="0 0 1200 185" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-label="Illustration des formations du Lycée Colbert">
+              <defs>
+                <linearGradient id="bgTech" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#1e1b4b"/>
+                  <stop offset="100%" stop-color="#9b1b30"/>
+                </linearGradient>
+              </defs>
+              <rect width="1200" height="185" fill="url(#bgTech)"/>
+              <rect x="190" y="28" width="210" height="120" rx="10" fill="#0f172a" stroke="#38bdf8" stroke-width="3"/>
+              <circle cx="210" cy="44" r="4.5" fill="#ef4444"/><circle cx="224" cy="44" r="4.5" fill="#f59e0b"/><circle cx="238" cy="44" r="4.5" fill="#10b981"/>
+              <rect x="210" y="60" width="110" height="9" rx="4" fill="#38bdf8"/>
+              <rect x="210" y="78" width="160" height="9" rx="4" fill="#94a3b8"/>
+              <rect x="210" y="96" width="130" height="9" rx="4" fill="#f59e0b"/>
+              <rect x="210" y="114" width="90" height="9" rx="4" fill="#10b981"/>
+              <g transform="translate(530, 24)">
+                <polygon points="70,10 10,58 130,58" fill="#f59e0b"/>
+                <rect x="26" y="58" width="88" height="80" rx="6" fill="#ffffff"/>
+                <circle cx="70" cy="98" r="20" fill="#fef3c7" stroke="#f59e0b" stroke-width="3"/>
+                <polygon points="72,85 61,100 70,100 67,113 80,96 71,96" fill="#f59e0b"/>
+              </g>
+              <g transform="translate(810, 32)">
+                <circle cx="60" cy="60" r="38" fill="none" stroke="#ffffff" stroke-width="11" stroke-dasharray="15 8"/>
+                <circle cx="60" cy="60" r="18" fill="#9b1b30" stroke="#ffffff" stroke-width="4"/>
+                <circle cx="128" cy="95" r="24" fill="none" stroke="#38bdf8" stroke-width="8" stroke-dasharray="10 6"/>
+              </g>
+            </svg>
+            <div class="hero-caption">
+              <span class="hero-tag">Voie Générale • Technologique • Professionnelle • BTS & Prépa</span>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <h2 class="step-heading">2. Bilan des Métiers et Formations</h2>
+            <div class="info-pill">
+              <strong>Maintenant que tu as terminé ton parcours :</strong> partage ce que tu as retenu des formations découvertes au Lycée Colbert en choisissant tes réponses dans les menus déroulants.
+            </div>
+
+            <div class="fields-grid">
+              <div class="field-group field-span-2" id="fg-standMetier">
+                <label class="field-label" for="standMetier">
+                  <span class="q-icon">🚀</span> Quelle section ou formation du Lycée Colbert as-tu préférée ?
+                </label>
+                <select id="standMetier">
+                  <option value="">-- Sélectionne une section --</option>
+                  <option value="Bac Général">Bac Général</option>
+                  <option value="Bac Technologique STI2D">Bac Technologique STI2D</option>
+                  <option value="BAC PRO CIEL">BAC PRO CIEL (Cybersécurité, Informatique et Réseaux, Électronique)</option>
+                  <option value="BAC PRO MELEC">BAC PRO MELEC (Métiers de l'Électricité et de ses Environnements Connectés)</option>
+                  <option value="BTS CIEL">BTS CIEL</option>
+                  <option value="BTS DOMOTIQUE">BTS DOMOTIQUE (Fluides, Énergies, Domotique)</option>
+                  <option value="BTS MAINTENANCE">BTS MAINTENANCE (Maintenance des Systèmes)</option>
+                  <option value="BTS ELECTROTECHNIQUE">BTS ÉLECTROTECHNIQUE</option>
+                  <option value="PREPA">PRÉPA (Classe Préparatoire aux Grandes Écoles)</option>
+                </select>
+                <div class="error-msg">Sélectionne ta section préférée dans la liste.</div>
+              </div>
+
+              <div class="field-group" id="fg-attraitFormation">
+                <label class="field-label" for="attraitFormation">
+                  <span class="q-icon">💡</span> Qu'est-ce qui t'a le plus attiré dans cette formation ?
+                </label>
+                <select id="attraitFormation">
+                  <option value="">-- Choisis ce qui t'a le plus plu --</option>
+                  <option value="Les projets concrets et les travaux pratiques">Les projets concrets et les travaux pratiques</option>
+                  <option value="Les démonstrations réalisées par les élèves et professeurs">Les démonstrations réalisées par les élèves et professeurs</option>
+                  <option value="Les débouchés métiers et la poursuite d'études">Les débouchés métiers et la poursuite d'études</option>
+                  <option value="L'ambiance et l'entraide dans les ateliers">L'ambiance et l'entraide dans les ateliers</option>
+                </select>
+                <div class="error-msg">Choisis une réponse dans la liste.</div>
+              </div>
+
+              <div class="field-group" id="fg-equipement">
+                <label class="field-label" for="equipement">
+                  <span class="q-icon">🖥️</span> Quel équipement ou salle du lycée t'a le plus impressionné ?
+                </label>
+                <select id="equipement">
+                  <option value="">-- Sélectionne un équipement --</option>
+                  <option value="Les salles informatiques, réseaux et cybersécurité">Les salles informatiques, réseaux et cybersécurité</option>
+                  <option value="Les plateaux techniques d'électricité et de domotique">Les plateaux techniques d'électricité et de domotique</option>
+                  <option value="Les ateliers de maintenance et systèmes automatisés">Les ateliers de maintenance et systèmes automatisés</option>
+                  <option value="Les laboratoires de sciences et d'innovation STI2D">Les laboratoires de sciences et d'innovation STI2D</option>
+                  <option value="Le CDI et les espaces numériques">Le CDI et les espaces numériques</option>
+                </select>
+                <div class="error-msg">Choisis un équipement dans la liste.</div>
+              </div>
+            </div>
+
+            <div class="btn-row">
+              <button type="button" class="btn btn-secondary" onclick="prevStep(1)">← Retour</button>
+              <button type="button" class="btn btn-primary" onclick="goToStep(3)">Valider et passer aux Clubs →</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================== -->
+        <!-- ÉTAPE 3 : CLUBS, SECTION SPORTIVE ET FOYER            -->
+        <!-- ===================================================== -->
+        <section class="step-panel" id="step3">
+          <div class="hero-visual">
+            <svg viewBox="0 0 1200 185" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-label="Illustration des clubs, sport et foyer">
+              <defs>
+                <linearGradient id="bgClubs" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#9b1b30"/>
+                  <stop offset="50%" stop-color="#be123c"/>
+                  <stop offset="100%" stop-color="#f59e0b"/>
+                </linearGradient>
+              </defs>
+              <rect width="1200" height="185" fill="url(#bgClubs)"/>
+              <g transform="translate(240, 36)" fill="#ffffff">
+                <circle cx="28" cy="92" r="15"/>
+                <rect x="39" y="22" width="7" height="70"/>
+                <circle cx="88" cy="78" r="15"/>
+                <rect x="99" y="10" width="7" height="68"/>
+                <polygon points="39,22 106,10 106,25 39,37"/>
+              </g>
+              <g transform="translate(550, 38)">
+                <circle cx="52" cy="52" r="46" fill="#ffffff"/>
+                <polygon points="52,28 72,42 64,65 40,65 32,42" fill="#0f172a"/>
+                <line x1="52" y1="6" x2="52" y2="28" stroke="#0f172a" stroke-width="4"/>
+                <line x1="94" y1="36" x2="72" y2="42" stroke="#0f172a" stroke-width="4"/>
+                <line x1="80" y1="88" x2="64" y2="65" stroke="#0f172a" stroke-width="4"/>
+                <line x1="24" y1="88" x2="40" y2="65" stroke="#0f172a" stroke-width="4"/>
+                <line x1="10" y1="36" x2="32" y2="42" stroke="#0f172a" stroke-width="4"/>
+              </g>
+              <g transform="translate(840, 34)">
+                <rect x="10" y="15" width="110" height="82" rx="18" fill="#0f172a" opacity="0.85"/>
+                <text x="65" y="62" text-anchor="middle" font-family="Arial, sans-serif" font-weight="900" font-size="25" fill="#f59e0b">MDL</text>
+                <text x="65" y="82" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="11" fill="#ffffff">FOYER ÉLÈVES</text>
+              </g>
+            </svg>
+            <div class="hero-caption">
+              <span class="hero-tag">Club Musique • Section Sportive • Maison des Lycéens</span>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <h2 class="step-heading">3. La Vie au Lycée : Clubs, Sport et Foyer</h2>
+            <div class="info-pill">
+              <strong>Mission découverte :</strong> place aux coulisses du lycée ! Montre que tu as bien exploré l'ambiance du Club Musique, de la Section Sportive et du Foyer (MDL) en sélectionnant tes réponses ci-dessous.
+            </div>
+
+            <div class="fields-grid">
+              <div class="field-group" id="fg-musique">
+                <label class="field-label" for="musique">
+                  <span class="q-icon">🎸</span> Au Club Musique : qu'as-tu découvert lors de ton passage ?
+                </label>
+                <select id="musique">
+                  <option value="">-- Choisis ta réponse --</option>
+                  <option value="Un groupe qui répète en live (guitare, batterie, chant)">Un groupe qui répète en live (guitare, batterie, chant)</option>
+                  <option value="Des instruments disponibles pour tous les niveaux">Des instruments disponibles pour tous les niveaux</option>
+                  <option value="La préparation des concerts et spectacles du lycée">La préparation des concerts et spectacles du lycée</option>
+                </select>
+                <div class="error-msg">Sélectionne ta réponse pour le Club Musique.</div>
+              </div>
+
+              <div class="field-group" id="fg-sport">
+                <label class="field-label" for="sport">
+                  <span class="q-icon">⚽</span> À la Section Sportive : quel est le point fort présenté par les élèves ?
+                </label>
+                <select id="sport">
+                  <option value="">-- Choisis ta réponse --</option>
+                  <option value="Des entraînements réguliers intégrés à l'emploi du temps">Des entraînements réguliers intégrés à l'emploi du temps</option>
+                  <option value="La participation aux compétitions UNSS">La participation aux compétitions UNSS</option>
+                  <option value="La cohésion d'équipe et le dépassement de soi">La cohésion d'équipe et le dépassement de soi</option>
+                  <option value="La diversité des sports proposés au lycée">La diversité des sports proposés au lycée</option>
+                </select>
+                <div class="error-msg">Sélectionne ta réponse pour la Section Sportive.</div>
+              </div>
+
+              <div class="field-group field-span-2" id="fg-foyer">
+                <label class="field-label" for="foyer">
+                  <span class="q-icon">🕹️</span> Au Foyer des Élèves (MDL) : quelle activité a le plus de succès auprès des lycéens ?
+                </label>
+                <select id="foyer">
+                  <option value="">-- Sélectionne l'activité du Foyer --</option>
+                  <option value="Les tournois de baby-foot et de tennis de table">Les tournois de baby-foot et de tennis de table</option>
+                  <option value="Le bal de fin d'année et les journées à thème">Le bal de fin d'année et les journées à thème</option>
+                  <option value="Les jeux de société et l'espace détente entre les cours">Les jeux de société et l'espace détente entre les cours</option>
+                  <option value="Les projets culturels et solidaires financés par la MDL">Les projets culturels et solidaires financés par la MDL</option>
+                </select>
+                <div class="error-msg">Sélectionne ta réponse pour le Foyer des Élèves.</div>
+              </div>
+            </div>
+
+            <div class="btn-row">
+              <button type="button" class="btn btn-secondary" onclick="prevStep(2)">← Retour</button>
+              <button type="button" class="btn btn-primary" onclick="goToStep(4)">Valider et passer au Bilan →</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================== -->
+        <!-- ÉTAPE 4 : BILAN FINAL                                 -->
+        <!-- ===================================================== -->
+        <section class="step-panel" id="step4">
+          <div class="card-body">
+            <h2 class="step-heading">4. Dernière étape avant ton certificat !</h2>
+            <div class="info-pill">
+              <strong>Ton avis compte :</strong> donne ton ressenti sur cette matinée au Lycée Colbert et débloque immédiatement ton certificat officiel.
+            </div>
+
+            <div class="fields-grid">
+              <div class="field-group" id="fg-impression">
+                <label class="field-label" for="impression">
+                  <span class="q-icon">✨</span> Comment as-tu trouvé le Lycée Colbert aujourd'hui ?
+                </label>
+                <select id="impression">
+                  <option value="">-- Choisis ton impression --</option>
+                  <option value="Accueillant et rassurant">Accueillant et rassurant</option>
+                  <option value="Dynamique avec plein de projets">Dynamique avec plein de projets</option>
+                  <option value="Moderne et bien équipé">Moderne et bien équipé</option>
+                  <option value="Très grand mais bien organisé">Très grand mais bien organisé</option>
+                </select>
+                <div class="error-msg">Sélectionne ton impression générale.</div>
+              </div>
+
+              <div class="field-group" id="fg-envieClub">
+                <label class="field-label" for="envieClub">
+                  <span class="q-icon">🎯</span> As-tu envie de rejoindre un club ou la section sportive l'an prochain ?
+                </label>
+                <select id="envieClub">
+                  <option value="">-- Choisis ta réponse --</option>
+                  <option value="Oui, le Club Musique m'intéresse">Oui, le Club Musique m'intéresse</option>
+                  <option value="Oui, la Section Sportive m'intéresse">Oui, la Section Sportive m'intéresse</option>
+                  <option value="Oui, j'aimerais m'investir au Foyer (MDL)">Oui, j'aimerais m'investir au Foyer (MDL)</option>
+                  <option value="Peut-être, je verrai à la rentrée">Peut-être, je verrai à la rentrée</option>
+                </select>
+                <div class="error-msg">Sélectionne une option dans la liste.</div>
+              </div>
+
+              <div class="field-group field-span-2" id="fg-projet">
+                <label class="field-label" for="projet">
+                  <span class="q-icon">🏫</span> Après cette visite, envisages-tu de venir étudier au Lycée Colbert ?
+                </label>
+                <select id="projet">
+                  <option value="">-- Choisis ta réponse --</option>
+                  <option value="Oui, c'est mon premier choix !">Oui, c'est mon premier choix !</option>
+                  <option value="Oui, cela me donne vraiment envie">Oui, cela me donne vraiment envie</option>
+                  <option value="J'hésite encore entre plusieurs lycées">J'hésite encore entre plusieurs lycées</option>
+                </select>
+                <div class="error-msg">Sélectionne une réponse pour terminer.</div>
+              </div>
+            </div>
+
+            <div class="btn-row">
+              <button type="button" class="btn btn-secondary" onclick="prevStep(3)">← Retour</button>
+              <button type="button" class="btn btn-success" onclick="finishGame()">Obtenir mon Certificat officiel</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================== -->
+        <!-- ÉCRAN FINAL : CERTIFICAT DE RÉUSSITE                  -->
+        <!-- ===================================================== -->
+        <section class="step-panel" id="step5">
+          <div class="card-body">
+            <div class="info-pill no-print" style="background:#ecfdf5; border-left-color:#059669;">
+              <strong style="color:#059669;">Bravo, parcours validé !</strong> Télécharge ton certificat sur ton téléphone ou imprime-le pour le garder en souvenir.
+            </div>
+
+            <div class="cert-wrapper" id="certificateCard">
+              <div class="cert-logo-box">
+                <svg width="210" height="104" viewBox="0 0 240 118" xmlns="http://www.w3.org/2000/svg" aria-label="Logo Lycée Colbert Tourcoing">
+                  <g transform="translate(65, 2)">
+                    <path d="M55 48 C40 36, 18 36, 2 44 L16 12 C32 4, 48 6, 55 18 Z" fill="#9b1b30"/>
+                    <path d="M55 48 C70 36, 92 36, 108 44 L94 12 C78 4, 62 6, 55 18 Z" fill="#b92b42"/>
+                    <path d="M16 12 L2 44 M28 9 L18 40 M41 11 L35 39 M55 18 L55 48 M69 11 L75 39 M82 9 L92 40 M94 12 L108 44" stroke="#ffffff" stroke-width="1.6"/>
+                    <path d="M12 22 C30 14, 45 16, 55 26 C65 16, 80 14, 98 22 M7 33 C27 25, 43 27, 55 37 C67 27, 83 25, 103 33" stroke="#ffffff" stroke-width="1.6" fill="none"/>
+                    <rect x="96" y="4" width="7" height="7" fill="#781223" transform="rotate(12 96 4)"/>
+                    <rect x="106" y="1" width="6" height="6" fill="#9b1b30" transform="rotate(18 106 1)"/>
+                    <rect x="108" y="11" width="7" height="7" fill="#4a0a14" transform="rotate(8 108 11)"/>
+                    <rect x="118" y="7" width="6" height="6" fill="#9b1b30" transform="rotate(22 118 7)"/>
+                    <rect x="116" y="18" width="5" height="5" fill="#781223"/>
+                  </g>
+                  <text x="6" y="76" font-family="Arial, sans-serif" font-weight="900" font-size="27" fill="#1e293b" letter-spacing="1">COLBERT</text>
+                  <text x="6" y="93" font-family="Arial, sans-serif" font-weight="700" font-size="14" fill="#9b1b30">Lycée Numérique</text>
+                  <text x="6" y="105" font-family="Arial, sans-serif" font-size="7.5" fill="#334155">Enseignement général et technologique</text>
+                  <text x="6" y="114" font-family="Arial, sans-serif" font-size="7.5" fill="#334155">Enseignement professionnel</text>
+                  <circle cx="204" cy="68" r="14" fill="none" stroke="#f39200" stroke-width="3.2"/>
+                  <text x="199" y="73" font-family="Arial, sans-serif" font-weight="900" font-size="15" fill="#f39200">E</text>
+                  <text x="163" y="67" font-family="Arial, sans-serif" font-size="6.5" fill="#0284c7" font-weight="700">Lycée</text>
+                  <text x="155" y="74" font-family="Arial, sans-serif" font-size="6.5" fill="#0284c7" font-weight="700">Numérique</text>
+                  <rect x="186" y="88" width="8" height="10" fill="#002395"/>
+                  <rect x="194" y="88" width="8" height="10" fill="#ffffff"/>
+                  <rect x="202" y="88" width="8" height="10" fill="#ed2939"/>
+                  <rect x="186" y="88" width="24" height="10" fill="none" stroke="#cbd5e1" stroke-width="0.5"/>
+                  <line x1="146" y1="98" x2="146" y2="115" stroke="#64748b" stroke-width="1"/>
+                  <text x="150" y="104" font-family="Arial, sans-serif" font-size="7" fill="#334155">2 Parvis J.P. Colbert</text>
+                  <text x="150" y="113" font-family="Arial, sans-serif" font-size="7" fill="#334155">59208 Tourcoing</text>
+                </svg>
+              </div>
+
+              <div class="cert-badge">Lycée Colbert • Tourcoing</div>
+              <div class="cert-title">Certificat de Réussite</div>
+              <div style="font-size:0.94rem; color:#475569; font-weight:700;">Parcours Découverte des Formations et de la Vie Lycéenne</div>
+
+              <div class="cert-student" id="certName">Prénom</div>
+              <div class="cert-college" id="certCollege">Collège d'origine</div>
+
+              <p class="cert-body">
+                A accompli avec succès toutes les étapes du parcours de découverte des formations, des clubs et de la vie lycéenne.<br />
+                <strong>Ce certificat officiel l'autorise à rejoindre le Lycée Colbert de Tourcoing l'année prochaine !</strong>
+              </p>
+
+              <div class="cert-footer">
+                <div class="ticket-box" id="certCode">Passeport N° CLB-0000</div>
+                <div id="certDate" style="font-weight:700;"></div>
+                <div class="stamp">Validé • Lycée Colbert</div>
+              </div>
+            </div>
+
+            <div class="btn-row no-print">
+              <button type="button" class="btn btn-primary" onclick="downloadCertificatePNG()">Télécharger mon Certificat (Image)</button>
+              <button type="button" class="btn btn-secondary" onclick="window.print()">Imprimer / PDF</button>
+            </div>
+            <div style="text-align:center; margin-top:20px;" class="no-print">
+              <button type="button" class="btn-admin" onclick="resetForNextStudent()">Nouvel élève (recommencer le parcours)</button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- ===================================================== -->
+    <!-- VUE ORGANISATEUR / PROFESSEURS (CODE : 59200)         -->
+    <!-- ===================================================== -->
+    <div id="adminSection">
+      <div class="card">
+        <div class="card-body">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:18px;">
+            <h2 class="step-heading" style="margin:0;">Statistiques des Réponses & Tirage au sort</h2>
+            <button type="button" class="btn-admin" onclick="closeAdminView()">← Retour au parcours élève</button>
+          </div>
+
+          <!-- BARRE DE FILTRE ET EXPORT -->
+          <div class="admin-toolbar">
+            <div class="admin-filter-box">
+              <label for="adminCollegeFilter">Filtrer par collège :</label>
+              <select id="adminCollegeFilter" onchange="renderAdminStats()">
+                <option value="ALL">Tous les collèges réunis</option>
+              </select>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button type="button" class="btn btn-success" style="padding:10px 16px; font-size:0.88rem;" onclick="exportCSV()">Exporter Excel (.csv)</button>
+              <button type="button" class="btn btn-secondary" style="padding:10px 16px; font-size:0.88rem;" onclick="clearAllData()">Effacer les données</button>
+            </div>
+          </div>
+
+          <!-- INDICATEURS CLÉS -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-num" id="statTotal">0</div>
+              <div class="stat-lbl">Élèves analysés</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-num" id="statColleges">0</div>
+              <div class="stat-lbl">Collèges représentés</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-num" id="statTopStand" style="font-size:1.05rem; padding-top:6px;">-</div>
+              <div class="stat-lbl">Formation préférée n°1</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-num" id="statTopClub" style="font-size:1.05rem; padding-top:6px;">-</div>
+              <div class="stat-lbl">Intérêt Club / Sport n°1</div>
+            </div>
+          </div>
+
+          <!-- BLOC TIRAGE AU SORT -->
+          <div class="raffle-card">
+            <div class="raffle-header">
+              <div>
+                <h3 style="font-size:1.08rem; font-weight:900; color:var(--colbert-navy);">🎉 Tirage au sort des gagnants</h3>
+                <p style="font-size:0.86rem; color:var(--muted);" id="raffleScopeText">Tirage parmi l'ensemble des élèves ayant validé le questionnaire.</p>
+              </div>
+              <button type="button" class="btn btn-primary" style="flex:0 0 auto; padding:12px 20px;" onclick="drawWinner()">Tirer un élève au sort</button>
+            </div>
+            <div id="winnerBanner" class="winner-banner"></div>
+          </div>
+
+          <!-- STATISTIQUES DÉTAILLÉES PAR RÉPONSES ÉLÈVES -->
+          <h3 style="font-size:1.12rem; font-weight:900; margin:10px 0 6px; color:var(--colbert-navy);">📊 Statistiques détaillées selon les réponses des élèves</h3>
+          <div class="question-stats-grid" id="detailedQuestionsStats">
+            <!-- Rempli dynamiquement par JavaScript -->
+          </div>
+
+          <!-- TABLEAU PAR COLLÈGE -->
+          <h3 style="font-size:1.05rem; font-weight:900; margin:18px 0 6px; color:var(--colbert-navy);">🏫 Répartition globale par Collège</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Collège</th>
+                  <th>Total</th>
+                  <th>3ème</th>
+                  <th>4ème</th>
+                  <th>Formation n°1 du collège</th>
+                </tr>
+              </thead>
+              <tbody id="collegeStatsBody">
+                <tr><td colspan="5" style="text-align:center; color:#64748b;">Aucune réponse enregistrée pour le moment.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- LISTE DES PARTICIPANTS -->
+          <h3 style="font-size:1.05rem; font-weight:900; margin:18px 0 6px; color:var(--colbert-navy);">🎟️ Liste des participants et leurs choix</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>N° Passeport</th>
+                  <th>Prénom</th>
+                  <th>Collège</th>
+                  <th>Niveau</th>
+                  <th>Formation préférée</th>
+                  <th>Club / Sport souhaité</th>
+                  <th>Projet Colbert</th>
+                </tr>
+              </thead>
+              <tbody id="recentBody">
+                <tr><td colspan="7" style="text-align:center; color:#64748b;">Aucune donnée.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <canvas id="certCanvas" width="1000" height="720" style="display:none;"></canvas>
+
+  <script>
+    const STORAGE_KEY = 'colbert_parcours_v4';
+    const ADMIN_PIN = '59200';
+
+    const stepFields = {
+      1: ['prenom', 'college', 'niveau'],
+      2: ['standMetier', 'attraitFormation', 'equipement'],
+      3: ['musique', 'sport', 'foyer'],
+      4: ['impression', 'envieClub', 'projet']
+    };
+
+    function toggleFullscreen() {
+      const btn = document.getElementById('btnFullscreen');
+      if (!document.fullscreenElement) {
+        if (document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen().then(() => {
+            btn.textContent = '✕ Quitter plein écran';
+          }).catch(() => {});
+        }
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen().then(() => {
+            btn.textContent = '⛶ Plein écran';
+          }).catch(() => {});
+        }
+      }
+    }
+
+    document.addEventListener('fullscreenchange', () => {
+      const btn = document.getElementById('btnFullscreen');
+      if (btn) {
+        btn.textContent = document.fullscreenElement ? '✕ Quitter plein écran' : '⛶ Plein écran';
+      }
+    });
+
+    function getSubmissions() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveSubmission(entry) {
+      const list = getSubmissions();
+      list.push(entry);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+    }
+
+    function validateStep(stepNum) {
+      const fields = stepFields[stepNum] || [];
+      let allValid = true;
+      let firstInvalidEl = null;
+
+      fields.forEach(id => {
+        const el = document.getElementById(id);
+        const group = document.getElementById('fg-' + id);
+        const val = el ? el.value.trim() : '';
+        if (!val) {
+          allValid = false;
+          if (group) group.classList.add('field-error');
+          if (!firstInvalidEl) firstInvalidEl = el;
+        } else {
+          if (group) group.classList.remove('field-error');
+        }
+      });
+
+      const alertBox = document.getElementById('globalAlert');
+      if (!allValid) {
+        alertBox.classList.add('visible');
+        if (firstInvalidEl) {
+          firstInvalidEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          firstInvalidEl.focus();
+        }
+      } else {
+        alertBox.classList.remove('visible');
+      }
+      return allValid;
+    }
+
+    Object.values(stepFields).flat().forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('change', () => {
+          const group = document.getElementById('fg-' + id);
+          if (el.value.trim() && group) group.classList.remove('field-error');
+        });
+        el.addEventListener('input', () => {
+          const group = document.getElementById('fg-' + id);
+          if (el.value.trim() && group) group.classList.remove('field-error');
+        });
+      }
+    });
+
+    function showPanel(stepNum) {
+      document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+      const target = document.getElementById('step' + stepNum);
+      if (target) target.classList.add('active');
+
+      const stepperBox = document.getElementById('stepperBox');
+      if (stepNum >= 1 && stepNum <= 4) {
+        stepperBox.style.display = 'block';
+        const pct = stepNum * 25;
+        document.getElementById('stepLabel').textContent = 'Étape ' + stepNum + ' sur 4';
+        document.getElementById('stepPercent').textContent = pct + ' %';
+        document.getElementById('progressFill').style.width = pct + '%';
+
+        for (let i = 1; i <= 4; i++) {
+          const dot = document.getElementById('dot' + i);
+          dot.className = '';
+          if (i < stepNum) dot.classList.add('done');
+          if (i === stepNum) dot.classList.add('active');
+        }
+      } else {
+        stepperBox.style.display = 'none';
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function goToStep(nextStep) {
+      const currentStep = nextStep - 1;
+      if (validateStep(currentStep)) {
+        showPanel(nextStep);
+      }
+    }
+
+    function prevStep(targetStep) {
+      document.getElementById('globalAlert').classList.remove('visible');
+      showPanel(targetStep);
+    }
+
+    function finishGame() {
+      if (!validateStep(4)) return;
+
+      const prenom = document.getElementById('prenom').value.trim();
+      const college = document.getElementById('college').value;
+      const niveau = document.getElementById('niveau').value;
+      const code = 'CLB-' + Math.floor(1000 + Math.random() * 9000);
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' });
+
+      const entry = {
+        id: code,
+        date: now.toLocaleString('fr-FR'),
+        prenom: prenom,
+        college: college,
+        niveau: niveau,
+        standMetier: document.getElementById('standMetier').value,
+        attraitFormation: document.getElementById('attraitFormation').value,
+        equipement: document.getElementById('equipement').value,
+        musique: document.getElementById('musique').value,
+        sport: document.getElementById('sport').value,
+        foyer: document.getElementById('foyer').value,
+        impression: document.getElementById('impression').value,
+        envieClub: document.getElementById('envieClub').value,
+        projet: document.getElementById('projet').value
+      };
+
+      saveSubmission(entry);
+
+      document.getElementById('certName').textContent = prenom;
+      document.getElementById('certCollege').textContent = college + ' (' + niveau + ')';
+      document.getElementById('certCode').textContent = 'Passeport N° ' + code;
+      document.getElementById('certDate').textContent = 'Tourcoing, le ' + dateStr;
+
+      showPanel(5);
+    }
+
+    function drawColbertLogoOnCanvas(ctx, x, y, scale) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.scale(scale, scale);
+
+      ctx.save();
+      ctx.translate(65, 2);
+      ctx.fillStyle = '#9b1b30';
+      ctx.beginPath();
+      ctx.moveTo(55, 48);
+      ctx.bezierCurveTo(40, 36, 18, 36, 2, 44);
+      ctx.lineTo(16, 12);
+      ctx.bezierCurveTo(32, 4, 48, 6, 55, 18);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.fillStyle = '#b92b42';
+      ctx.beginPath();
+      ctx.moveTo(55, 48);
+      ctx.bezierCurveTo(70, 36, 92, 36, 108, 44);
+      ctx.lineTo(94, 12);
+      ctx.bezierCurveTo(78, 4, 62, 6, 55, 18);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 1.6;
+      ctx.beginPath();
+      ctx.moveTo(16, 12); ctx.lineTo(2, 44);
+      ctx.moveTo(28, 9); ctx.lineTo(18, 40);
+      ctx.moveTo(41, 11); ctx.lineTo(35, 39);
+      ctx.moveTo(55, 18); ctx.lineTo(55, 48);
+      ctx.moveTo(69, 11); ctx.lineTo(75, 39);
+      ctx.moveTo(82, 9); ctx.lineTo(92, 40);
+      ctx.moveTo(94, 12); ctx.lineTo(108, 44);
+      ctx.moveTo(12, 22); ctx.bezierCurveTo(30, 14, 45, 16, 55, 26);
+      ctx.bezierCurveTo(65, 16, 80, 14, 98, 22);
+      ctx.moveTo(7, 33); ctx.bezierCurveTo(27, 25, 43, 27, 55, 37);
+      ctx.bezierCurveTo(67, 27, 83, 25, 103, 33);
+      ctx.stroke();
+
+      ctx.fillStyle = '#781223'; ctx.fillRect(96, 4, 7, 7);
+      ctx.fillStyle = '#9b1b30'; ctx.fillRect(106, 1, 6, 6);
+      ctx.fillStyle = '#4a0a14'; ctx.fillRect(108, 11, 7, 7);
+      ctx.fillStyle = '#9b1b30'; ctx.fillRect(118, 7, 6, 6);
+      ctx.fillStyle = '#781223'; ctx.fillRect(116, 18, 5, 5);
+      ctx.restore();
+
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#1e293b';
+      ctx.font = '900 27px Arial, sans-serif';
+      ctx.fillText('COLBERT', 6, 76);
+
+      ctx.fillStyle = '#9b1b30';
+      ctx.font = 'bold 14px Arial, sans-serif';
+      ctx.fillText('Lycée Numérique', 6, 93);
+
+      ctx.fillStyle = '#334155';
+      ctx.font = '7.5px Arial, sans-serif';
+      ctx.fillText('Enseignement général et technologique', 6, 105);
+      ctx.fillText('Enseignement professionnel', 6, 114);
+
+      ctx.strokeStyle = '#f39200';
+      ctx.lineWidth = 3.2;
+      ctx.beginPath();
+      ctx.arc(204, 68, 14, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.fillStyle = '#f39200';
+      ctx.font = '900 15px Arial, sans-serif';
+      ctx.fillText('E', 199, 73);
+
+      ctx.fillStyle = '#0284c7';
+      ctx.font = 'bold 6.5px Arial, sans-serif';
+      ctx.fillText('Lycée', 163, 67);
+      ctx.fillText('Numérique', 155, 74);
+
+      ctx.fillStyle = '#002395'; ctx.fillRect(186, 88, 8, 10);
+      ctx.fillStyle = '#ffffff'; ctx.fillRect(194, 88, 8, 10);
+      ctx.fillStyle = '#ed2939'; ctx.fillRect(202, 88, 8, 10);
+      ctx.strokeStyle = '#cbd5e1'; ctx.lineWidth = 0.5;
+      ctx.strokeRect(186, 88, 24, 10);
+
+      ctx.strokeStyle = '#64748b'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(146, 98); ctx.lineTo(146, 115); ctx.stroke();
+      ctx.fillStyle = '#334155';
+      ctx.font = '7px Arial, sans-serif';
+      ctx.fillText('2 Parvis J.P. Colbert', 150, 104);
+      ctx.fillText('59208 Tourcoing', 150, 113);
+
+      ctx.restore();
+    }
+
+    function downloadCertificatePNG() {
+      const canvas = document.getElementById('certCanvas');
+      const ctx = canvas.getContext('2d');
+
+      ctx.fillStyle = '#fffdf9';
+      ctx.fillRect(0, 0, 1000, 720);
+
+      ctx.strokeStyle = '#9b1b30';
+      ctx.lineWidth = 12;
+      ctx.strokeRect(24, 24, 952, 672);
+      ctx.lineWidth = 3;
+      ctx.strokeRect(42, 42, 916, 636);
+
+      drawColbertLogoOnCanvas(ctx, 380, 56, 1.0);
+
+      ctx.fillStyle = '#0f172a';
+      ctx.font = '900 42px Arial, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('CERTIFICAT DE RÉUSSITE', 500, 232);
+
+      ctx.fillStyle = '#475569';
+      ctx.font = 'bold 20px Arial, sans-serif';
+      ctx.fillText('Parcours Découverte des Formations et de la Vie Lycéenne', 500, 268);
+
+      const prenom = document.getElementById('certName').textContent;
+      const college = document.getElementById('certCollege').textContent;
+
+      ctx.fillStyle = '#9b1b30';
+      ctx.font = 'bold 42px Arial, sans-serif';
+      ctx.fillText(prenom, 500, 345);
+
+      ctx.fillStyle = '#334155';
+      ctx.font = 'bold 22px Arial, sans-serif';
+      ctx.fillText(college, 500, 385);
+
+      ctx.fillStyle = '#0f172a';
+      ctx.font = '21px Arial, sans-serif';
+      ctx.fillText('A accompli avec succès toutes les étapes du parcours de découverte.', 500, 450);
+      ctx.font = 'bold 23px Arial, sans-serif';
+      ctx.fillText('Ce certificat officiel l’autorise à rejoindre le Lycée Colbert', 500, 492);
+      ctx.fillText('de Tourcoing l’année prochaine !', 500, 524);
+
+      const code = document.getElementById('certCode').textContent;
+      const dateStr = document.getElementById('certDate').textContent;
+
+      ctx.fillStyle = '#9b1b30';
+      ctx.font = 'bold 20px Arial, sans-serif';
+      ctx.textAlign = 'left';
+      ctx.fillText(code, 80, 625);
+
+      ctx.fillStyle = '#475569';
+      ctx.textAlign = 'center';
+      ctx.fillText(dateStr, 500, 625);
+
+      ctx.fillStyle = '#059669';
+      ctx.textAlign = 'right';
+      ctx.fillText('VALIDÉ • LYCÉE COLBERT', 920, 625);
+
+      const link = document.createElement('a');
+      link.download = 'Certificat-Lycee-Colbert-' + prenom.replace(/\s+/g, '_') + '.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+
+    function resetForNextStudent() {
+      Object.values(stepFields).flat().forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+        const group = document.getElementById('fg-' + id);
+        if (group) group.classList.remove('field-error');
+      });
+      showPanel(1);
+    }
+
+    /* ===================================================== */
+    /* LOGIQUE STATISTIQUES PAR RÉPONSES & TIRAGE AU SORT    */
+    /* ===================================================== */
+    function toggleAdminView() {
+      const pin = prompt('Entrez le code organisateur (59200) :');
+      if (pin === ADMIN_PIN) {
+        document.getElementById('studentSection').style.display = 'none';
+        document.getElementById('adminSection').style.display = 'flex';
+        populateAdminCollegeFilter();
+        renderAdminStats();
+      } else if (pin !== null) {
+        alert('Code incorrect.');
+      }
+    }
+
+    function closeAdminView() {
+      document.getElementById('adminSection').style.display = 'none';
+      document.getElementById('studentSection').style.display = 'flex';
+    }
+
+    function populateAdminCollegeFilter() {
+      const allData = getSubmissions();
+      const select = document.getElementById('adminCollegeFilter');
+      const currentVal = select.value || 'ALL';
+      const colleges = [...new Set(allData.map(item => item.college))].sort();
+
+      select.innerHTML = '<option value="ALL">Tous les collèges réunis (' + allData.length + ')</option>' +
+        colleges.map(c => `<option value="${c}">${c}</option>`).join('');
+
+      if (colleges.includes(currentVal)) {
+        select.value = currentVal;
+      } else {
+        select.value = 'ALL';
+      }
+    }
+
+    function getTopKey(countsObj) {
+      let topKey = '-';
+      let max = 0;
+      Object.entries(countsObj).forEach(([k, v]) => {
+        if (v > max) { max = v; topKey = k; }
+      });
+      return topKey;
+    }
+
+    function countFieldValues(dataset, fieldName) {
+      const counts = {};
+      dataset.forEach(item => {
+        const val = item[fieldName];
+        if (val) counts[val] = (counts[val] || 0) + 1;
+      });
+      return counts;
+    }
+
+    function renderAdminStats() {
+      const allData = getSubmissions();
+      const selectedCollege = document.getElementById('adminCollegeFilter').value;
+
+      const filteredData = selectedCollege === 'ALL'
+        ? allData
+        : allData.filter(item => item.college === selectedCollege);
+
+      // Mise à jour texte périmètre tirage au sort
+      const scopeText = document.getElementById('raffleScopeText');
+      if (selectedCollege === 'ALL') {
+        scopeText.textContent = `Tirage parmi l'ensemble des ${filteredData.length} élève(s) ayant validé le questionnaire.`;
+      } else {
+        scopeText.textContent = `Tirage filtré uniquement sur : ${selectedCollege} (${filteredData.length} élève(s)).`;
+      }
+
+      // Cartes KPI du haut
+      document.getElementById('statTotal').textContent = filteredData.length;
+      const uniqueColleges = new Set(allData.map(i => i.college));
+      document.getElementById('statColleges').textContent = uniqueColleges.size;
+
+      const standCounts = countFieldValues(filteredData, 'standMetier');
+      const clubCounts = countFieldValues(filteredData, 'envieClub');
+      document.getElementById('statTopStand').textContent = getTopKey(standCounts);
+      document.getElementById('statTopClub').textContent = getTopKey(clubCounts);
+
+      // Statistiques détaillées par question
+      const questionDefinitions = [
+        { key: 'standMetier', title: '🚀 Section / Formation préférée' },
+        { key: 'attraitFormation', title: '💡 Ce qui a le plus attiré dans la formation' },
+        { key: 'equipement', title: '🖥️ Équipement ou salle la plus appréciée' },
+        { key: 'musique', title: '🎸 Découverte au Club Musique' },
+        { key: 'sport', title: '⚽ Point fort de la Section Sportive' },
+        { key: 'foyer', title: '🕹️ Activité phare du Foyer (MDL)' },
+        { key: 'impression', title: '✨ Impression générale sur le Lycée Colbert' },
+        { key: 'envieClub', title: '🎯 Envie de rejoindre un club / section' },
+        { key: 'projet', title: '🏫 Projet d’orientation vers Colbert' },
+        { key: 'niveau', title: '🎓 Répartition par niveau scolaire' }
+      ];
+
+      const container = document.getElementById('detailedQuestionsStats');
+      if (filteredData.length === 0) {
+        container.innerHTML = '<div class="q-stat-card" style="grid-column:1/-1; text-align:center; color:#64748b;">Aucune réponse élève enregistrée pour cette sélection.</div>';
+      } else {
+        container.innerHTML = questionDefinitions.map(q => {
+          const counts = countFieldValues(filteredData, q.key);
+          const sortedEntries = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+          const barsHtml = sortedEntries.map(([label, count]) => {
+            const pct = Math.round((count / filteredData.length) * 100);
+            return `
+              <div class="bar-item">
+                <div class="bar-meta">
+                  <span>${label}</span>
+                  <span class="bar-count">${count} (${pct} %)</span>
+                </div>
+                <div class="bar-bg">
+                  <div class="bar-fill" style="width:${pct}%"></div>
+                </div>
+              </div>
+            `;
+          }).join('');
+
+          return `
+            <div class="q-stat-card">
+              <div class="q-stat-title">${q.title}</div>
+              ${barsHtml || '<div style="font-size:0.84rem; color:#64748b;">Aucune donnée</div>'}
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Tableau récapitulatif global par collège
+      const byCollege = {};
+      allData.forEach(item => {
+        if (!byCollege[item.college]) {
+          byCollege[item.college] = { total: 0, n3: 0, n4: 0, stands: {} };
+        }
+        byCollege[item.college].total++;
+        if (item.niveau === '3ème') byCollege[item.college].n3++;
+        if (item.niveau === '4ème') byCollege[item.college].n4++;
+        byCollege[item.college].stands[item.standMetier] = (byCollege[item.college].stands[item.standMetier] || 0) + 1;
+      });
+
+      const collegesKeys = Object.keys(byCollege).sort((a, b) => byCollege[b].total - byCollege[a].total);
+      const tbody = document.getElementById('collegeStatsBody');
+      if (collegesKeys.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#64748b;">Aucune réponse enregistrée pour le moment.</td></tr>';
+      } else {
+        tbody.innerHTML = collegesKeys.map(col => `
+          <tr>
+            <td><strong>${col}</strong></td>
+            <td><strong>${byCollege[col].total}</strong></td>
+            <td>${byCollege[col].n3}</td>
+            <td>${byCollege[col].n4}</td>
+            <td>${getTopKey(byCollege[col].stands)}</td>
+          </tr>
+        `).join('');
+      }
+
+      // Tableau des participants filtrés
+      const recentBody = document.getElementById('recentBody');
+      if (filteredData.length === 0) {
+        recentBody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:#64748b;">Aucune donnée.</td></tr>';
+      } else {
+        recentBody.innerHTML = filteredData.slice().reverse().map(r => `
+          <tr>
+            <td><strong>${r.id}</strong></td>
+            <td>${r.prenom}</td>
+            <td>${r.college}</td>
+            <td>${r.niveau}</td>
+            <td>${r.standMetier}</td>
+            <td>${r.envieClub}</td>
+            <td>${r.projet}</td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    function drawWinner() {
+      const allData = getSubmissions();
+      const selectedCollege = document.getElementById('adminCollegeFilter').value;
+      const pool = selectedCollege === 'ALL'
+        ? allData
+        : allData.filter(item => item.college === selectedCollege);
+
+      const banner = document.getElementById('winnerBanner');
+      if (pool.length === 0) {
+        alert('Aucun participant enregistré pour lancer le tirage au sort.');
+        return;
+      }
+
+      banner.style.display = 'block';
+      let steps = 0;
+      const interval = setInterval(() => {
+        const temp = pool[Math.floor(Math.random() * pool.length)];
+        banner.innerHTML = `<span style="color:#64748b;">Tirage en cours... ${temp.prenom} (${temp.college})</span>`;
+        steps++;
+        if (steps >= 10) {
+          clearInterval(interval);
+          const winner = pool[Math.floor(Math.random() * pool.length)];
+          banner.innerHTML = `
+            <span class="winner-name">🏆 Gagnant : ${winner.prenom} — Passeport ${winner.id}</span>
+            <span>${winner.college} (${winner.niveau}) • Formation préférée : <strong>${winner.standMetier}</strong></span>
+          `;
+        }
+      }, 70);
+    }
+
+    function exportCSV() {
+      const data = getSubmissions();
+      if (data.length === 0) {
+        alert('Aucune donnée à exporter.');
+        return;
+      }
+      const headers = ['Passeport', 'Date', 'Prenom', 'College', 'Niveau', 'Section_Preferee', 'Attrait_Formation', 'Equipement', 'Club_Musique', 'Section_Sportive', 'Foyer_MDL', 'Impression', 'Envie_Club', 'Projet_Lycee'];
+      const rows = data.map(r => [
+        r.id, r.date, r.prenom, r.college, r.niveau, r.standMetier, r.attraitFormation, r.equipement, r.musique, r.sport, r.foyer, r.impression, r.envieClub, r.projet
+      ].map(v => '"' + String(v || '').replace(/"/g, '""') + '"').join(';'));
+
+      const csvContent = '\uFEFF' + [headers.join(';'), ...rows].join('\n');
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Statistiques-Accueil-Lycee-Colbert.csv';
+      a.click();
+    }
+
+    function clearAllData() {
+      if (confirm('Voulez-vous vraiment effacer toutes les réponses enregistrées sur cet appareil ?')) {
+        localStorage.removeItem(STORAGE_KEY);
+        document.getElementById('winnerBanner').style.display = 'none';
+        populateAdminCollegeFilter();
+        renderAdminStats();
+      }
+    }
+  </script>
+</body>
+</html>
