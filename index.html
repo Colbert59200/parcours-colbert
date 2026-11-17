@@ -620,6 +620,19 @@
       .qr-card { flex-direction: column; text-align: center; }
     }
 
+    /* PIED DE PAGE */
+    .site-footer {
+      width: 100%;
+      text-align: center;
+      padding: 14px 24px 20px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--colbert-slate);
+      border-top: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.7);
+    }
+    .site-footer strong { color: var(--colbert-red); }
+
     @media (max-width: 768px) {
       header { padding: 10px 14px; }
       main { padding: 0 10px; margin: 12px auto 28px; }
@@ -1207,7 +1220,7 @@
       <div class="card">
         <div class="card-body">
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:18px;">
-            <h2 class="step-heading" style="margin:0;">Statistiques des Réponses & Tirage au sort</h2>
+            <h2 class="step-heading" style="margin:0;">Espace Profs — Résultats</h2>
             <button type="button" class="btn-admin" onclick="closeAdminView()">← Retour au parcours élève</button>
           </div>
 
@@ -1225,65 +1238,36 @@
             </div>
           </div>
 
-          <!-- INDICATEURS CLÉS -->
-          <div class="stats-grid">
+          <!-- INDICATEURS -->
+          <div class="stats-grid" style="grid-template-columns: repeat(2, 1fr);">
             <div class="stat-card">
               <div class="stat-num" id="statTotal">0</div>
-              <div class="stat-lbl">Élèves analysés</div>
+              <div class="stat-lbl">Élèves ayant répondu</div>
             </div>
             <div class="stat-card">
               <div class="stat-num" id="statColleges">0</div>
               <div class="stat-lbl">Collèges représentés</div>
             </div>
-            <div class="stat-card">
-              <div class="stat-num" id="statTopStand" style="font-size:1.05rem; padding-top:6px;">-</div>
-              <div class="stat-lbl">Formation préférée n°1</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-num" id="statTopClub" style="font-size:1.05rem; padding-top:6px;">-</div>
-              <div class="stat-lbl">Intérêt Club / Sport n°1</div>
-            </div>
-          </div>
-
-          <!-- BLOC TIRAGE AU SORT -->
-          <div class="raffle-card">
-            <div class="raffle-header">
-              <div>
-                <h3 style="font-size:1.08rem; font-weight:900; color:var(--colbert-navy);">🎉 Tirage au sort des gagnants</h3>
-                <p style="font-size:0.86rem; color:var(--muted);" id="raffleScopeText">Tirage parmi l'ensemble des élèves ayant validé le questionnaire.</p>
-              </div>
-              <button type="button" class="btn btn-primary" style="flex:0 0 auto; padding:12px 20px;" onclick="drawWinner()">Tirer un élève au sort</button>
-            </div>
-            <div id="winnerBanner" class="winner-banner"></div>
-          </div>
-
-          <!-- STATISTIQUES DÉTAILLÉES PAR RÉPONSES ÉLÈVES -->
-          <h3 style="font-size:1.12rem; font-weight:900; margin:10px 0 6px; color:var(--colbert-navy);">📊 Statistiques détaillées selon les réponses des élèves</h3>
-          <div class="question-stats-grid" id="detailedQuestionsStats">
-            <!-- Rempli dynamiquement par JavaScript -->
           </div>
 
           <!-- TABLEAU PAR COLLÈGE -->
-          <h3 style="font-size:1.05rem; font-weight:900; margin:18px 0 6px; color:var(--colbert-navy);">🏫 Répartition globale par Collège</h3>
+          <h3 style="font-size:1.05rem; font-weight:900; margin:18px 0 6px; color:var(--colbert-navy);">🏫 Nombre d'élèves par collège</h3>
           <div class="table-wrap">
             <table>
               <thead>
                 <tr>
                   <th>Collège</th>
-                  <th>Total</th>
-                  <th>3ème</th>
-                  <th>4ème</th>
-                  <th>Formation n°1 du collège</th>
+                  <th>Élèves</th>
                 </tr>
               </thead>
               <tbody id="collegeStatsBody">
-                <tr><td colspan="5" style="text-align:center; color:#64748b;">Aucune réponse enregistrée pour le moment.</td></tr>
+                <tr><td colspan="2" style="text-align:center; color:#64748b;">Aucune réponse enregistrée pour le moment.</td></tr>
               </tbody>
             </table>
           </div>
 
-          <!-- LISTE DES PARTICIPANTS -->
-          <h3 style="font-size:1.05rem; font-weight:900; margin:18px 0 6px; color:var(--colbert-navy);">🎟️ Liste des participants et leurs choix</h3>
+          <!-- LISTE DES ÉLÈVES -->
+          <h3 style="font-size:1.05rem; font-weight:900; margin:18px 0 6px; color:var(--colbert-navy);">🎟️ Liste des élèves</h3>
           <div class="table-wrap">
             <table>
               <thead>
@@ -1292,13 +1276,10 @@
                   <th>Prénom</th>
                   <th>Collège</th>
                   <th>Niveau</th>
-                  <th>Formation préférée</th>
-                  <th>Club / Sport souhaité</th>
-                  <th>Projet Colbert</th>
                 </tr>
               </thead>
               <tbody id="recentBody">
-                <tr><td colspan="7" style="text-align:center; color:#64748b;">Aucune donnée.</td></tr>
+                <tr><td colspan="4" style="text-align:center; color:#64748b;">Aucune donnée.</td></tr>
               </tbody>
             </table>
           </div>
@@ -1306,6 +1287,10 @@
       </div>
     </div>
   </main>
+
+  <footer class="site-footer">
+    Professeur : <strong>M. DJEFFAL</strong>
+  </footer>
 
   <canvas id="certCanvas" width="1000" height="720" style="display:none;"></canvas>
 
@@ -2913,7 +2898,7 @@ window.makeQRSvg=function(text,size,ecl){var qr=new QRCode(-1,ecl==null?0:ecl);q
       const colleges = [...new Set(allData.map(item => item.college))].sort();
 
       select.innerHTML = '<option value="ALL">Tous les collèges réunis (' + allData.length + ')</option>' +
-        colleges.map(c => `<option value="${c}">${c}</option>`).join('');
+        colleges.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('');
 
       if (colleges.includes(currentVal)) {
         select.value = currentVal;
@@ -2922,170 +2907,40 @@ window.makeQRSvg=function(text,size,ecl){var qr=new QRCode(-1,ecl==null?0:ecl);q
       }
     }
 
-    function getTopKey(countsObj) {
-      let topKey = '-';
-      let max = 0;
-      Object.entries(countsObj).forEach(([k, v]) => {
-        if (v > max) { max = v; topKey = k; }
-      });
-      return topKey;
-    }
-
-    function countFieldValues(dataset, fieldName) {
-      const counts = {};
-      dataset.forEach(item => {
-        const val = item[fieldName];
-        if (val) counts[val] = (counts[val] || 0) + 1;
-      });
-      return counts;
+    function esc(v) {
+      return String(v == null ? '' : v).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     }
 
     function renderAdminStats() {
       const allData = getSubmissions();
       const selectedCollege = document.getElementById('adminCollegeFilter').value;
-
       const filteredData = selectedCollege === 'ALL'
         ? allData
         : allData.filter(item => item.college === selectedCollege);
 
-      // Mise à jour texte périmètre tirage au sort
-      const scopeText = document.getElementById('raffleScopeText');
-      if (selectedCollege === 'ALL') {
-        scopeText.textContent = `Tirage parmi l'ensemble des ${filteredData.length} élève(s) ayant validé le questionnaire.`;
-      } else {
-        scopeText.textContent = `Tirage filtré uniquement sur : ${selectedCollege} (${filteredData.length} élève(s)).`;
-      }
-
-      // Cartes KPI du haut
       document.getElementById('statTotal').textContent = filteredData.length;
-      const uniqueColleges = new Set(allData.map(i => i.college));
-      document.getElementById('statColleges').textContent = uniqueColleges.size;
+      document.getElementById('statColleges').textContent = new Set(allData.map(i => i.college)).size;
 
-      const standCounts = countFieldValues(filteredData, 'standMetier');
-      const clubCounts = countFieldValues(filteredData, 'envieClub');
-      document.getElementById('statTopStand').textContent = getTopKey(standCounts);
-      document.getElementById('statTopClub').textContent = getTopKey(clubCounts);
-
-      // Statistiques détaillées par question
-      const questionDefinitions = [
-        { key: 'standMetier', title: '🚀 Section / Formation préférée' },
-        { key: 'attraitFormation', title: '💡 Ce qui a le plus attiré dans la formation' },
-        { key: 'equipement', title: '🖥️ Équipement ou salle la plus appréciée' },
-        { key: 'musique', title: '🎸 Découverte au Club Musique' },
-        { key: 'sport', title: '⚽ Point fort de la Section Sportive' },
-        { key: 'foyer', title: '🕹️ Activité phare du Foyer (MDL)' },
-        { key: 'impression', title: '✨ Impression générale sur le Lycée Colbert' },
-        { key: 'envieClub', title: '🎯 Envie de rejoindre un club / section' },
-        { key: 'projet', title: '🏫 Projet d’orientation vers Colbert' },
-        { key: 'niveau', title: '🎓 Répartition par niveau scolaire' }
-      ];
-
-      const container = document.getElementById('detailedQuestionsStats');
-      if (filteredData.length === 0) {
-        container.innerHTML = '<div class="q-stat-card" style="grid-column:1/-1; text-align:center; color:#64748b;">Aucune réponse élève enregistrée pour cette sélection.</div>';
-      } else {
-        container.innerHTML = questionDefinitions.map(q => {
-          const counts = countFieldValues(filteredData, q.key);
-          const sortedEntries = Object.entries(counts).sort((a, b) => b[1] - a[1]);
-          const barsHtml = sortedEntries.map(([label, count]) => {
-            const pct = Math.round((count / filteredData.length) * 100);
-            return `
-              <div class="bar-item">
-                <div class="bar-meta">
-                  <span>${label}</span>
-                  <span class="bar-count">${count} (${pct} %)</span>
-                </div>
-                <div class="bar-bg">
-                  <div class="bar-fill" style="width:${pct}%"></div>
-                </div>
-              </div>
-            `;
-          }).join('');
-
-          return `
-            <div class="q-stat-card">
-              <div class="q-stat-title">${q.title}</div>
-              ${barsHtml || '<div style="font-size:0.84rem; color:#64748b;">Aucune donnée</div>'}
-            </div>
-          `;
-        }).join('');
-      }
-
-      // Tableau récapitulatif global par collège
+      // Nombre d'élèves par collège
       const byCollege = {};
-      allData.forEach(item => {
-        if (!byCollege[item.college]) {
-          byCollege[item.college] = { total: 0, n3: 0, n4: 0, stands: {} };
-        }
-        byCollege[item.college].total++;
-        if (item.niveau === '3ème') byCollege[item.college].n3++;
-        if (item.niveau === '4ème') byCollege[item.college].n4++;
-        byCollege[item.college].stands[item.standMetier] = (byCollege[item.college].stands[item.standMetier] || 0) + 1;
-      });
-
-      const collegesKeys = Object.keys(byCollege).sort((a, b) => byCollege[b].total - byCollege[a].total);
+      allData.forEach(item => { byCollege[item.college] = (byCollege[item.college] || 0) + 1; });
+      const keys = Object.keys(byCollege).sort((a, b) => byCollege[b] - byCollege[a]);
       const tbody = document.getElementById('collegeStatsBody');
-      if (collegesKeys.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#64748b;">Aucune réponse enregistrée pour le moment.</td></tr>';
-      } else {
-        tbody.innerHTML = collegesKeys.map(col => `
-          <tr>
-            <td><strong>${col}</strong></td>
-            <td><strong>${byCollege[col].total}</strong></td>
-            <td>${byCollege[col].n3}</td>
-            <td>${byCollege[col].n4}</td>
-            <td>${getTopKey(byCollege[col].stands)}</td>
-          </tr>
-        `).join('');
-      }
+      tbody.innerHTML = keys.length === 0
+        ? '<tr><td colspan="2" style="text-align:center; color:#64748b;">Aucune réponse enregistrée pour le moment.</td></tr>'
+        : keys.map(c => `<tr><td><strong>${esc(c)}</strong></td><td><strong>${byCollege[c]}</strong></td></tr>`).join('');
 
-      // Tableau des participants filtrés
+      // Liste des élèves
       const recentBody = document.getElementById('recentBody');
-      if (filteredData.length === 0) {
-        recentBody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:#64748b;">Aucune donnée.</td></tr>';
-      } else {
-        recentBody.innerHTML = filteredData.slice().reverse().map(r => `
+      recentBody.innerHTML = filteredData.length === 0
+        ? '<tr><td colspan="4" style="text-align:center; color:#64748b;">Aucune donnée.</td></tr>'
+        : filteredData.slice().reverse().map(r => `
           <tr>
-            <td><strong>${r.id}</strong></td>
-            <td>${r.prenom}</td>
-            <td>${r.college}</td>
-            <td>${r.niveau}</td>
-            <td>${r.standMetier}</td>
-            <td>${r.envieClub}</td>
-            <td>${r.projet}</td>
-          </tr>
-        `).join('');
-      }
-    }
-
-    function drawWinner() {
-      const allData = getSubmissions();
-      const selectedCollege = document.getElementById('adminCollegeFilter').value;
-      const pool = selectedCollege === 'ALL'
-        ? allData
-        : allData.filter(item => item.college === selectedCollege);
-
-      const banner = document.getElementById('winnerBanner');
-      if (pool.length === 0) {
-        alert('Aucun participant enregistré pour lancer le tirage au sort.');
-        return;
-      }
-
-      banner.style.display = 'block';
-      let steps = 0;
-      const interval = setInterval(() => {
-        const temp = pool[Math.floor(Math.random() * pool.length)];
-        banner.innerHTML = `<span style="color:#64748b;">Tirage en cours... ${temp.prenom} (${temp.college})</span>`;
-        steps++;
-        if (steps >= 10) {
-          clearInterval(interval);
-          const winner = pool[Math.floor(Math.random() * pool.length)];
-          banner.innerHTML = `
-            <span class="winner-name">🏆 Gagnant : ${winner.prenom} — Passeport ${winner.id}</span>
-            <span>${winner.college} (${winner.niveau}) • Formation préférée : <strong>${winner.standMetier}</strong></span>
-          `;
-        }
-      }, 70);
+            <td><strong>${esc(r.id)}</strong></td>
+            <td>${esc(r.prenom)}</td>
+            <td>${esc(r.college)}</td>
+            <td>${esc(r.niveau)}</td>
+          </tr>`).join('');
     }
 
     function exportCSV() {
@@ -3111,7 +2966,6 @@ window.makeQRSvg=function(text,size,ecl){var qr=new QRCode(-1,ecl==null?0:ecl);q
     function clearAllData() {
       if (confirm('Voulez-vous vraiment effacer toutes les réponses enregistrées sur cet appareil ?')) {
         localStorage.removeItem(STORAGE_KEY);
-        document.getElementById('winnerBanner').style.display = 'none';
         populateAdminCollegeFilter();
         renderAdminStats();
       }
