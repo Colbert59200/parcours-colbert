@@ -848,6 +848,7 @@
             adminFilterCollege: '',
             student: {
                 step1Read: false,
+                trainingCardStep: 0,
                 lastName: '',
                 firstName: '',
                 collegeSelect: '',
@@ -1242,6 +1243,23 @@
                 render();
             },
 
+            confirmTrainingCard() {
+                const check = document.getElementById('training-card-read-check');
+                if (!check || !check.checked) {
+                    showToast("Coche la case pour confirmer que tu as lu cette présentation.", "warning");
+                    return;
+                }
+                if (state.student.trainingCardStep < 2) {
+                    state.student.trainingCardStep++;
+                    render();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    state.student.step1Read = true;
+                    render();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            },
+
             startStudentMission(e) {
                 e.preventDefault();
                 const lastName = document.getElementById('inp-lastname').value.trim().toUpperCase();
@@ -1261,6 +1279,7 @@
 
                 state.student = {
                     step1Read: false,
+                    trainingCardStep: 0,
                     lastName,
                     firstName: formattedFirstName,
                     collegeSelect,
@@ -1609,7 +1628,7 @@
                     state.submissions = localList;
                 }
 
-                showToast("Bilan enregistré ! Ton Diplôme officiel de réussite est prêt.", "success");
+                showToast("Bilan enregistré ! Ton attestation officielle de réussite est prête.", "success");
                 state.view = 'pass_vip';
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 render();
@@ -1700,18 +1719,22 @@
                     ctx.lineWidth = 4;
                     ctx.strokeRect(46, 46, canvas.width - 92, canvas.height - 92);
 
-                    ctx.fillStyle = '#991B1B';
-                    ctx.font = '900 24px Inter, sans-serif';
-                    ctx.textAlign = 'left';
-                    ctx.fillText('LYCÉE NUMÉRIQUE COLBERT • TOURCOING', 85, 115);
-
-                    ctx.fillStyle = '#64748b';
-                    ctx.font = '600 16px Inter, sans-serif';
-                    ctx.fillText('2 Parvis J.P. Colbert • BP 620 • 59208 Tourcoing', 85, 143);
-
-                    ctx.fillStyle = '#0f172a';
-                    ctx.font = '900 44px Inter, sans-serif';
-                    ctx.fillText('DIPLÔME DE RÉUSSITE — BAC PRO CIEL', 85, 212);
+                    // Logo Colbert identique à celui de l'en-tête de la page d'accueil
+                    ctx.save(); ctx.translate(85, 68); ctx.scale(0.78, 0.78);
+                    ctx.fillStyle = '#ffffff'; ctx.strokeStyle = '#991B1B'; ctx.lineWidth = 1.5;
+                    ctx.fillRect(0, 0, 120, 72); ctx.strokeRect(0, 0, 120, 72);
+                    ctx.beginPath(); ctx.moveTo(28,52); ctx.lineTo(60,64); ctx.lineTo(60,24); ctx.lineTo(28,12); ctx.closePath(); ctx.fillStyle='#991B1B'; ctx.fill();
+                    ctx.beginPath(); ctx.moveTo(92,52); ctx.lineTo(60,64); ctx.lineTo(60,24); ctx.lineTo(92,12); ctx.closePath(); ctx.fillStyle='#1E293B'; ctx.fill();
+                    [[33,19,'#DC2626'],[43,19,'#B91C1C'],[52,19,'#7F1D1D'],[33,29,'#EF4444'],[43,29,'#991B1B'],[63,33,'#334155'],[73,33,'#0F172A'],[63,43,'#7F1D1D'],[73,43,'#1E293B'],[95,8,'#0F172A'],[103,5,'#7F1D1D'],[99,16,'#991B1B'],[108,13,'#1E293B'],[104,24,'#B91C1C']].forEach(([x,y,c]) => { ctx.fillStyle=c; ctx.fillRect(x,y,6,6); });
+                    ctx.restore();
+                    ctx.fillStyle = '#991B1B'; ctx.font = '900 24px Inter, sans-serif'; ctx.textAlign = 'left';
+                    ctx.fillText('LYCÉE NUMÉRIQUE COLBERT • TOURCOING', 190, 92);
+                    ctx.fillStyle = '#64748b'; ctx.font = '600 16px Inter, sans-serif';
+                    ctx.fillText('2 Parvis J.P. Colbert • BP 620 • 59208 Tourcoing', 190, 120);
+                    ctx.fillStyle = '#0f172a'; ctx.font = '900 42px Inter, sans-serif';
+                    ctx.fillText('ATTESTATION DE RÉUSSITE', 85, 212);
+                    ctx.fillStyle = '#1E3A8A'; ctx.font = '700 22px Inter, sans-serif';
+                    ctx.fillText('Découverte de la section BAC PRO CIEL de Tourcoing', 85, 247);
 
                     ctx.fillStyle = '#FEF3C7';
                     ctx.fillRect(835, 85, 280, 46);
@@ -1726,22 +1749,22 @@
                     ctx.strokeStyle = '#E2E8F0';
                     ctx.lineWidth = 2;
                     ctx.beginPath();
-                    ctx.moveTo(85, 242);
-                    ctx.lineTo(1115, 242);
+                    ctx.moveTo(85, 270);
+                    ctx.lineTo(1115, 270);
                     ctx.stroke();
 
                     ctx.textAlign = 'left';
                     ctx.fillStyle = '#64748b';
                     ctx.font = '600 18px Inter, sans-serif';
-                    ctx.fillText('Décerné officiellement à l’élève de 3e :', 85, 290);
+                    ctx.fillText('Attestation remise à l’élève de 3e :', 85, 315);
 
                     ctx.fillStyle = '#020617';
                     ctx.font = '900 44px Inter, sans-serif';
-                    ctx.fillText(`${st.lastName} ${st.firstName}`, 85, 348);
+                    ctx.fillText(`${st.lastName} ${st.firstName}`, 85, 373);
 
                     ctx.fillStyle = '#1E3A8A';
                     ctx.font = '700 22px Inter, sans-serif';
-                    ctx.fillText(st.college, 85, 386);
+                    ctx.fillText(st.college, 85, 411);
 
                     ctx.fillStyle = '#F1F5F9';
                     ctx.fillRect(85, 422, 720, 225);
@@ -1755,10 +1778,10 @@
 
                     ctx.fillStyle = '#1e293b';
                     ctx.font = '600 17px Inter, sans-serif';
-                    ctx.fillText('✓ Parcours 1 : Découverte Lycée Colbert & Section BAC PRO CIEL (20/20)', 110, 490);
-                    ctx.fillText('✓ Parcours 2 : Informatique & Construction du Réseau LAN (20/20)', 110, 524);
-                    ctx.fillText('✓ Parcours 3 : Cybersécurité & Blindage du Réseau LAN (20/20)', 110, 558);
-                    ctx.fillText('✓ Parcours 4 : Diagnostic du switch & Mesures Multimètre (20/20)', 110, 592);
+                    ctx.fillText('✓ Parcours 1 : Découverte Lycée Colbert & Section BAC PRO CIEL', 110, 490);
+                    ctx.fillText('✓ Parcours 2 : Informatique & Construction du Réseau LAN', 110, 524);
+                    ctx.fillText('✓ Parcours 3 : Cybersécurité & Blindage du Réseau LAN', 110, 558);
+                    ctx.fillText('✓ Parcours 4 : Diagnostic du switch & Mesures Multimètre', 110, 592);
                     ctx.fillText(`✓ Parcours 5 : Salle serveur déverrouillée (Mot ${st.assignedWord} • Somme ${st.assignedSum})`, 110, 626);
                     ctx.fillText(`⏱ Temps total de réussite : ${formatDurationHuman(totalSec)}`, 110, 660);
 
@@ -1787,10 +1810,10 @@
                     ctx.fillText(st.passCode, 85, 746);
 
                     const link = document.createElement('a');
-                    link.download = `Diplome_Reussite_CIEL_Colbert_${st.lastName}_${st.firstName}.png`;
+                    link.download = `Attestation_Reussite_CIEL_Colbert_${st.lastName}_${st.firstName}.png`;
                     link.href = canvas.toDataURL('image/png');
                     link.click();
-                    showToast("Ton Diplôme de réussite (PNG) a été téléchargé !", "success");
+                    showToast("Ton attestation de réussite (PNG) a été téléchargée !", "success");
                 };
                 qrImg.src = qrDataUrl;
             },
@@ -1978,7 +2001,7 @@
                 'parcours3_cyber': { pct: 60, text: `PARCOURS 3 : Cybersécurité du Réseau (${prog.p3Done}/${prog.p3Total})` },
                 'parcours4_elec': { pct: 80, text: `PARCOURS 4 : Diagnostic du switch (${prog.p4Done}/${prog.p4Total})` },
                 'parcours5_escape': { pct: 95, text: 'Déverrouille la salle serveur et diplôme' },
-                'step_bilan': { pct: 99, text: 'Bilan Final & Génération du Diplôme de Réussite' }
+                'step_bilan': { pct: 99, text: 'Bilan final & génération de l’attestation de réussite' }
             };
 
             if (stepViews[state.view]) {
@@ -2779,45 +2802,54 @@
                                     <p class="text-xs text-slate-400 mt-0.5">Lis attentivement chaque filière : toutes les réponses aux 20 questions suivantes se trouvent ici.</p>
                                 </div>
 
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-                                    <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-2.5">
-                                        <span class="inline-block px-2.5 py-0.5 rounded bg-red-600/20 text-red-300 border border-red-500/30 font-extrabold text-[11px]">1. VOIE GÉNÉRALE & TECHNO</span>
-                                        <div class="space-y-2 text-slate-300">
-                                            <p><strong class="text-white">• Bac Général :</strong> analyser des documents, approfondir les matières générales et préparer des études supérieures longues.</p>
-                                            <p><strong class="text-white">• Bac Technologique STI2D :</strong> imaginer, concevoir et tester des prototypes technologiques avec éco-conception, à travers <strong>4 spécialités</strong> :
-                                                <span class="block text-slate-400 mt-1 pl-2 border-l-2 border-amber-500/50">
-                                                    – <strong>SIN</strong> (Systèmes d'Information et Numérique)<br>
-                                                    – <strong>ITEC</strong> (Innovation Technologique et Éco-conception)<br>
-                                                    – <strong>EE</strong> (Énergies et Environnement)<br>
-                                                    – <strong>AC</strong> (Architecture et Construction)
-                                                </span>
-                                            </p>
-                                        </div>
-                                    </div>
+                                <div class="mb-3 flex items-center justify-between gap-3 text-xs">
+                                    <span class="font-bold text-amber-300">Fiche ${state.student.trainingCardStep + 1} / 3</span>
+                                    <span class="text-slate-400">Lis toute la fiche avant de cocher</span>
+                                </div>
 
-                                    <div class="p-4 rounded-xl bg-slate-900 border-2 border-blue-500/50 space-y-2.5">
-                                        <span class="inline-block px-2.5 py-0.5 rounded bg-blue-600/20 text-blue-300 border border-blue-500/30 font-extrabold text-[11px]">2. VOIE PROFESSIONNELLE (3 ANS)</span>
-                                        <div class="space-y-2 text-slate-300">
+                                ${state.student.trainingCardStep === 0 ? `
+                                    <article class="p-6 sm:p-8 rounded-2xl bg-slate-900 border-2 border-red-500 shadow-2xl shadow-red-950/40 space-y-5 text-sm animate-slide-up">
+                                        <span class="inline-block px-3 py-1 rounded bg-red-600/20 text-red-300 border border-red-500/40 font-extrabold text-xs">1. VOIE GÉNÉRALE & TECHNO</span>
+                                        <h4 class="text-xl sm:text-2xl font-black text-white">La voie générale et technologique</h4>
+                                        <div class="space-y-4 text-slate-200 leading-relaxed">
+                                            <p><strong class="text-white">• Bac Général :</strong> analyser des documents, approfondir les matières générales et préparer des études supérieures longues.</p>
+                                            <p><strong class="text-white">• Bac Technologique STI2D :</strong> imaginer, concevoir et tester des prototypes technologiques avec éco-conception, à travers <strong>4 spécialités</strong> :</p>
+                                            <ul class="pl-5 border-l-2 border-amber-500/60 text-slate-300 space-y-1"><li>– <strong>SIN</strong> (Systèmes d'Information et Numérique)</li><li>– <strong>ITEC</strong> (Innovation Technologique et Éco-conception)</li><li>– <strong>EE</strong> (Énergies et Environnement)</li><li>– <strong>AC</strong> (Architecture et Construction)</li></ul>
+                                        </div>
+                                    </article>
+                                ` : state.student.trainingCardStep === 1 ? `
+                                    <article class="p-6 sm:p-8 rounded-2xl bg-slate-900 border-2 border-blue-500 shadow-2xl shadow-blue-950/40 space-y-5 text-sm animate-slide-up">
+                                        <span class="inline-block px-3 py-1 rounded bg-blue-600/20 text-blue-300 border border-blue-500/40 font-extrabold text-xs">2. VOIE PROFESSIONNELLE (3 ANS)</span>
+                                        <h4 class="text-xl sm:text-2xl font-black text-white">La voie professionnelle : découvre le BAC PRO CIEL</h4>
+                                        <div class="space-y-4 text-slate-200 leading-relaxed">
                                             <p><strong class="text-white">• Seconde TNE :</strong> Seconde commune aux Métiers des Transitions Numérique et Énergétique (<strong>20 semaines de stages PFMP</strong> sur les 3 ans).</p>
-                                            <p><strong class="text-amber-300">• BAC PRO CIEL :</strong> <em>Cybersécurité, Informatique et réseaux, ÉLectronique</em>. Mise en œuvre des <strong>réseaux informatiques</strong>, protection contre les cyberattaques (<strong>cybersécurité</strong>) et réalisation de <strong>systèmes électroniques</strong>.</p>
+                                            <p class="p-4 rounded-xl bg-blue-950/60 border border-blue-500/40"><strong class="text-amber-300">• BAC PRO CIEL :</strong> <em>Cybersécurité, Informatique et réseaux, ÉLectronique</em>. Mise en œuvre des <strong>réseaux informatiques</strong>, protection contre les cyberattaques (<strong>cybersécurité</strong>) et réalisation de <strong>systèmes électroniques</strong>.</p>
                                             <p><strong class="text-white">• Bac Pro MELEC :</strong> <em>Métiers de l'Électricité et de ses Environnements Connectés</em>. Installation et raccordement des équipements électriques et domotiques.</p>
                                         </div>
-                                    </div>
-
-                                    <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-2.5">
-                                        <span class="inline-block px-2.5 py-0.5 rounded bg-emerald-600/20 text-emerald-300 border border-emerald-500/30 font-extrabold text-[11px]">3. ENSEIGNEMENT SUPÉRIEUR (BAC+2)</span>
-                                        <div class="space-y-2 text-slate-300">
+                                    </article>
+                                ` : `
+                                    <article class="p-6 sm:p-8 rounded-2xl bg-slate-900 border-2 border-emerald-500 shadow-2xl shadow-emerald-950/40 space-y-5 text-sm animate-slide-up">
+                                        <span class="inline-block px-3 py-1 rounded bg-emerald-600/20 text-emerald-300 border border-emerald-500/40 font-extrabold text-xs">3. ENSEIGNEMENT SUPÉRIEUR (BAC+2)</span>
+                                        <h4 class="text-xl sm:text-2xl font-black text-white">Les formations après le baccalauréat</h4>
+                                        <div class="space-y-4 text-slate-200 leading-relaxed">
                                             <p><strong class="text-white">• BTS CIEL :</strong> poursuite d'études en 2 ans après le Bac Pro CIEL ou STI2D avec 2 options : <strong>Option A</strong> (Informatique et réseaux) et <strong>Option B</strong> (Électronique et réseaux).</p>
                                             <p><strong class="text-white">• BTS FED :</strong> <em>Fluides, Énergies, Domotique</em> — chauffage, ventilation, climatisation et performance énergétique des bâtiments.</p>
                                             <p><strong class="text-white">• BTS Maintenance des Systèmes :</strong> diagnostiquer les pannes sur des machines industrielles et organiser leur remise en service.</p>
                                         </div>
-                                    </div>
+                                    </article>
+                                `}
+
+                                <div class="mt-5 p-4 rounded-xl bg-slate-900 border border-amber-500/40 space-y-4">
+                                    <label class="flex items-start gap-3 cursor-pointer text-sm text-white font-semibold">
+                                        <input id="training-card-read-check" type="checkbox" class="mt-0.5 w-5 h-5 accent-amber-400 shrink-0">
+                                        <span>J'ai lu attentivement cette fiche et je suis prêt(e) à passer à la suivante.</span>
+                                    </label>
+                                    <button type="button" onclick="app.confirmTrainingCard()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-black text-sm shadow-lg hover:brightness-110 transition">
+                                        ${state.student.trainingCardStep < 2 ? 'Valider ma lecture et afficher la fiche suivante →' : 'Valider ma lecture et commencer les 20 questions →'}
+                                    </button>
                                 </div>
                             </div>
 
-                            <button type="button" onclick="app.setStep1Read()" class="w-full py-4 rounded-2xl bg-gradient-to-r from-red-600 via-amber-500 to-amber-400 text-slate-950 font-black text-sm shadow-xl transition transform hover:scale-[1.01]">
-                                J'ai lu la présentation du Lycée Colbert, passer aux 20 questions d'enquête →
-                            </button>
                         </div>
                     ` : `
                         <div class="space-y-6 animate-slide-up">
@@ -3413,7 +3445,7 @@
                         </button>
                         <button type="button" onclick="app.goToFinalBilan()" ${state.student.escapeSumSolved ? '' : 'disabled'}
                             class="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-extrabold text-sm shadow-lg transition ${state.student.escapeSumSolved ? 'animate-bounce' : 'opacity-40 cursor-not-allowed'}">
-                            ${state.student.escapeSumSolved ? "Récupérer mon Diplôme de Réussite 🎓 →" : "Trouve le mot, convertis-le et valide le mot de passe"}
+                            ${state.student.escapeSumSolved ? "Récupérer mon attestation de réussite →" : "Trouve le mot, convertis-le et valide le mot de passe"}
                         </button>
                     </div>
                 </div>
@@ -3426,9 +3458,9 @@
                     <form onsubmit="app.submitFinalMission(event)" class="bg-slate-900/95 border border-amber-500/40 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
                         <div>
                             <span class="text-xs font-bold uppercase tracking-wider text-amber-400">Bilan & Orientation • Lycée Colbert</span>
-                            <h2 class="text-2xl font-extrabold text-white mt-1">Ton avis avant ton Diplôme de Réussite</h2>
+                            <h2 class="text-2xl font-extrabold text-white mt-1">Ton avis avant ton attestation de réussite</h2>
                             <p class="text-sm text-slate-300 mt-2">
-                                Bravo <strong>${escapeHtml(state.student.firstName)}</strong> ! Tu as ouvert la salle serveur et récupéré ton attestation après avoir validé les 5 parcours en <strong>${formatDurationHuman(state.student.totalDurationSec)}</strong>. Complète ce court bilan pour générer ton diplôme.
+                                Bravo <strong>${escapeHtml(state.student.firstName)}</strong> ! Tu as ouvert la salle serveur et récupéré ton attestation après avoir validé les 5 parcours en <strong>${formatDurationHuman(state.student.totalDurationSec)}</strong>. Complète ce court bilan pour générer ton attestation de réussite.
                             </p>
                         </div>
 
@@ -3483,7 +3515,7 @@
                         </div>
 
                         <button type="submit" class="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-red-700 via-red-600 to-amber-500 hover:from-red-600 hover:to-amber-400 text-white font-extrabold text-base shadow-xl transition">
-                            Valider mon bilan et obtenir mon Diplôme de Réussite 🎓
+                            Valider mon bilan et obtenir mon attestation de réussite
                         </button>
                     </form>
                 </div>
@@ -3502,12 +3534,21 @@
                         <div class="rounded-2xl border-2 border-amber-500/80 p-5 sm:p-8 space-y-6">
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b-2 border-red-800/20 pb-5">
                                 <div class="flex items-center gap-3.5">
-                                    <div class="w-14 h-14 rounded-2xl bg-red-800 text-white flex items-center justify-center font-black text-2xl shadow-md shrink-0">
-                                        🎓
+                                    <div class="w-20 h-14 rounded-xl bg-white border border-red-800/30 flex items-center justify-center shadow-md shrink-0 p-1">
+                                        <svg viewBox="0 0 120 72" class="w-full h-full" xmlns="http://www.w3.org/2000/svg" aria-label="Logo Lycée Colbert">
+                                            <g transform="translate(18, 4)">
+                                                <polygon points="10,48 42,60 42,20 10,8" fill="#991B1B"/><polygon points="74,48 42,60 42,20 74,8" fill="#1E293B"/>
+                                                <rect x="15" y="15" width="7" height="7" fill="#DC2626" transform="skewY(18)"/><rect x="25" y="15" width="7" height="7" fill="#B91C1C" transform="skewY(18)"/><rect x="34" y="15" width="6" height="7" fill="#7F1D1D" transform="skewY(18)"/>
+                                                <rect x="15" y="25" width="7" height="7" fill="#EF4444" transform="skewY(18)"/><rect x="25" y="25" width="7" height="7" fill="#991B1B" transform="skewY(18)"/>
+                                                <rect x="45" y="29" width="7" height="7" fill="#334155" transform="skewY(-18)"/><rect x="55" y="29" width="7" height="7" fill="#0F172A" transform="skewY(-18)"/><rect x="45" y="39" width="7" height="7" fill="#7F1D1D" transform="skewY(-18)"/><rect x="55" y="39" width="7" height="7" fill="#1E293B" transform="skewY(-18)"/>
+                                                <rect x="77" y="4" width="6" height="6" fill="#0F172A"/><rect x="85" y="1" width="6" height="6" fill="#7F1D1D"/><rect x="81" y="12" width="6" height="6" fill="#991B1B"/><rect x="90" y="9" width="6" height="6" fill="#1E293B"/><rect x="86" y="20" width="6" height="6" fill="#B91C1C"/>
+                                            </g>
+                                        </svg>
                                     </div>
                                     <div>
                                         <span class="text-[11px] font-extrabold uppercase tracking-widest text-red-800 block">Lycée Numérique Colbert • Tourcoing</span>
-                                        <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">DIPLÔME DE RÉUSSITE — BAC PRO CIEL</h2>
+                                        <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">ATTESTATION DE RÉUSSITE</h2>
+                                        <span class="text-sm font-bold text-blue-900 block">Découverte de la section BAC PRO CIEL de Tourcoing</span>
                                         <span class="text-[11px] text-slate-500 font-medium block">2 Parvis J.P. Colbert, 59208 Tourcoing</span>
                                     </div>
                                 </div>
@@ -3526,17 +3567,17 @@
 
                                     <div class="p-3.5 rounded-2xl bg-slate-100 border border-slate-200 space-y-1.5 text-xs">
                                         <p class="font-extrabold text-slate-900 uppercase tracking-wide text-[11px]">Parcours & compétences validés :</p>
-                                        <p class="text-slate-700 font-medium">✓ Parcours 1 : Découverte Lycée Colbert & Section <strong>BAC PRO CIEL</strong> (20/20)</p>
-                                        <p class="text-slate-700 font-medium">✓ Parcours 2 : Informatique & Construction du <strong>Réseau LAN</strong> (20/20)</p>
-                                        <p class="text-slate-700 font-medium">✓ Parcours 3 : <strong>Cybersécurité</strong> & Blindage du Réseau LAN (20/20)</p>
-                                        <p class="text-slate-700 font-medium">✓ Parcours 4 : <strong>Électronique</strong>, Diagnostic du switch & Mesures Multimètre (20/20)</p>
+                                        <p class="text-slate-700 font-medium">✓ Parcours 1 : Découverte Lycée Colbert & Section <strong>BAC PRO CIEL</strong></p>
+                                        <p class="text-slate-700 font-medium">✓ Parcours 2 : Informatique & Construction du <strong>Réseau LAN</strong></p>
+                                        <p class="text-slate-700 font-medium">✓ Parcours 3 : <strong>Cybersécurité</strong> & Blindage du Réseau LAN</p>
+                                        <p class="text-slate-700 font-medium">✓ Parcours 4 : <strong>Électronique</strong>, Diagnostic du switch & Mesures Multimètre</p>
                                         <p class="text-slate-700 font-medium">✓ Parcours 5 : <strong>Salle serveur</strong> déverrouillée : Mot <strong>${escapeHtml(state.student.assignedWord)}</strong> (Code <strong>${state.student.assignedSum}</strong>)</p>
                                         <p class="text-blue-900 font-bold pt-0.5">⏱️ Temps total de réussite : ${formatDurationHuman(totalSec)}</p>
                                     </div>
                                 </div>
 
                                 <div onclick="app.downloadDiplomaPNG()" title="Cliquer pour télécharger ton diplôme en PNG" class="md:col-span-4 flex flex-col items-center justify-center p-3.5 rounded-2xl bg-white border-2 border-red-800/30 shadow-sm text-center cursor-pointer hover:border-red-700 transition">
-                                    <img src="${personalQrUrl}" alt="QR Code personnel du diplôme" class="w-32 h-32 sm:w-36 sm:h-36 object-contain">
+                                    <img src="${personalQrUrl}" alt="QR Code personnel de l’attestation" class="w-32 h-32 sm:w-36 sm:h-36 object-contain">
                                     <span class="text-[10px] font-extrabold uppercase tracking-wider text-red-900 mt-2 block">QR Code Attestation</span>
                                     <span class="text-[10px] text-slate-500 leading-tight mt-0.5 block">Contient ton attestation officielle • Clique pour télécharger</span>
                                 </div>
@@ -3556,7 +3597,7 @@
 
                     <div class="no-print grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <button type="button" onclick="app.downloadDiplomaPNG()" class="py-4 px-5 rounded-2xl bg-gradient-to-r from-red-700 via-red-600 to-amber-500 hover:from-red-600 hover:to-amber-400 text-white font-extrabold text-sm shadow-xl transition flex items-center justify-center gap-2">
-                            📥 Télécharger mon Diplôme (PNG)
+                            📥 Télécharger mon attestation (PNG)
                         </button>
                         <button type="button" onclick="app.printDiploma()" class="py-4 px-5 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-white font-extrabold text-sm shadow-lg transition flex items-center justify-center gap-2">
                             🖨️ Imprimer / Enregistrer en PDF
