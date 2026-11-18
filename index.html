@@ -274,7 +274,7 @@
       flex-shrink: 0;
     }
 
-    select, input[type="text"] {
+    select, input[type="text"], textarea {
       width: 100%;
       padding: 13px 15px;
       font-size: 0.98rem;
@@ -286,8 +286,10 @@
       transition: all 0.2s;
       cursor: pointer;
     }
-    input[type="text"] { cursor: text; }
-    select:focus, input:focus {
+    input[type="text"], textarea { cursor: text; }
+    textarea { min-height: 96px; resize: vertical; font-family: inherit; line-height: 1.4; }
+    .optional-tag { font-weight: 600; font-size: 0.82rem; color: #64748b; margin-left: 6px; }
+    select:focus, input:focus, textarea:focus {
       outline: none;
       border-color: var(--colbert-red);
     }
@@ -583,6 +585,23 @@
       border-radius: 999px;
       transition: width 0.35s ease;
     }
+
+    /* RETOURS ÉLÈVES (ESPACE PROFS) */
+    .admin-section-title { font-size: 1.05rem; font-weight: 900; margin: 22px 0 8px; color: var(--colbert-navy); }
+    .admin-check { display: flex; align-items: center; gap: 8px; font-size: 0.88rem; font-weight: 700; color: var(--colbert-navy); cursor: pointer; }
+    .admin-check input { width: 18px; height: 18px; accent-color: var(--colbert-red); cursor: pointer; }
+    .feedback-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; margin-bottom: 22px; }
+    .fb-card { background: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid var(--colbert-red); border-radius: 12px; padding: 14px 16px; }
+    .fb-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
+    .fb-name { font-weight: 900; font-size: 1rem; color: var(--colbert-navy); }
+    .fb-level { font-size: 0.78rem; font-weight: 800; color: var(--colbert-red); background: var(--colbert-red-soft); padding: 2px 8px; border-radius: 999px; }
+    .fb-college { font-size: 0.82rem; font-weight: 700; color: var(--muted); margin-bottom: 10px; }
+    .fb-line { font-size: 0.86rem; color: var(--colbert-slate); margin-bottom: 5px; line-height: 1.35; }
+    .fb-line b { color: var(--colbert-navy); }
+    .fb-comment { margin-top: 10px; padding: 10px 12px; background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px; font-size: 0.88rem; color: var(--colbert-navy); line-height: 1.4; white-space: pre-wrap; word-break: break-word; }
+    .fb-comment-label { display: block; font-size: 0.74rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: #b45309; margin-bottom: 3px; }
+    .fb-empty { grid-column: 1 / -1; text-align: center; color: #64748b; padding: 16px; }
+    @media (max-width: 700px) { .question-stats-grid { grid-template-columns: 1fr; } }
 
     table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin-top: 10px; }
     th, td { padding: 11px 10px; border-bottom: 1px solid #e2e8f0; text-align: left; }
@@ -1123,6 +1142,14 @@
                 </select>
                 <div class="error-msg">Sélectionne une réponse pour terminer.</div>
               </div>
+
+              <div class="field-group field-span-2" id="fg-commentaire">
+                <label class="field-label" for="commentaire">
+                  <span class="q-icon">💬</span> Y a-t-il quelque chose qui t'a moins plu, ou que tu aurais aimé voir autrement ?
+                  <span class="optional-tag">(facultatif)</span>
+                </label>
+                <textarea id="commentaire" maxlength="500" placeholder="Écris librement ici : ce qui t'a moins plu, ce qui manquait, tes suggestions…"></textarea>
+              </div>
             </div>
 
             <div class="btn-row">
@@ -1227,11 +1254,15 @@
           <!-- BARRE DE FILTRE ET EXPORT -->
           <div class="admin-toolbar">
             <div class="admin-filter-box">
-              <label for="adminCollegeFilter">Filtrer par collège :</label>
+              <label for="adminCollegeFilter">Afficher le bilan de :</label>
               <select id="adminCollegeFilter" onchange="renderAdminStats()">
                 <option value="ALL">Tous les collèges réunis</option>
               </select>
             </div>
+            <label class="admin-check">
+              <input type="checkbox" id="adminOnlyComments" onchange="renderAdminStats()">
+              Afficher seulement les élèves ayant écrit un commentaire
+            </label>
             <div style="display:flex; gap:10px; flex-wrap:wrap;">
               <button type="button" class="btn btn-success" style="padding:10px 16px; font-size:0.88rem;" onclick="exportCSV()">Exporter Excel (.csv)</button>
               <button type="button" class="btn btn-secondary" style="padding:10px 16px; font-size:0.88rem;" onclick="clearAllData()">Effacer les données</button>
@@ -1266,22 +1297,27 @@
             </table>
           </div>
 
-          <!-- LISTE DES ÉLÈVES -->
-          <h3 style="font-size:1.05rem; font-weight:900; margin:18px 0 6px; color:var(--colbert-navy);">🎟️ Liste des élèves</h3>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>N° Passeport</th>
-                  <th>Prénom</th>
-                  <th>Collège</th>
-                  <th>Niveau</th>
-                </tr>
-              </thead>
-              <tbody id="recentBody">
-                <tr><td colspan="4" style="text-align:center; color:#64748b;">Aucune donnée.</td></tr>
-              </tbody>
-            </table>
+          <!-- SYNTHÈSE DES RÉPONSES DU BILAN -->
+          <h3 class="admin-section-title">📊 Synthèse du bilan <span id="bilanScope" style="font-weight:700; color:var(--colbert-red); font-size:0.9rem;"></span></h3>
+          <div class="question-stats-grid">
+            <div class="q-stat-card">
+              <div class="q-stat-title">✨ Impression sur le lycée</div>
+              <div id="statImpression"></div>
+            </div>
+            <div class="q-stat-card">
+              <div class="q-stat-title">🎯 Envie de rejoindre un club / la section sportive</div>
+              <div id="statEnvieClub"></div>
+            </div>
+            <div class="q-stat-card" style="grid-column: 1 / -1;">
+              <div class="q-stat-title">🏫 Envisage de venir étudier au Lycée Colbert</div>
+              <div id="statProjet"></div>
+            </div>
+          </div>
+
+          <!-- RETOURS DES ÉLÈVES -->
+          <h3 class="admin-section-title">💬 Retours des élèves <span id="fbCount" style="font-weight:700; color:#64748b; font-size:0.9rem;"></span></h3>
+          <div class="feedback-list" id="feedbackList">
+            <div class="fb-empty">Aucune donnée.</div>
           </div>
         </div>
       </div>
@@ -2690,6 +2726,7 @@ window.makeQRSvg=function(text,size,ecl){var qr=new QRCode(-1,ecl==null?0:ecl);q
         sport: document.getElementById('sport').value,
         foyer: document.getElementById('foyer').value,
         impression: document.getElementById('impression').value,
+        commentaire: document.getElementById('commentaire').value.trim(),
         envieClub: document.getElementById('envieClub').value,
         projet: document.getElementById('projet').value
       };
@@ -2930,17 +2967,50 @@ window.makeQRSvg=function(text,size,ecl){var qr=new QRCode(-1,ecl==null?0:ecl);q
         ? '<tr><td colspan="2" style="text-align:center; color:#64748b;">Aucune réponse enregistrée pour le moment.</td></tr>'
         : keys.map(c => `<tr><td><strong>${esc(c)}</strong></td><td><strong>${byCollege[c]}</strong></td></tr>`).join('');
 
-      // Liste des élèves
-      const recentBody = document.getElementById('recentBody');
-      recentBody.innerHTML = filteredData.length === 0
-        ? '<tr><td colspan="4" style="text-align:center; color:#64748b;">Aucune donnée.</td></tr>'
-        : filteredData.slice().reverse().map(r => `
-          <tr>
-            <td><strong>${esc(r.id)}</strong></td>
-            <td>${esc(r.prenom)}</td>
-            <td>${esc(r.college)}</td>
-            <td>${esc(r.niveau)}</td>
-          </tr>`).join('');
+      // Synthèse des 3 questions du bilan
+      document.getElementById('bilanScope').textContent = '— ' + (selectedCollege === 'ALL' ? 'tous les collèges' : selectedCollege);
+      const renderBars = (elId, field) => {
+        const counts = {};
+        filteredData.forEach(r => { if (r[field]) counts[r[field]] = (counts[r[field]] || 0) + 1; });
+        const entries = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+        const total = entries.reduce((sum, e) => sum + e[1], 0);
+        document.getElementById(elId).innerHTML = entries.length === 0
+          ? '<div style="color:#64748b; font-size:0.85rem;">Aucune donnée.</div>'
+          : entries.map(([label, n]) => {
+              const pct = Math.round(n * 100 / total);
+              return `<div class="bar-item">
+                <div class="bar-meta"><span>${esc(label)}</span><span class="bar-count">${n} (${pct} %)</span></div>
+                <div class="bar-bg"><div class="bar-fill" style="width:${pct}%"></div></div>
+              </div>`;
+            }).join('');
+      };
+      renderBars('statImpression', 'impression');
+      renderBars('statEnvieClub', 'envieClub');
+      renderBars('statProjet', 'projet');
+
+      // Retours des élèves (une fiche par élève, les plus récents en premier)
+      const onlyComments = document.getElementById('adminOnlyComments').checked;
+      const shown = filteredData.filter(r => !onlyComments || (r.commentaire && r.commentaire.trim()));
+      const nbComments = filteredData.filter(r => r.commentaire && r.commentaire.trim()).length;
+      document.getElementById('fbCount').textContent =
+        '— ' + shown.length + ' fiche(s), dont ' + nbComments + ' commentaire(s) libre(s)';
+
+      document.getElementById('feedbackList').innerHTML = shown.length === 0
+        ? '<div class="fb-empty">' + (onlyComments ? 'Aucun commentaire libre pour le moment.' : 'Aucune donnée.') + '</div>'
+        : shown.slice().reverse().map(r => `
+          <div class="fb-card">
+            <div class="fb-head">
+              <span class="fb-name">${esc(r.prenom)}</span>
+              <span class="fb-level">${esc(r.niveau)}</span>
+            </div>
+            <div class="fb-college">${esc(r.college)}</div>
+            <div class="fb-line"><b>Impression :</b> ${esc(r.impression || '—')}</div>
+            <div class="fb-line"><b>Club / section :</b> ${esc(r.envieClub || '—')}</div>
+            <div class="fb-line"><b>Venir au lycée :</b> ${esc(r.projet || '—')}</div>
+            ${r.commentaire && r.commentaire.trim()
+              ? `<div class="fb-comment"><span class="fb-comment-label">Ce qui lui a moins plu / suggestions</span>${esc(r.commentaire)}</div>`
+              : ''}
+          </div>`).join('');
     }
 
     function exportCSV() {
@@ -2949,9 +3019,9 @@ window.makeQRSvg=function(text,size,ecl){var qr=new QRCode(-1,ecl==null?0:ecl);q
         alert('Aucune donnée à exporter.');
         return;
       }
-      const headers = ['Passeport', 'Date', 'Prenom', 'College', 'Niveau', 'Section_Preferee', 'Attrait_Formation', 'Equipement', 'Club_Musique', 'Section_Sportive', 'Foyer_MDL', 'Impression', 'Envie_Club', 'Projet_Lycee'];
+      const headers = ['Date', 'Prenom', 'College', 'Niveau', 'Section_Preferee', 'Attrait_Formation', 'Equipement', 'Club_Musique', 'Section_Sportive', 'Foyer_MDL', 'Impression', 'Commentaire_Libre', 'Envie_Club', 'Projet_Lycee'];
       const rows = data.map(r => [
-        r.id, r.date, r.prenom, r.college, r.niveau, r.standMetier, r.attraitFormation, r.equipement, r.musique, r.sport, r.foyer, r.impression, r.envieClub, r.projet
+        r.date, r.prenom, r.college, r.niveau, r.standMetier, r.attraitFormation, r.equipement, r.musique, r.sport, r.foyer, r.impression, r.commentaire, r.envieClub, r.projet
       ].map(v => '"' + String(v || '').replace(/"/g, '""') + '"').join(';'));
 
       const csvContent = '\uFEFF' + [headers.join(';'), ...rows].join('\n');
