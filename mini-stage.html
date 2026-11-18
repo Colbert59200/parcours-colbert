@@ -370,26 +370,18 @@
 
         // Légendes des 20 contrôles électroniques & multimètre (Parcours 4)
         const ELEC_TEST_STEPS = [
-            "1. Multimètre réglé sur Voltmètre : tension 5.00 V DC mesurée",
-            "2. Test de la LED témoin verte : circuit d'état alimenté",
-            "3. Contrôle de continuité effectué avec le multimètre",
-            "4. Pistes en cuivre du circuit imprimé vérifiées sans coupure",
-            "5. Poste de soudure à l'étain préparé pour l'assemblage",
-            "6. Ampèremètre branché : intensité nominale 0.45 A validée",
-            "7. Résistance de limitation de courant contrôlée",
-            "8. Microcontrôleur Arduino / ESP32 alimenté et reconnu",
-            "9. Capteur de température et luminosité IoT calibré",
-            "10. Oscilloscope connecté : signal carré propre visualisé",
-            "11. Ohmmètre utilisé : valeur 220 Ω exacte mesurée",
-            "12. Module de communication IoT sans fil validé",
-            "13. Code des couleurs des résistances vérifié sur la carte",
-            "14. Condensateur de filtrage testé et polarité respectée",
-            "15. Diode de protection anti-inversion contrôlée au multimètre",
-            "16. Montage validé sur plaque d'essai (Breadboard)",
-            "17. Fréquence d'horloge 16 MHz mesurée à l'oscilloscope",
-            "18. Transistor de commutation testé en charge",
-            "19. Carte PCB finale inspectée avant mise sous tension",
-            "20. BANC DE TEST VALIDÉ & SÉCURITÉ ÉLECTRONIQUE 100 % OK !"
+            "1. Testeur RJ45 utilisé pour contrôler le câble",
+            "2. Les 8 voyants du câble RJ45 s'allument dans l'ordre",
+            "3. Défaut de câblage repéré sur un conducteur",
+            "4. Les trois liaisons PC-switch ont été contrôlées",
+            "5. Tension secteur nominale identifiée : 230 V (contrôle réservé à l'adulte qualifié)",
+            "6. Règle de sécurité respectée pour le secteur 230 V",
+            "7. Sortie basse tension de l'alimentation identifiée : 12 V continu",
+            "8. Unité de mesure de tension reconnue : volt",
+            "9. Switch redémarré",
+            "10. Différence entre redémarrage et Reset usine comprise",
+            "11. Configuration du switch protégée : pas de Reset usine non autorisé",
+            "12. Voyants réseau allumés : connexion rétablie !"
         ];
 
         const DEFAULT_TRACKS = {
@@ -403,22 +395,24 @@
                 siteUrl: "https://www.lyceecolbert-tg.org/",
                 escapeGame: {
                     title: "Déverrouille la salle serveur et diplôme",
-                    intro: "Félicitations ! Tu as validé les 4 Parcours (80 questions et diagnostics complets). Ta dernière mission : retrouver le mot de passe de la salle serveur, où se trouve ton attestation de réussite. Pour cela, trouve le mot secret au Jeu du Pendu, convertis-le en chiffres (A=1...Z=26) et calcule la somme totale : c'est le mot de passe !",
+                    intro: "Bravo technicien ! Tu as construit le réseau LAN, répondu aux défis de cybersécurité et réalisé les contrôles du switch. Ta mission finale : tu dois sortir de la salle serveur pour rejoindre ton équipe, mais la porte est verrouillée ! Le code d'accès a été caché sous la forme d'un mot lié à tout ce que tu viens d'apprendre. Retrouve ce mot au Jeu du Pendu, transforme ses lettres en nombres (A=1, B=2... Z=26), puis calcule leur somme pour obtenir le code du cadenas. Une fois la porte ouverte, tu pourras récupérer ton attestation de réussite.",
                     externalUrl: "",
                     secretWord: "RESEAU",
                     padlockCode: "18-5-19-5-1-21",
                     hangmanHint: "Ensemble d'ordinateurs et de serveurs reliés entre eux pour communiquer (6 lettres).",
                     hangmanBank: [
-                        { word: "RESEAU", hint: "Ensemble d'ordinateurs et de serveurs reliés entre eux pour communiquer (6 lettres)." },
-                        { word: "SERVEUR", hint: "Ordinateur puissant qui héberge des sites web ou des fichiers sur le réseau (7 lettres)." },
-                        { word: "CLAVIER", hint: "Périphérique composé de touches permettant de saisir du texte (7 lettres)." },
-                        { word: "ROUTEUR", hint: "Appareil réseau qui dirige les données entre Internet et la salle informatique (7 lettres)." },
-                        { word: "CAPTEUR", hint: "Composant électronique qui mesure la température ou la lumière (7 lettres)." },
-                        { word: "BINAIRE", hint: "Langage informatique composé uniquement de 0 et de 1 (7 lettres)." },
-                        { word: "PAREFEU", hint: "Système de cybersécurité qui bloque les intrusions sur un réseau (7 lettres)." },
-                        { word: "LOGICIEL", hint: "Programme installé sur un ordinateur pour réaliser une tâche (8 lettres)." },
-                        { word: "FIBRE", hint: "Câble optique ultra-rapide qui transporte Internet par la lumière (5 lettres)." },
-                        { word: "CIRCUIT", hint: "Plaque électronique sur laquelle sont soudés les composants (7 lettres)." }
+                        { word: "RESEAU", hint: "Ensemble des PC et équipements reliés pour communiquer (parcours LAN)." },
+                        { word: "SERVEUR", hint: "Ordinateur qui fournit des services et des fichiers aux autres postes." },
+                        { word: "ROUTEUR", hint: "Équipement qui dirige les données entre réseaux." },
+                        { word: "SWITCH", hint: "Boîtier qui relie plusieurs appareils dans le réseau local." },
+                        { word: "CABLE", hint: "Lien physique qui relie un PC au switch." },
+                        { word: "PAREFEU", hint: "Protection qui filtre les communications du réseau." },
+                        { word: "ANTIVIRUS", hint: "Logiciel qui aide à détecter les programmes malveillants." },
+                        { word: "CHIFFREMENT", hint: "Technique qui protège les données en les rendant illisibles sans la clé." },
+                        { word: "TENSION", hint: "Grandeur électrique mesurée en volts (V)." },
+                        { word: "VOLTMETRE", hint: "Appareil utilisé pour mesurer une tension électrique." },
+                        { word: "RESET", hint: "Action qui remet un équipement à ses réglages d'origine." },
+                        { word: "RJ45", hint: "Connecteur utilisé sur les câbles Ethernet." }
                     ],
                     codeHint: "Convertis chaque lettre du mot trouvé au Pendu en sa position dans l'alphabet (A=1, B=2... Z=26, séparés par un tiret), puis calcule la somme totale.",
                     pages: [
@@ -781,26 +775,18 @@
 
         // Parcours 4 : 20 questions de diagnostic du switch
         const ELEC_SWITCH_QUESTIONS = [
-            { id: "e4-1", q: "1. D'après le message d'alerte affiché en haut à droite du schéma, quel est le problème global de l'installation ?", options: ["A) Le Cloud est saturé de fichiers", "B) INCIDENT : 3 PC sans réseau", "C) La borne Wi-Fi clignote en vert"], correctIndex: 1 },
-            { id: "e4-2", q: "2. Sur le schéma, quel équipement central du réseau porte la mention explicite « hors tension » ?", options: ["A) Le routeur", "B) Le PC 1", "C) Le switch"], correctIndex: 2 },
-            { id: "e4-3", q: "3. Pourquoi les liaisons en pointillés reliant le switch aux trois ordinateurs (PC 1, PC 2 et PC 3) sont-elles représentées en rouge sur le schéma ?", options: ["A) Pour indiquer que la connexion est coupée suite à la panne", "B) Pour montrer un téléchargement de données en cours", "C) Pour indiquer qu'ils fonctionnent en réseau sans fil"], correctIndex: 0 },
-            { id: "e4-4", q: "4. Que représentent les petits cercles sombres alignés sur la façade du switch sur le schéma ?", options: ["A) Des boutons tactiles pour éteindre les écrans des postes", "B) Les voyants (LED) d'état et d'alimentation qui sont éteints", "C) Des ports USB pour brancher des clés"], correctIndex: 1 },
-            { id: "e4-5", q: "5. En observant le schéma, quel appareil situé entre le switch et Internet sert de passerelle réseau ?", options: ["A) Le serveur Linux", "B) La borne Wi-Fi", "C) Le routeur"], correctIndex: 2 },
-            { id: "e4-6", q: "6. Sur le schéma, quel type de liaison physique de couleur verte relie le routeur au symbole « Internet » ?", options: ["A) Une liaison par fibre optique", "B) Un câble audio analogique", "C) Un tuyau d'air comprimé"], correctIndex: 0 },
-            { id: "e4-7", q: "7. Pour résoudre la panne du switch « hors tension » visible sur le schéma, quelle règle de sécurité absolue doit-on respecter avant d'ouvrir le boîtier ?", options: ["A) Travailler les mains mouillées pour mieux ressentir le courant", "B) Débrancher l'appareil de la prise secteur", "C) Laisser l'appareil sous tension pour observer les pannes"], correctIndex: 1 },
-            { id: "e4-8", q: "8. Quelle est la valeur de la tension alternative du secteur en France qui alimente normalement l'équipement du schéma ?", options: ["A) 12 V", "B) 5 V", "C) 230 V"], correctIndex: 2 },
-            { id: "e4-9", q: "9. Quel appareil de mesure de base, utilisé en atelier, permet de vérifier si la prise murale du schéma délivre bien du courant ?", options: ["A) Un multimètre", "B) Une règle graduée", "C) Une balance de cuisine"], correctIndex: 0 },
-            { id: "e4-10", q: "10. Sur un équipement comme le switch représenté sur le schéma, quel câble relie la prise murale au boîtier pour lui amener l'électricité ?", options: ["A) Le câble réseau RJ45", "B) Le câble d'alimentation secteur", "C) Le câble de fibre optique"], correctIndex: 1 },
-            { id: "e4-11", q: "11. Sur quel mode principal doit-on régler ce multimètre pour mesurer la tension alternative d'une prise sur l'installation du schéma ?", options: ["A) En mode Ohmmètre (Ω)", "B) En mode Chronomètre", "C) En mode Voltmètre alternatif (V~)"], correctIndex: 2 },
-            { id: "e4-12", q: "12. Comment positionne-t-on les pointes de touche du multimètre pour mesurer cette tension sur le circuit du schéma ?", options: ["A) En dérivation (en parallèle) sur les bornes", "B) En série au milieu du fil coupé", "C) Sans aucun contact physique"], correctIndex: 0 },
-            { id: "e4-13", q: "13. À l'intérieur du boîtier du switch du schéma, quel petit composant de protection sacrificiel fond pour couper le circuit en cas de court-circuit ?", options: ["A) Le processeur", "B) Le fusible", "C) Le ventilateur"], correctIndex: 1 },
-            { id: "e4-14", q: "14. Comment appelle-t-on les petites diodes lumineuses situées en façade du switch qui indiquent son état sur le schéma ?", options: ["A) Les ports USB", "B) Les prises RJ45", "C) Les LED"], correctIndex: 2 },
-            { id: "e4-15", q: "15. Quel composant électronique cylindrique, présent sur la carte interne du switch du schéma, sert à stocker provisoirement de l'énergie et à lisser la tension ?", options: ["A) Le condensateur", "B) L'interrupteur mécanique", "C) Le câble réseau"], correctIndex: 0 },
-            { id: "e4-16", q: "16. À quoi sert principalement une résistance sur le circuit imprimé de l'appareil représenté sur le schéma ?", options: ["A) À fabriquer de l'électricité gratuite pour le réseau", "B) À limiter l'intensité du courant pour protéger les composants fragiles", "C) À diffuser du son dans le boîtier"], correctIndex: 1 },
-            { id: "e4-17", q: "17. Quel semi-conducteur présent sur la carte électronique du switch ne laisse passer le courant que dans un seul sens ?", options: ["A) Le condensateur", "B) Le fil de cuivre", "C) La diode"], correctIndex: 2 },
-            { id: "e4-18", q: "18. Si l'entrée du bloc d'alimentation du switch est bien à 230 V mais que la sortie affiche 0 V au multimètre, quelle est la conclusion technique sur le schéma ?", options: ["A) Le bloc d'alimentation est hors service ou son fusible interne a fondu", "B) Le routeur a perdu sa configuration IP", "C) Le câble de la souris est cassé"], correctIndex: 0 },
-            { id: "e4-19", q: "19. Quel outil de test spécifique permet de vérifier la bonne continuité des 8 fils de cuivre dans les câbles réseau reliant les PC au switch sur le schéma ?", options: ["A) Un thermomètre laser", "B) Un testeur de câble réseau RJ45", "C) Une loupe de lecture"], correctIndex: 1 },
-            { id: "e4-20", q: "20. Une fois le dépannage terminé et le switch rallumé d'après le schéma, quel indice visuel confirme la résolution de l'incident ?", options: ["A) L'ordinateur s'éteint tout seul", "B) Le routeur change de couleur", "C) Les voyants du switch s'allument et l'alerte d'incident disparaît"], correctIndex: 2 }
+            { id: "e4test-1", q: "1. Quel appareil permet de vérifier si un câble réseau RJ45 fonctionne correctement ?", options: ["A) Un testeur de câble RJ45", "B) Un thermomètre", "C) Une règle"], correctIndex: 0 },
+            { id: "e4test-2", q: "2. Le testeur allume les voyants de 1 à 8 dans le bon ordre. Que peut-on conclure ?", options: ["A) Le câble est correctement câblé", "B) Le câble est trop long", "C) Le switch est en panne"], correctIndex: 0 },
+            { id: "e4test-3", q: "3. Le voyant numéro 4 ne s'allume pas sur le testeur RJ45. Que peut-on suspecter ?", options: ["A) Un fil du câble est coupé ou mal raccordé", "B) L'écran du PC est éteint", "C) Le câble est forcément neuf"], correctIndex: 0 },
+            { id: "e4test-4", q: "4. Pourquoi teste-t-on les câbles RJ45 avant de remplacer le switch ?", options: ["A) Pour vérifier que la panne ne vient pas d'un câble", "B) Pour changer la couleur des câbles", "C) Pour augmenter la taille des écrans"], correctIndex: 0 },
+            { id: "e4test-5", q: "5. En France, quelle est la tension nominale du secteur électrique ?", options: ["A) 12 V", "B) 230 V", "C) 5 V"], correctIndex: 1 },
+            { id: "e4test-6", q: "6. La vérification d'une prise 230 V présente un danger. Que doit faire un collégien ?", options: ["A) Faire la mesure seul", "B) Toucher les contacts", "C) Ne pas mesurer lui-même et demander à l'enseignant ou au professionnel responsable"], correctIndex: 2 },
+            { id: "e4test-7", q: "7. Sur l'étiquette du bloc d'alimentation, on lit « Output : 12 V DC ». Que signifie cette indication ?", options: ["A) La sortie fournit 12 volts en courant continu", "B) La sortie fournit 230 volts", "C) La sortie fournit 12 ampères"], correctIndex: 0 },
+            { id: "e4test-8", q: "8. Sur une alimentation pédagogique basse tension isolée, quelle unité utilise-t-on pour exprimer une tension ?", options: ["A) Le volt (V)", "B) Le mètre (m)", "C) Le kilogramme (kg)"], correctIndex: 0 },
+            { id: "e4test-9", q: "9. À quoi sert le bouton de redémarrage (Restart) d'un switch ?", options: ["A) À relancer l'appareil", "B) À effacer automatiquement tous les câbles", "C) À augmenter la tension secteur"], correctIndex: 0 },
+            { id: "e4test-10", q: "10. Que peut provoquer un Reset usine sur un switch ?", options: ["A) Effacer sa configuration et ses réglages", "B) Réparer physiquement un câble coupé", "C) Nettoyer les ports RJ45"], correctIndex: 0 },
+            { id: "e4test-11", q: "11. Pourquoi ne faut-il pas appuyer sur Reset usine sans autorisation ?", options: ["A) On risque d'effacer la configuration réseau", "B) On risque de changer la couleur du boîtier", "C) On risque d'éteindre les écrans des PC"], correctIndex: 0 },
+            { id: "e4test-12", q: "12. Après les tests et le redémarrage, quels signes indiquent que le réseau fonctionne de nouveau ?", options: ["A) Les voyants des ports s'allument et les PC retrouvent le réseau", "B) Tous les câbles sont débranchés", "C) Les voyants restent éteints"], correctIndex: 0 }
         ];
 
         function getDomainQuestions(track, domainType) {
@@ -905,9 +891,9 @@
                 { word: "CHIFFREMENT", scrambled: "FMETCHIRFEN", hint: "Il rend un message illisible pour ceux qui n'ont pas la clé secrète." }
             ],
             elec: [
-                { word: "CIRCUIT",    scrambled: "TUCIRCI",    hint: "Chemin fermé dans lequel circule le courant électrique." },
-                { word: "CAPTEUR",    scrambled: "PUTRCAE",    hint: "Composant qui mesure une information : température, lumière, mouvement..." },
-                { word: "RESISTANCE", scrambled: "TASERNCISE", hint: "Composant qui limite le courant. Elle se mesure en ohms (Ω)." }
+                { word: "CABLE",    scrambled: "BCALE",   hint: "Il relie chaque PC au switch sur le schéma du réseau." },
+                { word: "TENSION",  scrambled: "SNOTIEN", hint: "Grandeur électrique indiquée en volts (V), par exemple 12 V." },
+                { word: "RESET",    scrambled: "ERTSE",   hint: "Bouton du switch qui peut réinitialiser ses réglages." }
             ]
         };
         function normalizeKeyword(v) {
@@ -2067,7 +2053,7 @@
                                 </h3>
                                 <p class="text-[11px] text-slate-400">
                                     ${isSecurityMode
-                                        ? (cyberLevel === 0 ? '⚠️ Réseau LAN opérationnel mais VULNÉRABLE : réponds aux questions pour déployer les boucliers !' : escapeHtml(CYBER_SHIELD_STEPS[Math.min(cyberLevel - 1, 19)]))
+                                        ? (cyberLevel === 0 ? '⚠️ Réseau LAN opérationnel mais à sécuriser : réponds aux questions pour renforcer sa protection !' : escapeHtml(CYBER_SHIELD_STEPS[Math.min(cyberLevel - 1, 19)]))
                                         : (lanLevel === 0 ? 'Réponds à la question 1 pour installer le premier équipement du réseau...' : escapeHtml(LAN_BUILD_STEPS[Math.min(lanLevel - 1, 19)]))
                                     }
                                 </p>
@@ -2102,7 +2088,7 @@
                                     stroke="${cyberLevel >= 20 ? '#10b981' : (isSecurityMode ? '#f43f5e' : '#38bdf8')}"
                                     stroke-width="2" stroke-dasharray="8 5"/>
                                 <text x="830" y="34" text-anchor="end" fill="${cyberLevel >= 20 ? '#34d399' : '#38bdf8'}" font-size="10" font-weight="800">
-                                    ${cyberLevel >= 20 ? '🛡️ RÉSEAU LAN SÉCURISÉ (192.168.1.0/24)' : 'RÉSEAU LOCAL ENTREPRISE (LAN 192.168.1.0/24)'}
+                                    ${cyberLevel >= 20 ? 'RÉSEAU LAN SÉCURISÉ (192.168.1.0/24)' : 'RÉSEAU LOCAL ENTREPRISE (LAN 192.168.1.0/24)'}
                                 </text>
                             ` : ''}
 
@@ -2122,9 +2108,9 @@
                             <!-- Câbles Ethernet RJ45 du Switch vers les équipements (Étape 5) -->
                             ${lanLevel >= 5 ? `
                                 <!-- Vers PC1 Direction -->
-                                <path d="M 525 140 L 635 65" fill="none" stroke="#38bdf8" stroke-width="3"/>
+                                <path d="M 525 140 L 635 65" fill="none" stroke="${cyberLevel >= 4 ? '#f8fafc' : '#38bdf8'}" stroke-width="${cyberLevel >= 4 ? 4 : 3}"/>
                                 <!-- Vers PC2 Bureau -->
-                                <path d="M 525 160 L 635 160" fill="none" stroke="#38bdf8" stroke-width="3"/>
+                                <path d="M 525 160 L 635 160" fill="none" stroke="${cyberLevel >= 5 ? '#f8fafc' : '#38bdf8'}" stroke-width="${cyberLevel >= 5 ? 4 : 3}"/>
                                 ${lanLevel >= 10 ? `
                                     <path d="M 525 140 L 635 65" fill="none" stroke="#a5f3fc" stroke-width="1.5" class="lan-flow"/>
                                     <path d="M 525 160 L 635 160" fill="none" stroke="#a5f3fc" stroke-width="1.5" class="lan-flow"/>
@@ -2133,18 +2119,18 @@
 
                             <!-- Liaison Switch -> Station Graphique PC3 (Étape 16) -->
                             ${lanLevel >= 16 ? `
-                                <path d="M 525 180 L 635 255" fill="none" stroke="#38bdf8" stroke-width="3"/>
+                                <path d="M 525 180 L 635 255" fill="none" stroke="${cyberLevel >= 14 ? '#f8fafc' : '#38bdf8'}" stroke-width="${cyberLevel >= 14 ? 4 : 3}"/>
                                 <path d="M 525 180 L 635 255" fill="none" stroke="#a5f3fc" stroke-width="1.5" class="lan-flow"/>
                             ` : ''}
 
                             <!-- Liaison Switch -> Point d'accès Wi-Fi (Étape 4) -->
                             ${lanLevel >= 4 ? `
-                                <line x1="477" y1="130" x2="477" y2="74" stroke="#a855f7" stroke-width="3"/>
+                                <line x1="477" y1="130" x2="477" y2="74" stroke="${cyberLevel >= 15 ? '#f8fafc' : '#a855f7'}" stroke-width="${cyberLevel >= 15 ? 4 : 3}"/>
                             ` : ''}
 
                             <!-- Liaison Switch -> Serveur Entreprise & NAS (Étape 7 & 14) -->
                             ${lanLevel >= 7 ? `
-                                <line x1="477" y1="190" x2="477" y2="236" stroke="#10b981" stroke-width="3"/>
+                                <line x1="477" y1="190" x2="477" y2="236" stroke="${cyberLevel >= 9 ? '#f8fafc' : '#10b981'}" stroke-width="${cyberLevel >= 9 ? 4 : 3}"/>
                                 ${lanLevel >= 17 ? `<line x1="477" y1="190" x2="477" y2="236" stroke="#6ee7b7" stroke-width="1.5" class="lan-flow"/>` : ''}
                             ` : ''}
 
@@ -2177,21 +2163,7 @@
                                 </g>
                             ` : ''}
 
-                            <!-- BOUCLIER PARE-FEU / FIREWALL ENTRE ROUTEUR ET SWITCH (Parcours 3 : étape 6) -->
-                            ${cyberLevel >= 6 ? `
-                                <g transform="translate(302, 122)">
-                                    <rect x="0" y="0" width="78" height="76" rx="12" fill="#450a0a" stroke="#f43f5e" stroke-width="2.5"/>
-                                    <text x="39" y="28" text-anchor="middle" font-size="20">🧱</text>
-                                    <text x="39" y="47" text-anchor="middle" fill="#fda4af" font-size="9.5" font-weight="900">PARE-FEU</text>
-                                    <text x="39" y="61" text-anchor="middle" fill="#fecdd3" font-size="8" font-weight="700">FIREWALL ACTIF</text>
-                                </g>
-                            ` : (isSecurityMode ? `
-                                <g transform="translate(304, 134)">
-                                    <rect x="0" y="0" width="74" height="52" rx="10" fill="#450a0a" fill-opacity="0.5" stroke="#f43f5e" stroke-width="1.5" stroke-dasharray="4 3"/>
-                                    <text x="37" y="23" text-anchor="middle" fill="#fda4af" font-size="9" font-weight="800">⚠️ SANS</text>
-                                    <text x="37" y="37" text-anchor="middle" fill="#fda4af" font-size="9" font-weight="800">PARE-FEU</text>
-                                </g>
-                            ` : '')}
+                            <!-- Les équipements restent sobres en mode Cyber : la progression est indiquée par les liaisons et contours, sans pictogrammes ajoutés. -->
 
                             <!-- NOEUD 2 : SWITCH CENTRAL (Apparaît à l'étape 3) -->
                             ${lanLevel >= 3 ? `
@@ -2209,7 +2181,6 @@
                                     <rect x="0" y="0" width="104" height="52" rx="12" fill="#2e1065" stroke="#c084fc" stroke-width="2"/>
                                     <text x="52" y="23" text-anchor="middle" font-size="15">📶</text>
                                     <text x="52" y="39" text-anchor="middle" fill="#f3e8ff" font-size="9.5" font-weight="800">BORNE WI-FI</text>
-                                    ${cyberLevel >= 15 ? `<circle cx="96" cy="8" r="9" fill="#10b981"/><text x="96" y="12" text-anchor="middle" fill="#fff" font-size="9">🔒</text>` : ''}
                                 </g>
                             ` : ''}
 
@@ -2224,7 +2195,6 @@
                                     <text x="62" y="54" text-anchor="middle" fill="#6ee7b7" font-size="8" font-family="monospace">
                                         ${lanLevel >= 8 ? '192.168.1.250' : 'Baie stockage'}
                                     </text>
-                                    ${cyberLevel >= 9 ? `<circle cx="116" cy="8" r="10" fill="#10b981"/><text x="116" y="12" text-anchor="middle" fill="#fff" font-size="10">🛡️</text>` : ''}
                                 </g>
                             ` : ''}
 
@@ -2238,7 +2208,7 @@
                                         ${lanLevel >= 8 ? 'IP: 192.168.1.10' : 'CPU + Carte mère'}
                                     </text>
                                     <text x="50" y="54" fill="${cyberLevel >= 1 ? '#34d399' : '#64748b'}" font-size="8.5" font-weight="700">
-                                        ${cyberLevel >= 11 ? '🔐 2FA + Antivirus + HTTPS' : (cyberLevel >= 1 ? '🔑 Mot de passe fort' : (lanLevel >= 6 ? 'OS : Windows 11 Pro' : 'Matériel prêt'))}
+                                        ${cyberLevel >= 11 ? '2FA + Antivirus + HTTPS' : (cyberLevel >= 1 ? 'Mot de passe renforcé' : (lanLevel >= 6 ? 'OS : Windows 11 Pro' : 'Matériel prêt'))}
                                     </text>
                                 </g>
                             ` : ''}
@@ -2253,7 +2223,7 @@
                                         ${lanLevel >= 8 ? 'IP: 192.168.1.11' : 'RAM + Écran'}
                                     </text>
                                     <text x="50" y="54" fill="${cyberLevel >= 5 ? '#34d399' : '#64748b'}" font-size="8.5" font-weight="700">
-                                        ${cyberLevel >= 13 ? '🚫 Ports USB bloqués + Anti-Phishing' : (cyberLevel >= 5 ? '📧 Filtre Anti-Phishing' : (lanLevel >= 17 ? '✓ PING 1ms OK' : 'Poste bureau'))}
+                                        ${cyberLevel >= 13 ? 'Ports USB + Anti-hameçonnage' : (cyberLevel >= 5 ? 'Filtre anti-hameçonnage' : (lanLevel >= 17 ? 'PING 1ms OK' : 'Poste bureau'))}
                                     </text>
                                 </g>
                             ` : ''}
@@ -2266,7 +2236,7 @@
                                     <text x="50" y="25" fill="#ffffff" font-size="10.5" font-weight="800">PC 3 — Station CAO</text>
                                     <text x="50" y="40" fill="#94a3b8" font-size="8.5" font-family="monospace">IP: 192.168.1.12 (GPU)</text>
                                     <text x="50" y="54" fill="${cyberLevel >= 14 ? '#34d399' : '#64748b'}" font-size="8.5" font-weight="700">
-                                        ${cyberLevel >= 19 ? '🔒 RGPD & Chiffrement AES' : (cyberLevel >= 14 ? '🔐 Flux chiffrés' : '✓ Connecté au LAN')}
+                                        ${cyberLevel >= 19 ? 'RGPD et chiffrement' : (cyberLevel >= 14 ? 'Flux chiffrés' : 'Connecté au LAN')}
                                     </text>
                                 </g>
                             ` : ''}
@@ -2281,7 +2251,7 @@
                             ${(isSecurityMode && cyberLevel >= 20) ? `
                                 <g transform="translate(285, 22)">
                                     <rect x="0" y="0" width="132" height="32" rx="8" fill="#10b981"/>
-                                    <text x="66" y="20" text-anchor="middle" fill="#022c22" font-size="10" font-weight="900">🛡️ LAN 100% BLINDÉ</text>
+                                    <text x="66" y="20" text-anchor="middle" fill="#022c22" font-size="10" font-weight="900">LAN 100% SÉCURISÉ</text>
                                 </g>
                             ` : ''}
                         </svg>
@@ -2314,7 +2284,7 @@
                                     Banc de Test Électronique & Multimètre Numérique
                                 </h3>
                                 <p class="text-[11px] text-slate-400">
-                                    ${elecLevel === 0 ? 'Réponds à la question 1 pour démarrer les mesures au multimètre...' : escapeHtml(ELEC_TEST_STEPS[Math.min(elecLevel - 1, 19)])}
+                                    ${elecLevel === 0 ? 'Réponds à la question 1 pour démarrer les mesures au multimètre...' : escapeHtml(ELEC_TEST_STEPS[Math.min(elecLevel - 1, ELEC_TEST_STEPS.length - 1)])}
                                 </p>
                             </div>
                         </div>
@@ -2948,47 +2918,12 @@
                         </p>
                     </section>
 
-                    <!-- Schéma visuel évolutif du Réseau LAN -->
-                    ${renderLanVisualDiagram(prog.p2Done, 0)}
+                    <!-- Le schéma et la question restent visibles ensemble, comme dans les parcours 3 et 4. -->
+                    <div class="grid grid-cols-1 xl:grid-cols-[minmax(0,1.25fr)_minmax(320px,0.9fr)] gap-4 items-start">
+                        <div class="min-w-0">${renderLanVisualDiagram(prog.p2Done, 0)}</div>
+                        <div class="min-w-0">${renderSingleDomainQuestion('lan', questions, prog.p2Done, prog.p2Total, 'blue', '💻 Question Informatique & Réseaux')}</div>
+                    </div>
 
-                    <!-- Liste des 20 questions Informatique & Réseaux -->
-                    <div class="rounded-3xl bg-slate-900/95 border border-slate-800 p-5 sm:p-6 shadow-xl space-y-4">
-                        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-                            <h2 class="font-extrabold text-base sm:text-lg text-white">💻 Questions Informatique & Réseaux (${prog.p2Done}/${prog.p2Total})</h2>
-                            <span class="text-xs text-blue-300 font-semibold">Observe le schéma évoluer à chaque bonne réponse</span>
-                        </div>
-
-                        <div class="space-y-3.5">
-                            ${questions.map((q) => {
-                                const isSolved = !!state.student.escapeSolved[q.id];
-                                const corrIdx = typeof q.correctIndex === 'number' ? q.correctIndex : 0;
-                                return `
-                                <div class="p-4 rounded-2xl bg-slate-950/90 border ${isSolved ? 'border-blue-500/50' : 'border-slate-800'} space-y-3 transition">
-                                    <div class="flex items-start justify-between gap-2">
-                                        <p class="text-sm font-bold ${isSolved ? 'text-blue-300' : 'text-white'}">${escapeHtml(q.q)}</p>
-                                        <span class="text-xs font-bold shrink-0 ${isSolved ? 'text-emerald-400' : 'text-slate-500'}">
-                                            ${isSolved ? '✓ Installé' : '🔒'}
-                                        </span>
-                                    </div>
-
-                                    ${isSolved ? `
-                                        <div class="px-3.5 py-2.5 rounded-xl bg-blue-950/50 border border-blue-500/40 text-blue-200 text-xs font-semibold">
-                                            ✓ ${escapeHtml(q.options[corrIdx])}
-                                        </div>
-                                    ` : `
-                                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                                            ${q.options.map((optText, optIdx) => `
-                                                <button id="eg-qopt-${q.id}-${optIdx}" type="button" onclick="app.selectDomainQuestionOption('lan', '${q.id}', ${optIdx})"
-                                                    class="w-full text-left px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 hover:border-blue-400 hover:bg-slate-800 text-slate-200 text-xs font-medium transition">
-                                                    ${escapeHtml(optText)}
-                                                </button>
-                                            `).join('')}
-                                        </div>
-                                    `}
-                                </div>
-                                `;
-                            }).join('')}
-                        </div>
 
                         ${renderKeywordBlock('lan', 'blue')}
 
@@ -3011,6 +2946,68 @@
         // =========================================================================
         // PARCOURS 3 : CYBERSÉCURITÉ — SÉCURISATION VISUELLE DU RÉSEAU LAN CONSTRUIT
         // =========================================================================
+        // Affiche une seule question à la fois. Après une bonne réponse,
+        // la question suivante apparaît automatiquement ; le schéma reste visible.
+        function renderSingleDomainQuestion(domain, questions, done, total, accent, heading) {
+            const currentIndex = questions.findIndex(q => !state.student.escapeSolved[q.id]);
+            const current = currentIndex >= 0 ? questions[currentIndex] : null;
+            const elecVisuals = {
+                'e4test-1': `<svg viewBox="0 0 520 118" class="w-full h-auto" role="img" aria-label="Testeur de câble RJ45"><rect x="12" y="18" width="175" height="82" rx="12" fill="#1e293b" stroke="#38bdf8" stroke-width="3"/><rect x="333" y="18" width="175" height="82" rx="12" fill="#1e293b" stroke="#38bdf8" stroke-width="3"/><text x="99" y="39" fill="white" text-anchor="middle" font-size="13" font-weight="bold">TESTEUR</text><text x="420" y="39" fill="white" text-anchor="middle" font-size="13" font-weight="bold">RÉCEPTEUR</text>${Array.from({length:8},(_,i)=>`<circle cx="${45+i*15}" cy="66" r="5" fill="#22c55e"/><text x="${45+i*15}" y="88" fill="#cbd5e1" text-anchor="middle" font-size="8">${i+1}</text>`).join('')}<path d="M187 58 C240 5 280 110 333 58" stroke="#f8fafc" stroke-width="5" fill="none"/><text x="260" y="112" fill="#cbd5e1" text-anchor="middle" font-size="10">Câble RJ45</text></svg>`,
+                'e4test-2': `<svg viewBox="0 0 520 118" class="w-full h-auto" role="img" aria-label="Testeur RJ45 avec huit voyants dans l'ordre"><rect x="30" y="12" width="460" height="94" rx="12" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/><text x="260" y="34" fill="white" text-anchor="middle" font-size="14" font-weight="bold">TEST RJ45 — ORDRE DES FILS</text>${Array.from({length:8},(_,i)=>`<circle cx="${95+i*47}" cy="66" r="13" fill="#22c55e"/><text x="${95+i*47}" y="71" fill="#052e16" text-anchor="middle" font-size="12" font-weight="bold">${i+1}</text>`).join('')}</svg>`,
+                'e4test-3': `<svg viewBox="0 0 520 118" class="w-full h-auto" role="img" aria-label="Test RJ45 avec un voyant numéro quatre éteint"><rect x="30" y="12" width="460" height="94" rx="12" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/><text x="260" y="34" fill="white" text-anchor="middle" font-size="14" font-weight="bold">TEST RJ45 — DÉFAUT DÉTECTÉ</text>${Array.from({length:8},(_,i)=>`<circle cx="${95+i*47}" cy="66" r="13" fill="${i===3?'#475569':'#22c55e'}"/><text x="${95+i*47}" y="71" fill="white" text-anchor="middle" font-size="12" font-weight="bold">${i+1}</text>`).join('')}</svg>`,
+                'e4test-4': `<svg viewBox="0 0 520 118" class="w-full h-auto" role="img" aria-label="Câble RJ45 reliant un ordinateur au switch"><rect x="15" y="25" width="105" height="65" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/><text x="67" y="63" fill="white" text-anchor="middle" font-size="14">PC</text><path d="M120 57 H390" stroke="#f8fafc" stroke-width="6"/><rect x="390" y="25" width="115" height="65" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="2"/><text x="447" y="63" fill="white" text-anchor="middle" font-size="14">SWITCH</text><text x="255" y="42" fill="#cbd5e1" text-anchor="middle" font-size="11">Câble RJ45</text></svg>`,
+                'e4test-5': `<svg viewBox="0 0 520 118" class="w-full h-auto" role="img" aria-label="Prise secteur et indication 230 volts"><rect x="18" y="8" width="135" height="100" rx="12" fill="#e2e8f0"/><circle cx="62" cy="48" r="8" fill="#334155"/><circle cx="108" cy="48" r="8" fill="#334155"/><circle cx="85" cy="78" r="6" fill="#334155"/><text x="245" y="57" fill="#fbbf24" font-size="36" font-weight="bold">230 V~</text><text x="245" y="82" fill="#cbd5e1" font-size="13">Tension nominale du secteur</text></svg>`,
+                'e4test-6': `<svg viewBox="0 0 520 118" class="w-full h-auto" role="img" aria-label="Attention danger électrique secteur"><path d="M70 100 L125 10 L180 100 Z" fill="#fbbf24" stroke="#fef3c7" stroke-width="3"/><text x="125" y="78" fill="#7c2d12" text-anchor="middle" font-size="48" font-weight="bold">!</text><text x="220" y="48" fill="#fbbf24" font-size="22" font-weight="bold">230 V : DANGER</text><text x="220" y="75" fill="#e2e8f0" font-size="13">Mesure réservée à un adulte qualifié</text></svg>`,
+                'e4test-7': `<svg viewBox="0 0 520 118" class="w-full h-auto" role="img" aria-label="Bloc alimentation 12 volts continu"><rect x="22" y="20" width="180" height="76" rx="12" fill="#1e293b" stroke="#10b981" stroke-width="3"/><text x="112" y="49" fill="white" text-anchor="middle" font-size="14" font-weight="bold">ALIMENTATION</text><text x="112" y="75" fill="#6ee7b7" text-anchor="middle" font-size="18" font-weight="bold">12 V DC</text><path d="M202 58 H300" stroke="#f8fafc" stroke-width="4"/><rect x="300" y="20" width="190" height="76" rx="12" fill="#0f172a" stroke="#64748b" stroke-width="2"/><text x="395" y="64" fill="white" text-anchor="middle" font-size="16">SWITCH</text></svg>`,
+                'e4test-8': `<svg viewBox="0 0 520 118" class="w-full h-auto" role="img" aria-label="Multimètre en mode voltmètre basse tension"><rect x="175" y="5" width="170" height="108" rx="14" fill="#1e293b" stroke="#f59e0b" stroke-width="3"/><rect x="198" y="20" width="124" height="42" rx="5" fill="#d1fae5"/><text x="260" y="49" fill="#064e3b" text-anchor="middle" font-size="23" font-weight="bold">12.0 V</text><text x="260" y="82" fill="#f8fafc" text-anchor="middle" font-size="12">VOLTMÈTRE</text></svg>`,
+                'e4test-9': `<svg viewBox="0 0 520 118" class="w-full h-auto" role="img" aria-label="Bouton de redémarrage d'un switch"><rect x="55" y="16" width="410" height="86" rx="12" fill="#1e293b" stroke="#64748b" stroke-width="3"/><text x="260" y="42" fill="white" text-anchor="middle" font-size="16" font-weight="bold">SWITCH RÉSEAU</text><circle cx="260" cy="72" r="13" fill="#10b981" stroke="#d1fae5" stroke-width="3"/><text x="290" y="77" fill="#6ee7b7" font-size="13">RESTART</text></svg>`,
+                'e4test-11': `<svg viewBox="0 0 520 118" class="w-full h-auto" role="img" aria-label="Attention au bouton reset usine"><rect x="45" y="16" width="430" height="86" rx="12" fill="#1e293b" stroke="#64748b" stroke-width="3"/><circle cx="260" cy="59" r="18" fill="#991b1b" stroke="#fecaca" stroke-width="3"/><text x="260" y="96" fill="#fecaca" text-anchor="middle" font-size="12" font-weight="bold">RESET — NE PAS APPUYER SANS AUTORISATION</text></svg>`,
+                'e4test-10': `<svg viewBox="0 0 520 118" class="w-full h-auto" role="img" aria-label="Différence entre redémarrage et réinitialisation usine"><rect x="20" y="15" width="220" height="88" rx="10" fill="#064e3b" stroke="#34d399" stroke-width="2"/><text x="130" y="48" fill="white" text-anchor="middle" font-size="15" font-weight="bold">REDÉMARRER</text><text x="130" y="73" fill="#a7f3d0" text-anchor="middle" font-size="12">Relancer l'appareil</text><rect x="280" y="15" width="220" height="88" rx="10" fill="#7f1d1d" stroke="#f87171" stroke-width="2"/><text x="390" y="48" fill="white" text-anchor="middle" font-size="15" font-weight="bold">RESET USINE</text><text x="390" y="73" fill="#fecaca" text-anchor="middle" font-size="12">Efface les réglages</text></svg>`
+            };
+            const accentBorder = accent === 'rose' ? 'border-rose-500/50' : (accent === 'blue' ? 'border-blue-500/50' : 'border-emerald-500/50');
+            const accentText = accent === 'rose' ? 'text-rose-300' : (accent === 'blue' ? 'text-blue-300' : 'text-emerald-300');
+            const accentHover = accent === 'rose' ? 'hover:border-rose-400' : (accent === 'blue' ? 'hover:border-blue-400' : 'hover:border-emerald-400');
+            const accentFill = accent === 'rose' ? 'bg-rose-500' : (accent === 'blue' ? 'bg-blue-500' : 'bg-emerald-500');
+
+            return `
+                <div class="rounded-2xl bg-slate-900/95 border border-slate-700 p-3 sm:p-4 shadow-xl space-y-3">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-700 pb-3">
+                        <h2 class="font-extrabold text-base sm:text-lg text-white">${heading}</h2>
+                        <span class="text-xs font-mono-code font-bold ${accentText}">${done} / ${total} validées</span>
+                    </div>
+                    <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+                        <div class="h-full rounded-full ${accentFill} transition-all" style="width:${Math.round((done / Math.max(total, 1)) * 100)}%"></div>
+                    </div>
+                    ${current ? `
+                        <div class="rounded-2xl bg-slate-950 border-2 ${accentBorder} p-3 sm:p-4 space-y-3">
+                            <div class="flex items-center justify-between gap-3">
+                                <span class="text-xs font-black uppercase tracking-wider ${accentText}">Question ${currentIndex + 1} sur ${total}</span>
+                                <span class="text-xs text-slate-400">${total - done} restante(s)</span>
+                            </div>
+                            ${domain === 'elec' && elecVisuals[current.id] ? `<div class="rounded-xl bg-slate-900 border border-slate-700 p-3">${elecVisuals[current.id]}</div>` : ''}
+                            <p class="text-sm sm:text-base font-bold leading-snug text-white">${escapeHtml(current.q)}</p>
+                            <div class="grid grid-cols-1 gap-3">
+                                ${current.options.map((optText, optIdx) => `
+                                    <button id="eg-qopt-${current.id}-${optIdx}" type="button"
+                                        onclick="app.selectDomainQuestionOption('${domain}', '${current.id}', ${optIdx})"
+                                        class="w-full text-left px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 ${accentHover} hover:bg-slate-800 text-slate-100 text-xs sm:text-sm font-semibold transition">
+                                        ${escapeHtml(optText)}
+                                    </button>
+                                `).join('')}
+                            </div>
+                            <p class="text-xs text-slate-400">Choisis une réponse. Si elle est correcte, la question suivante s'affichera automatiquement.</p>
+                        </div>
+                    ` : `
+                        <div class="p-5 rounded-2xl ${accent === 'blue' ? 'bg-blue-950/50 border-blue-500/50' : 'bg-emerald-950/50 border-emerald-500/50'} border text-center space-y-2">
+                            <div class="text-3xl">✓</div>
+                            <h3 class="text-lg font-black ${accent === 'blue' ? 'text-blue-200' : 'text-emerald-200'}">Toutes les questions sont validées !</h3>
+                            <p class="text-sm ${accent === 'blue' ? 'text-blue-100' : 'text-emerald-100'}">Tu peux maintenant remettre les 3 mots-clés dans l'ordre.</p>
+                        </div>
+                    `}
+                </div>
+            `;
+        }
+
         function renderParcours3Cyber() {
             const track = state.tracks[state.student.trackId];
             const questions = getDomainQuestions(track, 'cyber');
@@ -3029,52 +3026,17 @@
                         </div>
                         <h1 class="text-2xl sm:text-3xl font-extrabold text-white">Sécurisation du Réseau LAN de l’Entreprise</h1>
                         <div class="p-4 rounded-2xl bg-rose-950/50 border border-rose-500/40 text-xs sm:text-sm text-rose-100 leading-relaxed">
-                            <strong>🛡️ Mission Cybersécurité :</strong> Tu as construit le réseau LAN de l'entreprise au Parcours 2, mais il est encore exposé aux attaques ! Dans cette étape, tu vas <strong>sécuriser ce même réseau</strong> grâce à <strong>20 questions simples sur la cybersécurité</strong>. À chaque bonne réponse, un bouclier (Pare-feu, Antivirus, HTTPS, 2FA, Chiffrement...) s'active visuellement sur ton réseau !
+                            <strong>🛡️ Mission Cybersécurité :</strong> Tu as construit le réseau LAN de l'entreprise au Parcours 2, mais il est encore exposé aux attaques ! Dans cette étape, tu vas <strong>sécuriser ce même réseau</strong> grâce à <strong>20 questions simples sur la cybersécurité</strong>. À chaque bonne réponse, une protection est prise en compte et les éléments concernés du schéma deviennent plus lumineux !
                         </div>
                     </section>
 
-                    <!-- Schéma du réseau LAN du Parcours 2 + Couches de sécurité progressives -->
-                    ${renderLanVisualDiagram(20, prog.p3Done)}
+                    <!-- Le schéma et la question restent visibles ensemble. -->
+                    <div class="grid grid-cols-1 xl:grid-cols-[minmax(0,1.25fr)_minmax(320px,0.9fr)] gap-4 items-start">
+                        <div class="min-w-0">${renderLanVisualDiagram(20, prog.p3Done)}</div>
+                        <div class="min-w-0">${renderSingleDomainQuestion('cyber', questions, prog.p3Done, prog.p3Total, 'rose', '🛡️ Question Cybersécurité')}</div>
+                    </div>
 
-                    <!-- Liste des 20 questions Cybersécurité -->
-                    <div class="rounded-3xl bg-slate-900/95 border border-slate-800 p-5 sm:p-6 shadow-xl space-y-4">
-                        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-                            <h2 class="font-extrabold text-base sm:text-lg text-white">🛡️ Questions Cybersécurité (${prog.p3Done}/${prog.p3Total})</h2>
-                            <span class="text-xs text-rose-300 font-semibold">Chaque bonne réponse blinde un maillon du réseau</span>
-                        </div>
-
-                        <div class="space-y-3.5">
-                            ${questions.map((q) => {
-                                const isSolved = !!state.student.escapeSolved[q.id];
-                                const corrIdx = typeof q.correctIndex === 'number' ? q.correctIndex : 0;
-                                return `
-                                <div class="p-4 rounded-2xl bg-slate-950/90 border ${isSolved ? 'border-emerald-500/50' : 'border-slate-800'} space-y-3 transition">
-                                    <div class="flex items-start justify-between gap-2">
-                                        <p class="text-sm font-bold ${isSolved ? 'text-emerald-300' : 'text-white'}">${escapeHtml(q.q)}</p>
-                                        <span class="text-xs font-bold shrink-0 ${isSolved ? 'text-emerald-400' : 'text-slate-500'}">
-                                            ${isSolved ? '🛡️ Protégé' : '⚠️ Vulnérable'}
-                                        </span>
-                                    </div>
-
-                                    ${isSolved ? `
-                                        <div class="px-3.5 py-2.5 rounded-xl bg-emerald-950/50 border border-emerald-500/40 text-emerald-200 text-xs font-semibold">
-                                            ✓ ${escapeHtml(q.options[corrIdx])}
-                                        </div>
-                                    ` : `
-                                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                                            ${q.options.map((optText, optIdx) => `
-                                                <button id="eg-qopt-${q.id}-${optIdx}" type="button" onclick="app.selectDomainQuestionOption('cyber', '${q.id}', ${optIdx})"
-                                                    class="w-full text-left px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 hover:border-rose-400 hover:bg-slate-800 text-slate-200 text-xs font-medium transition">
-                                                    ${escapeHtml(optText)}
-                                                </button>
-                                            `).join('')}
-                                        </div>
-                                    `}
-                                </div>
-                                `;
-                            }).join('')}
-                        </div>
-
+                    <div class="rounded-3xl bg-slate-900/95 border border-slate-800 p-4 sm:p-5 shadow-xl space-y-4">
                         ${renderKeywordBlock('cyber', 'rose')}
 
 
@@ -3097,54 +3059,36 @@
         // PARCOURS 4 : ÉLECTRONIQUE — SÉCURITÉ DU CÂBLAGE & TESTS MULTIMÈTRE
         // =========================================================================
         function renderP4Network(level) {
-            const repaired = level >= 20;
-            const linkColor = repaired ? '#10b981' : '#ef4444';
-            const dash = repaired ? '' : 'stroke-dasharray="7 6"';
-            const ledsOn = repaired ? 4 : 0;
-            const led = (x, on) => `<circle cx="${x}" cy="0" r="4.5" fill="${on ? '#22c55e' : '#334155'}" ${on ? 'class="animate-pulse"' : ''}/>`;
-            const pc = (y, n) => `
+            const cableStates = [level >= 2, level >= 3, level >= 4];
+            const cable = (x1, y1, x2, y2, active) => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${active ? '#f8fafc' : '#64748b'}" stroke-width="${active ? 5 : 3}" stroke-linecap="round" ${active ? '' : 'stroke-dasharray="7 6"'} opacity="${active ? 1 : .55}"/>`;
+            const pc = (y, n, active) => `
                 <g transform="translate(560 ${y})">
-                    <rect x="0" y="0" width="70" height="42" rx="6" fill="#0f172a" stroke="${repaired ? '#10b981' : '#ef4444'}" stroke-width="2"/>
-                    <text x="35" y="26" text-anchor="middle" fill="${repaired ? '#6ee7b7' : '#fca5a5'}" font-size="11" font-weight="700">PC ${n}</text>
+                    <rect x="0" y="0" width="70" height="42" rx="6" fill="#0f172a" stroke="${active ? '#f8fafc' : '#64748b'}" stroke-width="2"/>
+                    <text x="35" y="26" text-anchor="middle" fill="#f8fafc" font-size="11" font-weight="700">PC ${n}</text>
                 </g>`;
+            const switchOn = level >= 12;
             return `
-                <div class="rounded-2xl bg-slate-950 border ${repaired ? 'border-emerald-400 shadow-lg shadow-emerald-500/20' : 'border-red-500/60'} p-4 sm:p-5 space-y-3">
+                <div class="rounded-2xl bg-slate-950 border ${switchOn ? 'border-emerald-400 shadow-lg shadow-emerald-500/20' : 'border-slate-700'} p-4 sm:p-5 space-y-3">
                     <div class="flex flex-wrap items-center justify-between gap-2">
-                        <h3 class="font-extrabold text-xs sm:text-sm text-white uppercase tracking-wider">🌐 Réseau LAN de l'entreprise — état en direct</h3>
-                        <span class="px-2.5 py-1 rounded-lg ${repaired ? 'bg-emerald-500 text-slate-950' : 'bg-red-950 border border-red-500/50 text-red-300'} font-mono-code font-bold text-xs">
-                            ${repaired ? '✓ Réseau rétabli' : '⚠ INCIDENT : 3 PC sans réseau'}
-                        </span>
+                        <h3 class="font-extrabold text-xs sm:text-sm text-white uppercase tracking-wider">🌐 Réseau LAN — câbles testés progressivement</h3>
+                        <span class="px-2.5 py-1 rounded-lg ${switchOn ? 'bg-emerald-500 text-slate-950' : 'bg-slate-800 border border-slate-600 text-slate-200'} font-mono-code font-bold text-xs">${switchOn ? '✓ Connexion rétablie' : 'Tests en cours'}</span>
                     </div>
                     <div class="overflow-x-auto">
-                        <svg viewBox="0 0 700 200" class="w-full min-w-[520px] h-auto" xmlns="http://www.w3.org/2000/svg">
+                        <svg viewBox="0 0 700 200" class="w-full min-w-[520px] h-auto" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schéma du switch relié aux trois ordinateurs par des câbles RJ45 qui apparaissent au fur et à mesure des bonnes réponses">
                             <line x1="105" y1="100" x2="175" y2="100" stroke="#10b981" stroke-width="4"/>
-                            <line x1="255" y1="100" x2="330" y2="100" stroke="${linkColor}" stroke-width="4" ${dash}/>
-                            <line x1="470" y1="100" x2="560" y2="51" stroke="${linkColor}" stroke-width="4" ${dash}/>
-                            <line x1="470" y1="100" x2="560" y2="101" stroke="${linkColor}" stroke-width="4" ${dash}/>
-                            <line x1="470" y1="100" x2="560" y2="151" stroke="${linkColor}" stroke-width="4" ${dash}/>
-                            <g transform="translate(20 78)">
-                                <rect x="0" y="0" width="85" height="44" rx="22" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
-                                <text x="42" y="27" text-anchor="middle" fill="#7dd3fc" font-size="12" font-weight="700">☁ Internet</text>
-                            </g>
+                            ${cable(255,100,330,100,level >= 1)}
+                            ${cable(470,100,560,51,cableStates[0])}
+                            ${cable(470,100,560,101,cableStates[1])}
+                            ${cable(470,100,560,151,cableStates[2])}
+                            <g transform="translate(20 78)"><rect x="0" y="0" width="85" height="44" rx="22" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/><text x="42" y="27" text-anchor="middle" fill="#7dd3fc" font-size="12" font-weight="700">☁ Internet</text></g>
                             <text x="140" y="92" text-anchor="middle" fill="#34d399" font-size="9" font-weight="700">fibre optique</text>
-                            <g transform="translate(175 78)">
-                                <rect x="0" y="0" width="80" height="44" rx="8" fill="#0f172a" stroke="#f59e0b" stroke-width="2"/>
-                                <text x="40" y="27" text-anchor="middle" fill="#fcd34d" font-size="12" font-weight="700">Routeur</text>
-                            </g>
-                            <g transform="translate(330 70)">
-                                <rect x="0" y="0" width="140" height="60" rx="8" fill="${repaired ? '#064e3b' : '#1e293b'}" stroke="${repaired ? '#10b981' : '#ef4444'}" stroke-width="3"/>
-                                <text x="70" y="24" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="800">SWITCH</text>
-                                <g transform="translate(0 44)">
-                                    <g transform="translate(30 0)">${led(0, ledsOn >= 1)}</g>
-                                    <g transform="translate(55 0)">${led(0, ledsOn >= 2)}</g>
-                                    <g transform="translate(80 0)">${led(0, ledsOn >= 3)}</g>
-                                    <g transform="translate(105 0)">${led(0, ledsOn >= 4)}</g>
-                                </g>
-                            </g>
-                            <text x="400" y="160" text-anchor="middle" fill="${repaired ? '#6ee7b7' : '#fca5a5'}" font-size="11" font-weight="700">${repaired ? 'Switch alimenté' : 'Switch hors tension'}</text>
-                            ${pc(30, 1)}${pc(80, 2)}${pc(130, 3)}
+                            <g transform="translate(175 78)"><rect x="0" y="0" width="80" height="44" rx="8" fill="#0f172a" stroke="#f59e0b" stroke-width="2"/><text x="40" y="27" text-anchor="middle" fill="#fcd34d" font-size="12" font-weight="700">Routeur</text></g>
+                            <g transform="translate(330 70)"><rect x="0" y="0" width="140" height="60" rx="8" fill="${switchOn ? '#064e3b' : '#1e293b'}" stroke="${switchOn ? '#10b981' : '#64748b'}" stroke-width="3"/><text x="70" y="24" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="800">SWITCH</text><g transform="translate(0 44)">${[0,1,2,3].map((v)=>`<circle cx="${30+v*25}" cy="0" r="4.5" fill="${switchOn ? '#22c55e' : '#334155'}"/>`).join('')}</g></g>
+                            <text x="400" y="160" text-anchor="middle" fill="${switchOn ? '#6ee7b7' : '#cbd5e1'}" font-size="11" font-weight="700">${switchOn ? 'Switch redémarré' : 'Switch en diagnostic'}</text>
+                            ${pc(30,1,cableStates[0])}${pc(80,2,cableStates[1])}${pc(130,3,cableStates[2])}
                         </svg>
                     </div>
+                    <p class="text-xs text-slate-300">Les câbles RJ45 deviennent blanc très clair au fur et à mesure des tests validés.</p>
                 </div>`;
         }
 
@@ -3217,56 +3161,16 @@
                             <strong>🚨 Ticket d'incident :</strong> « Le switch de la salle informatique ne répond plus, les 3 PC n'ont plus de réseau. »
                         </div>
                         <p class="text-sm text-slate-300 mt-3 leading-relaxed">
-                            Le réseau LAN que tu as construit et sécurisé est en panne ! Réponds aux <strong>20 questions</strong> pour suivre le courant <strong>de la prise jusqu'aux ports du switch</strong>, comme un vrai technicien avec son multimètre. À chaque bonne réponse, le diagnostic avance et le réseau revient à la vie.
+                            Le réseau LAN que tu as construit et sécurisé est en panne ! Réponds aux <strong>${questions.length} questions</strong> pour suivre le courant <strong>de la prise jusqu'aux ports du switch</strong>, comme un vrai technicien avec son multimètre. À chaque bonne réponse, le diagnostic avance et le réseau revient à la vie.
                         </p>
                     </section>
 
-                    ${renderP4Network(prog.p4Done)}
+                    <div class="grid grid-cols-1 xl:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.9fr)] gap-4 items-start">
+                        <div class="min-w-0">${renderP4Network(prog.p4Done)}</div>
+                        <div class="min-w-0">${renderSingleDomainQuestion('elec', questions, prog.p4Done, prog.p4Total, 'emerald', '🛠️ Question de diagnostic')}</div>
+                    </div>
 
-                    <div class="rounded-3xl bg-slate-900/95 border border-slate-800 p-5 sm:p-6 shadow-xl space-y-5">
-                        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-                            <h2 class="font-extrabold text-base sm:text-lg text-white">🔌 Schéma du switch : de la prise aux ports</h2>
-                            <span class="text-xs text-emerald-300 font-semibold">Il avance à chaque bonne réponse</span>
-                        </div>
-
-                        ${renderP4Synoptic(prog.p4Done)}
-
-                        <div class="flex items-center justify-between border-b border-slate-800 pb-3 pt-2">
-                            <h2 class="font-extrabold text-base sm:text-lg text-white">🛠️ Questions de diagnostic (${prog.p4Done}/${prog.p4Total})</h2>
-                        </div>
-
-                        <div class="space-y-3.5">
-                            ${questions.map((q) => {
-                                const isSolved = !!state.student.escapeSolved[q.id];
-                                const corrIdx = typeof q.correctIndex === 'number' ? q.correctIndex : 0;
-                                return `
-                                <div class="p-4 rounded-2xl bg-slate-950/90 border ${isSolved ? 'border-emerald-500/50' : 'border-slate-800'} space-y-3 transition">
-                                    <div class="flex items-start justify-between gap-2">
-                                        <p class="text-sm font-bold ${isSolved ? 'text-emerald-300' : 'text-white'}">${escapeHtml(q.q)}</p>
-                                        <span class="text-xs font-bold shrink-0 ${isSolved ? 'text-emerald-400' : 'text-slate-500'}">
-                                            ${isSolved ? '✓ OK' : '🔒'}
-                                        </span>
-                                    </div>
-
-                                    ${isSolved ? `
-                                        <div class="px-3.5 py-2.5 rounded-xl bg-emerald-950/50 border border-emerald-500/40 text-emerald-200 text-xs font-semibold">
-                                            ✓ ${escapeHtml(q.options[corrIdx])}
-                                        </div>
-                                    ` : `
-                                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                                            ${q.options.map((optText, optIdx) => `
-                                                <button id="eg-qopt-${q.id}-${optIdx}" type="button" onclick="app.selectDomainQuestionOption('elec', '${q.id}', ${optIdx})"
-                                                    class="w-full text-left px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 hover:border-emerald-400 hover:bg-slate-800 text-slate-200 text-xs font-medium transition">
-                                                    ${escapeHtml(optText)}
-                                                </button>
-                                            `).join('')}
-                                        </div>
-                                    `}
-                                </div>
-                                `;
-                            }).join('')}
-                        </div>
-
+                    <div class="rounded-3xl bg-slate-900/95 border border-slate-800 p-4 sm:p-5 shadow-xl space-y-4">
                         ${renderKeywordBlock('elec', 'emerald')}
 
                         <div class="pt-4 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-slate-800">
@@ -3318,7 +3222,8 @@
                     <div class="rounded-3xl bg-slate-900/95 border-2 border-amber-400/70 p-6 shadow-2xl space-y-6">
                         <div>
                             <span class="text-xs font-bold uppercase tracking-wider text-amber-400">🔐 Déverrouillage de la salle serveur</span>
-                            <h3 class="text-xl font-extrabold text-white mt-1">Étape A : Trouve le mot secret au Jeu du Pendu</h3>
+                            <h3 class="text-xl font-extrabold text-white mt-1">Étape A : Retrouve le mot secret pour ouvrir la porte</h3>
+                            <p class="text-xs sm:text-sm text-amber-200 mt-2">Tu as terminé les missions réseau, cybersécurité et électronique. Pour quitter la salle serveur, retrouve le mot de passe caché !</p>
                             <p class="text-xs sm:text-sm text-slate-300 mt-1">
                                 💡 <strong>Indice de ton mot :</strong> ${escapeHtml(wordHint)}
                             </p>
