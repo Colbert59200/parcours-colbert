@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Parcours Découverte — Lycée Colbert de Tourcoing</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Parcours Découverte — Lycée Colbert de Tourcoing</title>
+<style>
     :root {
       --colbert-red: #9b1b30;
       --colbert-red-dark: #741021;
@@ -298,7 +299,7 @@
       border-color: var(--error) !important;
       background: var(--error-bg) !important;
     }
-    .field-error select, .field-error input {
+    .field-error select, .field-error input, .field-error textarea {
       border-color: var(--error) !important;
     }
     .error-msg {
@@ -673,665 +674,541 @@
   </style>
 </head>
 <body>
-
-  <!-- EN-TÊTE PLEINE LARGEUR AVEC LOGO OFFICIEL LYCÉE COLBERT -->
-  <header>
-    <div class="header-inner">
-      <div class="brand">
-        <svg width="118" height="58" viewBox="0 0 240 118" xmlns="http://www.w3.org/2000/svg" aria-label="Logo Lycée Colbert Tourcoing">
-          <g transform="translate(65, 2)">
-            <path d="M55 48 C40 36, 18 36, 2 44 L16 12 C32 4, 48 6, 55 18 Z" fill="#9b1b30"/>
-            <path d="M55 48 C70 36, 92 36, 108 44 L94 12 C78 4, 62 6, 55 18 Z" fill="#b92b42"/>
-            <path d="M16 12 L2 44 M28 9 L18 40 M41 11 L35 39 M55 18 L55 48 M69 11 L75 39 M82 9 L92 40 M94 12 L108 44" stroke="#ffffff" stroke-width="1.6"/>
-            <path d="M12 22 C30 14, 45 16, 55 26 C65 16, 80 14, 98 22 M7 33 C27 25, 43 27, 55 37 C67 27, 83 25, 103 33" stroke="#ffffff" stroke-width="1.6" fill="none"/>
-            <rect x="96" y="4" width="7" height="7" fill="#781223" transform="rotate(12 96 4)"/>
-            <rect x="106" y="1" width="6" height="6" fill="#9b1b30" transform="rotate(18 106 1)"/>
-            <rect x="108" y="11" width="7" height="7" fill="#4a0a14" transform="rotate(8 108 11)"/>
-            <rect x="118" y="7" width="6" height="6" fill="#9b1b30" transform="rotate(22 118 7)"/>
-            <rect x="116" y="18" width="5" height="5" fill="#781223"/>
-          </g>
-          <text x="6" y="76" font-family="Arial, sans-serif" font-weight="900" font-size="27" fill="#1e293b" letter-spacing="1">COLBERT</text>
-          <text x="6" y="93" font-family="Arial, sans-serif" font-weight="700" font-size="14" fill="#9b1b30">Lycée Numérique</text>
-          <text x="6" y="105" font-family="Arial, sans-serif" font-size="7.5" fill="#334155">Enseignement général et technologique</text>
-          <text x="6" y="114" font-family="Arial, sans-serif" font-size="7.5" fill="#334155">Enseignement professionnel</text>
-          <circle cx="204" cy="68" r="14" fill="none" stroke="#f39200" stroke-width="3.2"/>
-          <text x="199" y="73" font-family="Arial, sans-serif" font-weight="900" font-size="15" fill="#f39200">E</text>
-          <text x="163" y="67" font-family="Arial, sans-serif" font-size="6.5" fill="#0284c7" font-weight="700">Lycée</text>
-          <text x="155" y="74" font-family="Arial, sans-serif" font-size="6.5" fill="#0284c7" font-weight="700">Numérique</text>
-          <rect x="186" y="88" width="8" height="10" fill="#002395"/>
-          <rect x="194" y="88" width="8" height="10" fill="#ffffff"/>
-          <rect x="202" y="88" width="8" height="10" fill="#ed2939"/>
-          <rect x="186" y="88" width="24" height="10" fill="none" stroke="#cbd5e1" stroke-width="0.5"/>
-          <line x1="146" y1="98" x2="146" y2="115" stroke="#64748b" stroke-width="1"/>
-          <text x="150" y="104" font-family="Arial, sans-serif" font-size="7" fill="#334155">2 Parvis J.P. Colbert</text>
-          <text x="150" y="113" font-family="Arial, sans-serif" font-size="7" fill="#334155">59208 Tourcoing</text>
-        </svg>
-        <div>
-          <div class="brand-title">Parcours Découverte</div>
-          <div class="brand-sub">Lycée Colbert • Tourcoing</div>
-        </div>
-      </div>
-      <div class="header-actions">
-        <button type="button" class="btn-admin" id="btnFullscreen" onclick="toggleFullscreen()">⛶ Plein écran</button>
-        <button type="button" class="btn-admin" onclick="toggleAdminView()">Espace Profs</button>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <!-- VUE ÉLÈVE -->
-    <div id="studentSection">
-      <!-- BARRE DE PROGRESSION -->
-      <div class="stepper" id="stepperBox">
-        <div class="stepper-top">
-          <span id="stepLabel">Étape 1 sur 4</span>
-          <span class="step-badge-pill" id="stepPercent">25 %</span>
-        </div>
-        <div class="progress-track">
-          <div class="progress-fill" id="progressFill"></div>
-        </div>
-        <div class="step-dots">
-          <span id="dot1" class="active">1. Identité</span>
-          <span id="dot2">2. Formations</span>
-          <span id="dot3">3. Clubs & Vie</span>
-          <span id="dot4">4. Bilan</span>
-        </div>
-      </div>
-
-      <div class="card">
-        <div id="globalAlert" class="alert-banner">
+<!-- EN-TÊTE PLEINE LARGEUR AVEC LOGO OFFICIEL LYCÉE COLBERT -->
+<header>
+<div class="header-inner">
+<div class="brand">
+<svg aria-label="Logo Lycée Colbert Tourcoing" height="58" viewbox="0 0 240 118" width="118" xmlns="http://www.w3.org/2000/svg">
+<g transform="translate(65, 2)">
+<path d="M55 48 C40 36, 18 36, 2 44 L16 12 C32 4, 48 6, 55 18 Z" fill="#9b1b30"></path>
+<path d="M55 48 C70 36, 92 36, 108 44 L94 12 C78 4, 62 6, 55 18 Z" fill="#b92b42"></path>
+<path d="M16 12 L2 44 M28 9 L18 40 M41 11 L35 39 M55 18 L55 48 M69 11 L75 39 M82 9 L92 40 M94 12 L108 44" stroke="#ffffff" stroke-width="1.6"></path>
+<path d="M12 22 C30 14, 45 16, 55 26 C65 16, 80 14, 98 22 M7 33 C27 25, 43 27, 55 37 C67 27, 83 25, 103 33" fill="none" stroke="#ffffff" stroke-width="1.6"></path>
+<rect fill="#781223" height="7" transform="rotate(12 96 4)" width="7" x="96" y="4"></rect>
+<rect fill="#9b1b30" height="6" transform="rotate(18 106 1)" width="6" x="106" y="1"></rect>
+<rect fill="#4a0a14" height="7" transform="rotate(8 108 11)" width="7" x="108" y="11"></rect>
+<rect fill="#9b1b30" height="6" transform="rotate(22 118 7)" width="6" x="118" y="7"></rect>
+<rect fill="#781223" height="5" width="5" x="116" y="18"></rect>
+</g>
+<text fill="#1e293b" font-family="Arial, sans-serif" font-size="27" font-weight="900" letter-spacing="1" x="6" y="76">COLBERT</text>
+<text fill="#9b1b30" font-family="Arial, sans-serif" font-size="14" font-weight="700" x="6" y="93">Lycée Numérique</text>
+<text fill="#334155" font-family="Arial, sans-serif" font-size="7.5" x="6" y="105">Enseignement général et technologique</text>
+<text fill="#334155" font-family="Arial, sans-serif" font-size="7.5" x="6" y="114">Enseignement professionnel</text>
+<circle cx="204" cy="68" fill="none" r="14" stroke="#f39200" stroke-width="3.2"></circle>
+<text fill="#f39200" font-family="Arial, sans-serif" font-size="15" font-weight="900" x="199" y="73">E</text>
+<text fill="#0284c7" font-family="Arial, sans-serif" font-size="6.5" font-weight="700" x="163" y="67">Lycée</text>
+<text fill="#0284c7" font-family="Arial, sans-serif" font-size="6.5" font-weight="700" x="155" y="74">Numérique</text>
+<rect fill="#002395" height="10" width="8" x="186" y="88"></rect>
+<rect fill="#ffffff" height="10" width="8" x="194" y="88"></rect>
+<rect fill="#ed2939" height="10" width="8" x="202" y="88"></rect>
+<rect fill="none" height="10" stroke="#cbd5e1" stroke-width="0.5" width="24" x="186" y="88"></rect>
+<line stroke="#64748b" stroke-width="1" x1="146" x2="146" y1="98" y2="115"></line>
+<text fill="#334155" font-family="Arial, sans-serif" font-size="7" x="150" y="104">2 Parvis J.P. Colbert</text>
+<text fill="#334155" font-family="Arial, sans-serif" font-size="7" x="150" y="113">59208 Tourcoing</text>
+</svg>
+<div>
+<div class="brand-title">Parcours Découverte</div>
+<div class="brand-sub">Lycée Colbert • Tourcoing</div>
+</div>
+</div>
+<div class="header-actions">
+<button class="btn-admin" id="btnFullscreen" onclick="toggleFullscreen()" type="button">⛶ Plein écran</button>
+<button class="btn-admin" onclick="toggleAdminView()" type="button">Espace Profs</button>
+</div>
+</div>
+</header>
+<main>
+<!-- VUE ÉLÈVE -->
+<div id="studentSection">
+<!-- BARRE DE PROGRESSION -->
+<div class="stepper" id="stepperBox">
+<div class="stepper-top">
+<span id="stepLabel">Étape 1 sur 4</span>
+<span class="step-badge-pill" id="stepPercent">25 %</span>
+</div>
+<div class="progress-track">
+<div class="progress-fill" id="progressFill"></div>
+</div>
+<div class="step-dots">
+<span class="active" id="dot1">1. Identité</span>
+<span id="dot2">2. Formations</span>
+<span id="dot3">3. Clubs &amp; Vie</span>
+<span id="dot4">4. Bilan</span>
+</div>
+</div>
+<div class="card">
+<div class="alert-banner" id="globalAlert">
           Oups ! Complète les champs en rouge avant de passer à la suite.
         </div>
-
-        <!-- ===================================================== -->
-        <!-- ÉTAPE 1 : IDENTITÉ & ILLUSTRATION LYCÉE COLBERT       -->
-        <!-- ===================================================== -->
-        <section class="step-panel active" id="step1">
-          <div class="hero-visual">
-            <svg viewBox="0 0 1200 220" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-label="Illustration du Lycée Colbert de Tourcoing">
-              <defs>
-                <linearGradient id="skyColbert" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#0f172a"/>
-                  <stop offset="55%" stop-color="#1e293b"/>
-                  <stop offset="100%" stop-color="#9b1b30"/>
-                </linearGradient>
-              </defs>
-              <rect width="1200" height="220" fill="url(#skyColbert)"/>
-              <circle cx="1050" cy="45" r="85" fill="#f59e0b" opacity="0.16"/>
-              <circle cx="150" cy="190" r="110" fill="#9b1b30" opacity="0.35"/>
-              <rect x="260" y="64" width="680" height="126" rx="10" fill="#ffffff" opacity="0.96"/>
-              <rect x="495" y="42" width="210" height="148" rx="6" fill="#9b1b30"/>
-              <rect x="515" y="58" width="170" height="78" rx="4" fill="#38bdf8" opacity="0.35"/>
-              <line x1="557" y1="58" x2="557" y2="136" stroke="#ffffff" stroke-width="2" opacity="0.6"/>
-              <line x1="600" y1="58" x2="600" y2="136" stroke="#ffffff" stroke-width="2" opacity="0.6"/>
-              <line x1="643" y1="58" x2="643" y2="136" stroke="#ffffff" stroke-width="2" opacity="0.6"/>
-              <g fill="#cbd5e1">
-                <rect x="290" y="84" width="44" height="28" rx="3"/><rect x="350" y="84" width="44" height="28" rx="3"/><rect x="410" y="84" width="44" height="28" rx="3"/>
-                <rect x="290" y="126" width="44" height="28" rx="3"/><rect x="350" y="126" width="44" height="28" rx="3"/><rect x="410" y="126" width="44" height="28" rx="3"/>
-                <rect x="746" y="84" width="44" height="28" rx="3"/><rect x="806" y="84" width="44" height="28" rx="3"/><rect x="866" y="84" width="44" height="28" rx="3"/>
-                <rect x="746" y="126" width="44" height="28" rx="3"/><rect x="806" y="126" width="44" height="28" rx="3"/><rect x="866" y="126" width="44" height="28" rx="3"/>
-              </g>
-              <rect x="525" y="22" width="150" height="26" rx="13" fill="#f59e0b"/>
-              <text x="600" y="39" text-anchor="middle" font-family="Arial, sans-serif" font-weight="900" font-size="13" fill="#0f172a">LYCÉE COLBERT</text>
-              <rect x="0" y="188" width="1200" height="32" fill="#0f172a"/>
-              <circle cx="195" cy="160" r="26" fill="#10b981"/><rect x="191" y="176" width="8" height="14" fill="#78350f"/>
-              <circle cx="1005" cy="160" r="26" fill="#10b981"/><rect x="1001" y="176" width="8" height="14" fill="#78350f"/>
-            </svg>
-            <div class="hero-caption">
-              <span class="hero-tag">2 Parvis Jean-Baptiste Colbert • Tourcoing</span>
-              <span class="hero-tag" style="background:rgba(155,27,48,0.9);">Lycée Numérique</span>
+<!-- ===================================================== -->
+<!-- ÉTAPE 1 : IDENTITÉ & ILLUSTRATION LYCÉE COLBERT       -->
+<!-- ===================================================== -->
+<section class="step-panel active" id="step1">
+<div class="hero-visual">
+<svg aria-label="Illustration du Lycée Colbert de Tourcoing" preserveaspectratio="xMidYMid slice" viewbox="0 0 1200 220" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="skyColbert" x1="0" x2="1" y1="0" y2="1">
+<stop offset="0%" stop-color="#0f172a"></stop>
+<stop offset="55%" stop-color="#1e293b"></stop>
+<stop offset="100%" stop-color="#9b1b30"></stop>
+</lineargradient>
+</defs>
+<rect fill="url(#skyColbert)" height="220" width="1200"></rect>
+<circle cx="1050" cy="45" fill="#f59e0b" opacity="0.16" r="85"></circle>
+<circle cx="150" cy="190" fill="#9b1b30" opacity="0.35" r="110"></circle>
+<rect fill="#ffffff" height="126" opacity="0.96" rx="10" width="680" x="260" y="64"></rect>
+<rect fill="#9b1b30" height="148" rx="6" width="210" x="495" y="42"></rect>
+<rect fill="#38bdf8" height="78" opacity="0.35" rx="4" width="170" x="515" y="58"></rect>
+<line opacity="0.6" stroke="#ffffff" stroke-width="2" x1="557" x2="557" y1="58" y2="136"></line>
+<line opacity="0.6" stroke="#ffffff" stroke-width="2" x1="600" x2="600" y1="58" y2="136"></line>
+<line opacity="0.6" stroke="#ffffff" stroke-width="2" x1="643" x2="643" y1="58" y2="136"></line>
+<g fill="#cbd5e1">
+<rect height="28" rx="3" width="44" x="290" y="84"></rect><rect height="28" rx="3" width="44" x="350" y="84"></rect><rect height="28" rx="3" width="44" x="410" y="84"></rect>
+<rect height="28" rx="3" width="44" x="290" y="126"></rect><rect height="28" rx="3" width="44" x="350" y="126"></rect><rect height="28" rx="3" width="44" x="410" y="126"></rect>
+<rect height="28" rx="3" width="44" x="746" y="84"></rect><rect height="28" rx="3" width="44" x="806" y="84"></rect><rect height="28" rx="3" width="44" x="866" y="84"></rect>
+<rect height="28" rx="3" width="44" x="746" y="126"></rect><rect height="28" rx="3" width="44" x="806" y="126"></rect><rect height="28" rx="3" width="44" x="866" y="126"></rect>
+</g>
+<rect fill="#f59e0b" height="26" rx="13" width="150" x="525" y="22"></rect>
+<text fill="#0f172a" font-family="Arial, sans-serif" font-size="13" font-weight="900" text-anchor="middle" x="600" y="39">LYCÉE COLBERT</text>
+<rect fill="#0f172a" height="32" width="1200" x="0" y="188"></rect>
+<circle cx="195" cy="160" fill="#10b981" r="26"></circle><rect fill="#78350f" height="14" width="8" x="191" y="176"></rect>
+<circle cx="1005" cy="160" fill="#10b981" r="26"></circle><rect fill="#78350f" height="14" width="8" x="1001" y="176"></rect>
+</svg>
+<div class="hero-caption">
+<span class="hero-tag">2 Parvis Jean-Baptiste Colbert • Tourcoing</span>
+<span class="hero-tag" style="background:rgba(155,27,48,0.9);">Lycée Numérique</span>
+</div>
+</div>
+<div class="card-body">
+<h2 class="step-heading">1. Bienvenue au Lycée Colbert !</h2>
+<div class="info-pill">
+<strong>Renseignements de l'élève :</strong> complétez vos informations ci-dessous pour valider votre visite.
             </div>
-          </div>
-
-          <div class="card-body">
-            <h2 class="step-heading">1. Bienvenue au Lycée Colbert !</h2>
-            <div class="info-pill">
-              <strong>Renseignements de l'élève :</strong> complétez vos informations ci-dessous pour valider votre visite.
-            </div>
-
-            <div class="qr-card no-print" id="qrHomeBox">
-              <div class="qr-img" id="qrHome"></div>
-              <div>
-                <h3>📱 Scanne pour lancer le parcours</h3>
-                <p>Ouvre l'appareil photo de ton téléphone, vise ce QR code et le parcours démarre directement sur ton écran.</p>
-                <div class="qr-url" id="qrHomeUrl"></div>
-              </div>
-            </div>
-
-            <div class="fields-grid">
-              <div class="field-group" id="fg-prenom">
-                <label class="field-label" for="prenom">
-                  <span class="q-icon">👤</span> Ton prénom (pour ton certificat final)
+<div class="qr-card no-print" id="qrHomeBox">
+<div class="qr-img" id="qrHome"></div>
+<div>
+<h3>📱 Scanne pour lancer le parcours</h3>
+<p>Ouvre l'appareil photo de ton téléphone, vise ce QR code et le parcours démarre directement sur ton écran.</p>
+<div class="qr-url" id="qrHomeUrl"></div>
+</div>
+</div>
+<div class="fields-grid">
+<div class="field-group" id="fg-nom">
+<label class="field-label" for="nom">
+<span class="q-icon">👤</span> Ton nom (pour ton certificat final)
                 </label>
-                <input type="text" id="prenom" placeholder="Écris ton prénom ici..." autocomplete="given-name" />
-                <div class="error-msg">Merci d'écrire ton prénom pour générer ton certificat.</div>
-              </div>
-
-              <div class="field-group" id="fg-niveau">
-                <label class="field-label" for="niveau">
-                  <span class="q-icon">🎓</span> Ton niveau actuel au collège
+<input autocomplete="family-name" id="nom" placeholder="Écris ton nom ici..." type="text"/>
+<div class="error-msg">Merci d'écrire ton nom pour générer ton certificat.</div>
+</div>
+<div class="field-group" id="fg-prenom">
+<label class="field-label" for="prenom">
+<span class="q-icon">👤</span> Ton prénom (pour ton certificat final)
                 </label>
-                <select id="niveau">
-                  <option value="">-- Choisis ton niveau --</option>
-                  <option value="3ème">Classe de 3ème</option>
-                  <option value="4ème">Classe de 4ème</option>
-                  <option value="Autre">Autre niveau</option>
-                </select>
-                <div class="error-msg">Sélectionne ton niveau actuel.</div>
-              </div>
-
-              <div class="field-group field-span-2" id="fg-college">
-                <label class="field-label" for="college">
-                  <span class="q-icon">🏫</span> De quel collège viens-tu ?
+<input autocomplete="given-name" id="prenom" placeholder="Écris ton prénom ici..." type="text"/>
+<div class="error-msg">Merci d'écrire ton prénom pour générer ton certificat.</div>
+</div>
+<div class="field-group" id="fg-niveau">
+<label class="field-label" for="niveau">
+<span class="q-icon">🎓</span> Ton niveau actuel au collège
                 </label>
-                <select id="college">
-                  <option value="">-- Sélectionne ton collège dans la liste --</option>
-                  <optgroup label="Tourcoing">
-                    <option value="Tourcoing - Collège Albert Roussel">Tourcoing - Collège Albert Roussel</option>
-                    <option value="Tourcoing - Collège Cardinal Liénart (EIC)">Tourcoing - Collège Cardinal Liénart (EIC)</option>
-                    <option value="Tourcoing - Collège Charles de Foucauld (EIC)">Tourcoing - Collège Charles de Foucauld (EIC)</option>
-                    <option value="Tourcoing - Collège Charles Péguy (EIC)">Tourcoing - Collège Charles Péguy (EIC)</option>
-                    <option value="Tourcoing - Collège Lucie Aubrac">Tourcoing - Collège Lucie Aubrac</option>
-                    <option value="Tourcoing - Collège Marie Curie">Tourcoing - Collège Marie Curie</option>
-                    <option value="Tourcoing - Collège Notre-Dame Immaculée">Tourcoing - Collège Notre-Dame Immaculée</option>
-                    <option value="Tourcoing - Collège Pierre Mendès France">Tourcoing - Collège Pierre Mendès France</option>
-                    <option value="Tourcoing - Collège Sacré-Cœur / Saint-Thomas">Tourcoing - Collège Sacré-Cœur / Saint-Thomas</option>
-                    <option value="Tourcoing - Collège Saint-Gabriel (EIC)">Tourcoing - Collège Saint-Gabriel (EIC)</option>
-                  </optgroup>
-                  <optgroup label="Roncq, Halluin, Neuville & Linselles">
-                    <option value="Halluin - Collège du Sacré-Cœur">Halluin - Collège du Sacré-Cœur</option>
-                    <option value="Halluin - Collège Lili Keller-Rosenberg">Halluin - Collège Lili Keller-Rosenberg</option>
-                    <option value="Linselles - Collège Sainte-Marie">Linselles - Collège Sainte-Marie</option>
-                    <option value="Neuville-en-Ferrain - Collège Jules Verne">Neuville-en-Ferrain - Collège Jules Verne</option>
-                    <option value="Neuville-en-Ferrain - Collège Saint-Joseph">Neuville-en-Ferrain - Collège Saint-Joseph</option>
-                    <option value="Roncq - Collège Paul Éluard">Roncq - Collège Paul Éluard</option>
-                    <option value="Roncq - Collège Saint-Thomas">Roncq - Collège Saint-Thomas</option>
-                  </optgroup>
-                  <optgroup label="Roubaix & Wattrelos">
-                    <option value="Roubaix - Collège Anne Frank">Roubaix - Collège Anne Frank</option>
-                    <option value="Roubaix - Collège Blaise Pascal">Roubaix - Collège Blaise Pascal</option>
-                    <option value="Roubaix - Collège Charles Baudelaire">Roubaix - Collège Charles Baudelaire</option>
-                    <option value="Roubaix - Collège Jean-Baptiste Lebas">Roubaix - Collège Jean-Baptiste Lebas</option>
-                    <option value="Roubaix - Collège Maxence Van Der Meersch">Roubaix - Collège Maxence Van Der Meersch</option>
-                    <option value="Roubaix - Collège Rosa Parks">Roubaix - Collège Rosa Parks</option>
-                    <option value="Roubaix - Collège Saint-Exupéry">Roubaix - Collège Saint-Exupéry</option>
-                    <option value="Roubaix - Collège Saint-Michel">Roubaix - Collège Saint-Michel</option>
-                    <option value="Roubaix - Collège Sainte-Marie">Roubaix - Collège Sainte-Marie</option>
-                    <option value="Roubaix - Collège Sévigné">Roubaix - Collège Sévigné</option>
-                    <option value="Roubaix - Collège Théodore Monod">Roubaix - Collège Théodore Monod</option>
-                    <option value="Wattrelos - Collège Émile Zola">Wattrelos - Collège Émile Zola</option>
-                    <option value="Wattrelos - Collège Gustave Nadaud">Wattrelos - Collège Gustave Nadaud</option>
-                    <option value="Wattrelos - Collège Pablo Neruda">Wattrelos - Collège Pablo Neruda</option>
-                    <option value="Wattrelos - Collège Saint-Joseph - La Salle">Wattrelos - Collège Saint-Joseph - La Salle</option>
-                  </optgroup>
-                  <optgroup label="Autres communes du bassin">
-                    <option value="Bondues - Collège Professeur Albert Debeyre">Bondues - Collège Professeur Albert Debeyre</option>
-                    <option value="Bondues - Institution La Croix Blanche">Bondues - Institution La Croix Blanche</option>
-                    <option value="Comines - Collège Philippe de Commynes">Comines - Collège Philippe de Commynes</option>
-                    <option value="Comines - Collège Saint-Joseph">Comines - Collège Saint-Joseph</option>
-                    <option value="Comines - Collège Saint-Jude">Comines - Collège Saint-Jude</option>
-                    <option value="Croix - Collège Boris Vian">Croix - Collège Boris Vian</option>
-                    <option value="Croix - Collège Notre-Dame des Victoires">Croix - Collège Notre-Dame des Victoires</option>
-                    <option value="Hem - Collège Raymond Devos">Hem - Collège Raymond Devos</option>
-                    <option value="Hem - Collège Saint-Paul">Hem - Collège Saint-Paul</option>
-                    <option value="Leers - Collège Jules Dutoit">Leers - Collège Jules Dutoit</option>
-                    <option value="Lys-lez-Lannoy - Collège Gambetta">Lys-lez-Lannoy - Collège Gambetta</option>
-                    <option value="Marcq-en-Barœul - Collège des Rouges Barres">Marcq-en-Barœul - Collège des Rouges Barres</option>
-                    <option value="Marcq-en-Barœul - Collège du Lazaro">Marcq-en-Barœul - Collège du Lazaro</option>
-                    <option value="Marcq-en-Barœul - Marcq Institution">Marcq-en-Barœul - Marcq Institution</option>
-                    <option value="Mouvaux - Collège Maxence Van Der Meersch">Mouvaux - Collège Maxence Van Der Meersch</option>
-                    <option value="Wasquehal - Collège Albert Calmette">Wasquehal - Collège Albert Calmette</option>
-                    <option value="Wasquehal - Collège Saint-Edmond">Wasquehal - Collège Saint-Edmond</option>
-                    <option value="Autre collège du bassin">Autre collège du bassin</option>
-                  </optgroup>
-                </select>
-                <div class="error-msg">Sélectionne ton collège dans le menu déroulant.</div>
-              </div>
-            </div>
-
-            <div class="btn-row">
-              <button type="button" class="btn btn-primary" onclick="goToStep(2)">Valider et continuer →</button>
-            </div>
-          </div>
-        </section>
-
-        <!-- ===================================================== -->
-        <!-- ÉTAPE 2 : MÉTIERS & FORMATIONS DU LYCÉE COLBERT       -->
-        <!-- ===================================================== -->
-        <section class="step-panel" id="step2">
-          <div class="hero-visual">
-            <svg viewBox="0 0 1200 185" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-label="Illustration des formations du Lycée Colbert">
-              <defs>
-                <linearGradient id="bgTech" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#1e1b4b"/>
-                  <stop offset="100%" stop-color="#9b1b30"/>
-                </linearGradient>
-              </defs>
-              <rect width="1200" height="185" fill="url(#bgTech)"/>
-              <rect x="190" y="28" width="210" height="120" rx="10" fill="#0f172a" stroke="#38bdf8" stroke-width="3"/>
-              <circle cx="210" cy="44" r="4.5" fill="#ef4444"/><circle cx="224" cy="44" r="4.5" fill="#f59e0b"/><circle cx="238" cy="44" r="4.5" fill="#10b981"/>
-              <rect x="210" y="60" width="110" height="9" rx="4" fill="#38bdf8"/>
-              <rect x="210" y="78" width="160" height="9" rx="4" fill="#94a3b8"/>
-              <rect x="210" y="96" width="130" height="9" rx="4" fill="#f59e0b"/>
-              <rect x="210" y="114" width="90" height="9" rx="4" fill="#10b981"/>
-              <g transform="translate(530, 24)">
-                <polygon points="70,10 10,58 130,58" fill="#f59e0b"/>
-                <rect x="26" y="58" width="88" height="80" rx="6" fill="#ffffff"/>
-                <circle cx="70" cy="98" r="20" fill="#fef3c7" stroke="#f59e0b" stroke-width="3"/>
-                <polygon points="72,85 61,100 70,100 67,113 80,96 71,96" fill="#f59e0b"/>
-              </g>
-              <g transform="translate(810, 32)">
-                <circle cx="60" cy="60" r="38" fill="none" stroke="#ffffff" stroke-width="11" stroke-dasharray="15 8"/>
-                <circle cx="60" cy="60" r="18" fill="#9b1b30" stroke="#ffffff" stroke-width="4"/>
-                <circle cx="128" cy="95" r="24" fill="none" stroke="#38bdf8" stroke-width="8" stroke-dasharray="10 6"/>
-              </g>
-            </svg>
-            <div class="hero-caption">
-              <span class="hero-tag">Voie Générale • Technologique • Professionnelle • BTS & Prépa</span>
-            </div>
-          </div>
-
-          <div class="card-body">
-            <h2 class="step-heading">2. Bilan des Métiers et Formations</h2>
-            <div class="info-pill">
-              <strong>Maintenant que tu as terminé ton parcours :</strong> partage ce que tu as retenu des formations découvertes au Lycée Colbert en choisissant tes réponses dans les menus déroulants.
-            </div>
-
-            <div class="fields-grid">
-              <div class="field-group field-span-2" id="fg-standMetier">
-                <label class="field-label" for="standMetier">
-                  <span class="q-icon">🚀</span> Quelle section ou formation du Lycée Colbert as-tu préférée ?
+<select id="niveau">
+<option value="">-- Choisis ton niveau --</option>
+<option value="3ème">Classe de 3ème</option>
+<option value="4ème">Classe de 4ème</option>
+<option value="Autre">Autre niveau</option>
+</select>
+<div class="error-msg">Sélectionne ton niveau actuel.</div>
+</div>
+<div class="field-group field-span-2" id="fg-college">
+<label class="field-label" for="college">
+<span class="q-icon">🏫</span> De quel collège viens-tu ?
                 </label>
-                <select id="standMetier">
-                  <option value="">-- Sélectionne une section --</option>
-                  <option value="Bac Général">Bac Général</option>
-                  <option value="Bac Technologique STI2D">Bac Technologique STI2D</option>
-                  <option value="BAC PRO CIEL">BAC PRO CIEL (Cybersécurité, Informatique et Réseaux, Électronique)</option>
-                  <option value="BAC PRO MELEC">BAC PRO MELEC (Métiers de l'Électricité et de ses Environnements Connectés)</option>
-                  <option value="BTS CIEL">BTS CIEL</option>
-                  <option value="BTS DOMOTIQUE">BTS DOMOTIQUE (Fluides, Énergies, Domotique)</option>
-                  <option value="BTS MAINTENANCE">BTS MAINTENANCE (Maintenance des Systèmes)</option>
-                  <option value="BTS ELECTROTECHNIQUE">BTS ÉLECTROTECHNIQUE</option>
-                  <option value="PREPA">PRÉPA (Classe Préparatoire aux Grandes Écoles)</option>
-                </select>
-                <div class="error-msg">Sélectionne ta section préférée dans la liste.</div>
-              </div>
-
-              <div class="field-group" id="fg-attraitFormation">
-                <label class="field-label" for="attraitFormation">
-                  <span class="q-icon">💡</span> Qu'est-ce qui t'a le plus attiré dans cette formation ?
+<select id="college">
+<option value="">-- Sélectionne ton collège dans la liste --</option>
+<optgroup label="Tourcoing">
+<option value="Tourcoing - Collège Albert Roussel">Tourcoing - Collège Albert Roussel</option>
+<option value="Tourcoing - Collège Cardinal Liénart (EIC)">Tourcoing - Collège Cardinal Liénart (EIC)</option>
+<option value="Tourcoing - Collège Charles de Foucauld (EIC)">Tourcoing - Collège Charles de Foucauld (EIC)</option>
+<option value="Tourcoing - Collège Charles Péguy (EIC)">Tourcoing - Collège Charles Péguy (EIC)</option>
+<option value="Tourcoing - Collège Lucie Aubrac">Tourcoing - Collège Lucie Aubrac</option>
+<option value="Tourcoing - Collège Marie Curie">Tourcoing - Collège Marie Curie</option>
+<option value="Tourcoing - Collège Notre-Dame Immaculée">Tourcoing - Collège Notre-Dame Immaculée</option>
+<option value="Tourcoing - Collège Pierre Mendès France">Tourcoing - Collège Pierre Mendès France</option>
+<option value="Tourcoing - Collège Sacré-Cœur / Saint-Thomas">Tourcoing - Collège Sacré-Cœur / Saint-Thomas</option>
+<option value="Tourcoing - Collège Saint-Gabriel (EIC)">Tourcoing - Collège Saint-Gabriel (EIC)</option>
+</optgroup>
+<optgroup label="Roncq, Halluin, Neuville &amp; Linselles">
+<option value="Halluin - Collège du Sacré-Cœur">Halluin - Collège du Sacré-Cœur</option>
+<option value="Halluin - Collège Lili Keller-Rosenberg">Halluin - Collège Lili Keller-Rosenberg</option>
+<option value="Linselles - Collège Sainte-Marie">Linselles - Collège Sainte-Marie</option>
+<option value="Neuville-en-Ferrain - Collège Jules Verne">Neuville-en-Ferrain - Collège Jules Verne</option>
+<option value="Neuville-en-Ferrain - Collège Saint-Joseph">Neuville-en-Ferrain - Collège Saint-Joseph</option>
+<option value="Roncq - Collège Paul Éluard">Roncq - Collège Paul Éluard</option>
+<option value="Roncq - Collège Saint-Thomas">Roncq - Collège Saint-Thomas</option>
+</optgroup>
+<optgroup label="Roubaix &amp; Wattrelos">
+<option value="Roubaix - Collège Anne Frank">Roubaix - Collège Anne Frank</option>
+<option value="Roubaix - Collège Blaise Pascal">Roubaix - Collège Blaise Pascal</option>
+<option value="Roubaix - Collège Charles Baudelaire">Roubaix - Collège Charles Baudelaire</option>
+<option value="Roubaix - Collège Jean-Baptiste Lebas">Roubaix - Collège Jean-Baptiste Lebas</option>
+<option value="Roubaix - Collège Maxence Van Der Meersch">Roubaix - Collège Maxence Van Der Meersch</option>
+<option value="Roubaix - Collège Rosa Parks">Roubaix - Collège Rosa Parks</option>
+<option value="Roubaix - Collège Saint-Exupéry">Roubaix - Collège Saint-Exupéry</option>
+<option value="Roubaix - Collège Saint-Michel">Roubaix - Collège Saint-Michel</option>
+<option value="Roubaix - Collège Sainte-Marie">Roubaix - Collège Sainte-Marie</option>
+<option value="Roubaix - Collège Sévigné">Roubaix - Collège Sévigné</option>
+<option value="Roubaix - Collège Théodore Monod">Roubaix - Collège Théodore Monod</option>
+<option value="Wattrelos - Collège Émile Zola">Wattrelos - Collège Émile Zola</option>
+<option value="Wattrelos - Collège Gustave Nadaud">Wattrelos - Collège Gustave Nadaud</option>
+<option value="Wattrelos - Collège Pablo Neruda">Wattrelos - Collège Pablo Neruda</option>
+<option value="Wattrelos - Collège Saint-Joseph - La Salle">Wattrelos - Collège Saint-Joseph - La Salle</option>
+</optgroup>
+<optgroup label="Autres communes du bassin">
+<option value="Bondues - Collège Professeur Albert Debeyre">Bondues - Collège Professeur Albert Debeyre</option>
+<option value="Bondues - Institution La Croix Blanche">Bondues - Institution La Croix Blanche</option>
+<option value="Comines - Collège Philippe de Commynes">Comines - Collège Philippe de Commynes</option>
+<option value="Comines - Collège Saint-Joseph">Comines - Collège Saint-Joseph</option>
+<option value="Comines - Collège Saint-Jude">Comines - Collège Saint-Jude</option>
+<option value="Croix - Collège Boris Vian">Croix - Collège Boris Vian</option>
+<option value="Croix - Collège Notre-Dame des Victoires">Croix - Collège Notre-Dame des Victoires</option>
+<option value="Hem - Collège Raymond Devos">Hem - Collège Raymond Devos</option>
+<option value="Hem - Collège Saint-Paul">Hem - Collège Saint-Paul</option>
+<option value="Leers - Collège Jules Dutoit">Leers - Collège Jules Dutoit</option>
+<option value="Lys-lez-Lannoy - Collège Gambetta">Lys-lez-Lannoy - Collège Gambetta</option>
+<option value="Marcq-en-Barœul - Collège des Rouges Barres">Marcq-en-Barœul - Collège des Rouges Barres</option>
+<option value="Marcq-en-Barœul - Collège du Lazaro">Marcq-en-Barœul - Collège du Lazaro</option>
+<option value="Marcq-en-Barœul - Marcq Institution">Marcq-en-Barœul - Marcq Institution</option>
+<option value="Mouvaux - Collège Maxence Van Der Meersch">Mouvaux - Collège Maxence Van Der Meersch</option>
+<option value="Wasquehal - Collège Albert Calmette">Wasquehal - Collège Albert Calmette</option>
+<option value="Wasquehal - Collège Saint-Edmond">Wasquehal - Collège Saint-Edmond</option>
+<option value="Autre collège du bassin">Autre collège du bassin</option>
+</optgroup>
+</select>
+<div class="error-msg">Sélectionne ton collège dans le menu déroulant.</div>
+</div>
+</div>
+<div class="btn-row">
+<button class="btn btn-primary" onclick="goToStep(2)" type="button">Valider et continuer →</button>
+</div>
+</div>
+</section>
+<!-- ===================================================== -->
+<!-- ÉTAPE 2 : MÉTIERS & FORMATIONS DU LYCÉE COLBERT       -->
+<!-- ===================================================== -->
+<section class="step-panel" id="step2">
+<div class="hero-visual">
+<svg aria-label="Illustration des formations du Lycée Colbert" preserveaspectratio="xMidYMid slice" viewbox="0 0 1200 185" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="bgTech" x1="0" x2="1" y1="0" y2="1">
+<stop offset="0%" stop-color="#1e1b4b"></stop>
+<stop offset="100%" stop-color="#9b1b30"></stop>
+</lineargradient>
+</defs>
+<rect fill="url(#bgTech)" height="185" width="1200"></rect>
+<rect fill="#0f172a" height="120" rx="10" stroke="#38bdf8" stroke-width="3" width="210" x="190" y="28"></rect>
+<circle cx="210" cy="44" fill="#ef4444" r="4.5"></circle><circle cx="224" cy="44" fill="#f59e0b" r="4.5"></circle><circle cx="238" cy="44" fill="#10b981" r="4.5"></circle>
+<rect fill="#38bdf8" height="9" rx="4" width="110" x="210" y="60"></rect>
+<rect fill="#94a3b8" height="9" rx="4" width="160" x="210" y="78"></rect>
+<rect fill="#f59e0b" height="9" rx="4" width="130" x="210" y="96"></rect>
+<rect fill="#10b981" height="9" rx="4" width="90" x="210" y="114"></rect>
+<g transform="translate(530, 24)">
+<polygon fill="#f59e0b" points="70,10 10,58 130,58"></polygon>
+<rect fill="#ffffff" height="80" rx="6" width="88" x="26" y="58"></rect>
+<circle cx="70" cy="98" fill="#fef3c7" r="20" stroke="#f59e0b" stroke-width="3"></circle>
+<polygon fill="#f59e0b" points="72,85 61,100 70,100 67,113 80,96 71,96"></polygon>
+</g>
+<g transform="translate(810, 32)">
+<circle cx="60" cy="60" fill="none" r="38" stroke="#ffffff" stroke-dasharray="15 8" stroke-width="11"></circle>
+<circle cx="60" cy="60" fill="#9b1b30" r="18" stroke="#ffffff" stroke-width="4"></circle>
+<circle cx="128" cy="95" fill="none" r="24" stroke="#38bdf8" stroke-dasharray="10 6" stroke-width="8"></circle>
+</g>
+</svg>
+<div class="hero-caption">
+<span class="hero-tag">Voie Générale • Technologique • Professionnelle • BTS &amp; Prépa</span>
+</div>
+</div>
+<div class="card-body">
+<h2 class="step-heading">2. Découvrir les formations et les parcours</h2>
+<div class="info-pill"><strong>À toi de choisir :</strong> découvre les différentes voies proposées et les possibilités de poursuite d'études présentées dans le guide du Lycée Colbert.</div>
+<div class="fields-grid">
+<div class="field-group field-span-2" id="fg-standMetier">
+<label class="field-label" for="standMetier"><span class="q-icon">🚀</span> Quelle voie ou formation as-tu préférée ?</label>
+<select id="standMetier"><option value="">-- Sélectionne une formation ou un parcours --</option><option value="Voie générale">Voie générale</option><option value="Voie technologique – Bac STI2D">Voie technologique – Bac STI2D</option><option value="Seconde professionnelle – Famille de métiers TNE">Seconde professionnelle – Famille de métiers TNE</option><option value="Bac Pro CIEL">Bac Pro CIEL – Cybersécurité, Informatique et Réseaux, Électronique</option><option value="Bac Pro MELEC">Bac Pro MELEC – Métiers de l'Électricité et de ses Environnements Connectés</option><option value="Poursuite d'études : BTS / IUT">Poursuite d'études : BTS / IUT</option></select>
+<div class="error-msg">Sélectionne la formation ou le parcours qui t'intéresse.</div>
+</div>
+<div class="field-group" id="fg-attraitFormation">
+<label class="field-label" for="attraitFormation"><span class="q-icon">💡</span> Qu'est-ce qui t'attire le plus dans ce parcours ?</label>
+<select id="attraitFormation"><option value="">-- Choisis ce qui t'intéresse --</option><option value="Les projets concrets et les travaux pratiques">Les projets concrets et les travaux pratiques</option><option value="Les sciences, les technologies et l'innovation">Les sciences, les technologies et l'innovation</option><option value="Le numérique, les réseaux et la cybersécurité">Le numérique, les réseaux et la cybersécurité</option><option value="L'électricité, l'énergie et les environnements connectés">L'électricité, l'énergie et les environnements connectés</option><option value="La diversité des poursuites d'études et des métiers">La diversité des poursuites d'études et des métiers</option><option value="L'ouverture culturelle et les projets collectifs">L'ouverture culturelle et les projets collectifs</option></select>
+<div class="error-msg">Choisis une réponse dans la liste.</div>
+</div>
+<div class="field-group" id="fg-equipement">
+<label class="field-label" for="equipement"><span class="q-icon">🖥️</span> Quel espace ou équipement aimerais-tu découvrir ?</label>
+<select id="equipement"><option value="">-- Sélectionne un espace --</option><option value="Les salles informatiques, réseaux et cybersécurité">Les salles informatiques, réseaux et cybersécurité</option><option value="Les plateaux techniques et ateliers professionnels">Les plateaux techniques et ateliers professionnels</option><option value="Les laboratoires et espaces de sciences / innovation">Les laboratoires et espaces de sciences / innovation</option><option value="Le CDI et les espaces de lecture">Le CDI et les espaces de lecture</option><option value="Le FabLab et le Repair Café">Le FabLab et le Repair Café</option><option value="La salle du BIA et son simulateur de vol">La salle du BIA et son simulateur de vol</option><option value="La salle Cocoon et la cour Oasis">La salle Cocoon et la cour Oasis</option></select>
+<div class="error-msg">Choisis un équipement dans la liste.</div>
+</div>
+</div>
+<div class="btn-row">
+<button class="btn btn-secondary" onclick="prevStep(1)" type="button">← Retour</button>
+<button class="btn btn-primary" onclick="goToStep(3)" type="button">Valider et passer aux Clubs →</button>
+</div>
+</div>
+</section>
+<!-- ===================================================== -->
+<!-- ÉTAPE 3 : CLUBS, SECTION SPORTIVE ET FOYER            -->
+<!-- ===================================================== -->
+<section class="step-panel" id="step3">
+<div class="hero-visual">
+<svg aria-label="Illustration des clubs, sport et foyer" preserveaspectratio="xMidYMid slice" viewbox="0 0 1200 185" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="bgClubs" x1="0" x2="1" y1="0" y2="1">
+<stop offset="0%" stop-color="#9b1b30"></stop>
+<stop offset="50%" stop-color="#be123c"></stop>
+<stop offset="100%" stop-color="#f59e0b"></stop>
+</lineargradient>
+</defs>
+<rect fill="url(#bgClubs)" height="185" width="1200"></rect>
+<g fill="#ffffff" transform="translate(240, 36)">
+<circle cx="28" cy="92" r="15"></circle>
+<rect height="70" width="7" x="39" y="22"></rect>
+<circle cx="88" cy="78" r="15"></circle>
+<rect height="68" width="7" x="99" y="10"></rect>
+<polygon points="39,22 106,10 106,25 39,37"></polygon>
+</g>
+<g transform="translate(550, 38)">
+<circle cx="52" cy="52" fill="#ffffff" r="46"></circle>
+<polygon fill="#0f172a" points="52,28 72,42 64,65 40,65 32,42"></polygon>
+<line stroke="#0f172a" stroke-width="4" x1="52" x2="52" y1="6" y2="28"></line>
+<line stroke="#0f172a" stroke-width="4" x1="94" x2="72" y1="36" y2="42"></line>
+<line stroke="#0f172a" stroke-width="4" x1="80" x2="64" y1="88" y2="65"></line>
+<line stroke="#0f172a" stroke-width="4" x1="24" x2="40" y1="88" y2="65"></line>
+<line stroke="#0f172a" stroke-width="4" x1="10" x2="32" y1="36" y2="42"></line>
+</g>
+<g transform="translate(840, 34)">
+<rect fill="#0f172a" height="82" opacity="0.85" rx="18" width="110" x="10" y="15"></rect>
+<text fill="#f59e0b" font-family="Arial, sans-serif" font-size="25" font-weight="900" text-anchor="middle" x="65" y="62">MDL</text>
+<text fill="#ffffff" font-family="Arial, sans-serif" font-size="11" font-weight="700" text-anchor="middle" x="65" y="82">FOYER ÉLÈVES</text>
+</g>
+</svg>
+<div class="hero-caption">
+<span class="hero-tag">CDI • Webradio • FabLab • Foyer • Sport • Bien-être</span>
+</div>
+</div>
+<div class="card-body">
+<h2 class="step-heading">3. Explorer la vie lycéenne et les projets</h2>
+<div class="info-pill"><strong>Le lycée, c'est aussi un lieu de vie :</strong> découvre les espaces, les activités et les projets présentés dans le guide.</div>
+<div class="fields-grid">
+<div class="field-group" id="fg-musique">
+<label class="field-label" for="musique"><span class="q-icon">🎙️</span> Quels projets culturels et médias sont présentés ?</label>
+<select id="musique"><option value="">-- Choisis un projet --</option><option value="La Webradio et la Classe Médias pour créer des podcasts">La Webradio et la Classe Médias pour créer des podcasts</option><option value="Le Club Musique et les activités musicales">Le Club Musique et les activités musicales</option><option value="Les jeux de rôle et les animations de la Maison de Colbert">Les jeux de rôle et les animations de la Maison de Colbert</option><option value="Le CDI : lecture, culture et concentration">Le CDI : lecture, culture et concentration</option></select>
+<div class="error-msg">Choisis un projet culturel ou média.</div>
+</div>
+<div class="field-group" id="fg-sport">
+<label class="field-label" for="sport"><span class="q-icon">⚽</span> Quelles activités sportives ou citoyennes sont proposées ?</label>
+<select id="sport"><option value="">-- Choisis une activité --</option><option value="Les sections sportives : tennis de table et rugby">Les sections sportives : tennis de table et rugby</option><option value="Les activités sportives : raid, basket, badminton, VTT et autres pratiques">Les activités sportives : raid, basket, badminton, VTT et autres pratiques</option><option value="Le CVL et les projets citoyens ou solidaires">Le CVL et les projets citoyens ou solidaires</option><option value="Les voyages et les projets d'ouverture internationale">Les voyages et les projets d'ouverture internationale</option></select>
+<div class="error-msg">Choisis une activité ou un engagement.</div>
+</div>
+<div class="field-group field-span-2" id="fg-foyer">
+<label class="field-label" for="foyer"><span class="q-icon">🎱</span> Quels espaces contribuent à la convivialité et au bien-être ?</label>
+<select id="foyer"><option value="">-- Sélectionne un espace --</option><option value="Le foyer : billard, baby-foot et détente">Le foyer : billard, baby-foot et détente</option><option value="La cantine et les temps de convivialité">La cantine et les temps de convivialité</option><option value="La salle Cocoon dédiée au yoga et au bien-être">La salle Cocoon dédiée au yoga et au bien-être</option><option value="La cour Oasis et ses espaces végétalisés">La cour Oasis et ses espaces végétalisés</option><option value="Le FabLab : expérimenter, créer et réparer">Le FabLab : expérimenter, créer et réparer</option><option value="Le BIA et le simulateur de vol">Le BIA et le simulateur de vol</option></select>
+<div class="error-msg">Sélectionne un espace présenté dans le guide.</div>
+</div>
+</div>
+<div class="btn-row">
+<button class="btn btn-secondary" onclick="prevStep(2)" type="button">← Retour</button>
+<button class="btn btn-primary" onclick="goToStep(4)" type="button">Valider et passer au Bilan →</button>
+</div>
+</div>
+</section>
+<!-- ===================================================== -->
+<!-- ÉTAPE 4 : BILAN FINAL                                 -->
+<!-- ===================================================== -->
+<section class="step-panel" id="step4">
+<div class="card-body">
+<h2 class="step-heading">4. Ton bilan de visite</h2>
+<div class="info-pill"><strong>Ton avis compte :</strong> partage ton ressenti sur les formations, les espaces et les projets que tu viens de découvrir. Pour obtenir ton attestation, tu dois également répondre à la dernière question libre.</div>
+<div class="fields-grid">
+<div class="field-group" id="fg-impression">
+<label class="field-label" for="impression"><span class="q-icon">✨</span> Quelle image retiens-tu du Lycée Colbert ?</label>
+<select id="impression"><option value="">-- Choisis ton impression --</option><option value="Un lycée à taille humaine et un accompagnement personnalisé">Un lycée à taille humaine et un accompagnement personnalisé</option><option value="Des formations variées et des projets concrets">Des formations variées et des projets concrets</option><option value="Une vie lycéenne riche en activités et en engagements">Une vie lycéenne riche en activités et en engagements</option><option value="Des espaces pour apprendre, créer et se détendre">Des espaces pour apprendre, créer et se détendre</option><option value="Une ouverture vers l'international et la poursuite d'études">Une ouverture vers l'international et la poursuite d'études</option></select>
+<div class="error-msg">Sélectionne ton impression générale.</div>
+</div>
+<div class="field-group" id="fg-envieClub">
+<label class="field-label" for="envieClub"><span class="q-icon">🎯</span> Quel espace ou projet aimerais-tu rejoindre ou approfondir ?</label>
+<select id="envieClub"><option value="">-- Choisis ce qui t'intéresse --</option><option value="Le sport ou une section sportive">Le sport ou une section sportive</option><option value="La musique, la Webradio ou la Classe Médias">La musique, la Webradio ou la Classe Médias</option><option value="Le CVL et les projets solidaires">Le CVL et les projets solidaires</option><option value="Le FabLab et les projets de création">Le FabLab et les projets de création</option><option value="Le BIA et l'aéronautique">Le BIA et l'aéronautique</option><option value="Les espaces de détente et de bien-être">Les espaces de détente et de bien-être</option><option value="Je souhaite d'abord en savoir plus">Je souhaite d'abord en savoir plus</option></select>
+<div class="error-msg">Sélectionne une option dans la liste.</div>
+</div>
+<div class="field-group field-span-2" id="fg-projet">
+<label class="field-label" for="projet"><span class="q-icon">🏫</span> Après cette visite, envisages-tu de poursuivre ton parcours au Lycée Colbert ?</label>
+<select id="projet"><option value="">-- Choisis ta réponse --</option><option value="Oui, je souhaite me renseigner sur les formations">Oui, je souhaite me renseigner sur les formations</option><option value="Oui, le lycée correspond à mon projet">Oui, le lycée correspond à mon projet</option><option value="J'hésite encore et souhaite comparer les possibilités">J'hésite encore et souhaite comparer les possibilités</option><option value="Je souhaite en discuter avec ma famille et mon collège">Je souhaite en discuter avec ma famille et mon collège</option></select>
+<div class="error-msg">Sélectionne une réponse pour terminer.</div>
+</div>
+<div class="field-group field-span-2" id="fg-commentaire">
+<label class="field-label" for="commentaire">
+<span class="q-icon">💬</span> Pour terminer, réponds librement : qu'as-tu retenu de ta visite au Lycée Colbert ? Qu'est-ce qui t'a le plus intéressé ou que souhaiterais-tu découvrir davantage ?
                 </label>
-                <select id="attraitFormation">
-                  <option value="">-- Choisis ce qui t'a le plus plu --</option>
-                  <option value="Les projets concrets et les travaux pratiques">Les projets concrets et les travaux pratiques</option>
-                  <option value="Les démonstrations réalisées par les élèves et professeurs">Les démonstrations réalisées par les élèves et professeurs</option>
-                  <option value="Les débouchés métiers et la poursuite d'études">Les débouchés métiers et la poursuite d'études</option>
-                  <option value="L'ambiance et l'entraide dans les ateliers">L'ambiance et l'entraide dans les ateliers</option>
-                </select>
-                <div class="error-msg">Choisis une réponse dans la liste.</div>
-              </div>
-
-              <div class="field-group" id="fg-equipement">
-                <label class="field-label" for="equipement">
-                  <span class="q-icon">🖥️</span> Quel équipement ou salle du lycée t'a le plus impressionné ?
-                </label>
-                <select id="equipement">
-                  <option value="">-- Sélectionne un équipement --</option>
-                  <option value="Les salles informatiques, réseaux et cybersécurité">Les salles informatiques, réseaux et cybersécurité</option>
-                  <option value="Les plateaux techniques d'électricité et de domotique">Les plateaux techniques d'électricité et de domotique</option>
-                  <option value="Les ateliers de maintenance et systèmes automatisés">Les ateliers de maintenance et systèmes automatisés</option>
-                  <option value="Les laboratoires de sciences et d'innovation STI2D">Les laboratoires de sciences et d'innovation STI2D</option>
-                  <option value="Le CDI et les espaces numériques">Le CDI et les espaces numériques</option>
-                </select>
-                <div class="error-msg">Choisis un équipement dans la liste.</div>
-              </div>
+<textarea id="commentaire" maxlength="500" placeholder="Rédige quelques mots pour partager ton avis (réponse obligatoire)."></textarea>
+<div class="error-msg">Réponds à cette dernière question libre pour obtenir ton attestation.</div>
+</div>
+</div>
+<div class="btn-row">
+<button class="btn btn-secondary" onclick="prevStep(3)" type="button">← Retour</button>
+<button class="btn btn-success" onclick="finishGame()" type="button">Obtenir mon attestation de participation</button>
+</div>
+</div>
+</section>
+<!-- ===================================================== -->
+<!-- ÉCRAN FINAL : CERTIFICAT DE RÉUSSITE                  -->
+<!-- ===================================================== -->
+<section class="step-panel" id="step5">
+<div class="card-body">
+<div class="info-pill no-print" style="background:#ecfdf5; border-left-color:#059669;">
+<strong style="color:#059669;">Bravo, parcours validé !</strong> Tu as répondu à toutes les étapes, y compris à la dernière question libre. Télécharge ton attestation de participation sur ton téléphone ou imprime-la pour la garder en souvenir.
             </div>
-
-            <div class="btn-row">
-              <button type="button" class="btn btn-secondary" onclick="prevStep(1)">← Retour</button>
-              <button type="button" class="btn btn-primary" onclick="goToStep(3)">Valider et passer aux Clubs →</button>
-            </div>
-          </div>
-        </section>
-
-        <!-- ===================================================== -->
-        <!-- ÉTAPE 3 : CLUBS, SECTION SPORTIVE ET FOYER            -->
-        <!-- ===================================================== -->
-        <section class="step-panel" id="step3">
-          <div class="hero-visual">
-            <svg viewBox="0 0 1200 185" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-label="Illustration des clubs, sport et foyer">
-              <defs>
-                <linearGradient id="bgClubs" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#9b1b30"/>
-                  <stop offset="50%" stop-color="#be123c"/>
-                  <stop offset="100%" stop-color="#f59e0b"/>
-                </linearGradient>
-              </defs>
-              <rect width="1200" height="185" fill="url(#bgClubs)"/>
-              <g transform="translate(240, 36)" fill="#ffffff">
-                <circle cx="28" cy="92" r="15"/>
-                <rect x="39" y="22" width="7" height="70"/>
-                <circle cx="88" cy="78" r="15"/>
-                <rect x="99" y="10" width="7" height="68"/>
-                <polygon points="39,22 106,10 106,25 39,37"/>
-              </g>
-              <g transform="translate(550, 38)">
-                <circle cx="52" cy="52" r="46" fill="#ffffff"/>
-                <polygon points="52,28 72,42 64,65 40,65 32,42" fill="#0f172a"/>
-                <line x1="52" y1="6" x2="52" y2="28" stroke="#0f172a" stroke-width="4"/>
-                <line x1="94" y1="36" x2="72" y2="42" stroke="#0f172a" stroke-width="4"/>
-                <line x1="80" y1="88" x2="64" y2="65" stroke="#0f172a" stroke-width="4"/>
-                <line x1="24" y1="88" x2="40" y2="65" stroke="#0f172a" stroke-width="4"/>
-                <line x1="10" y1="36" x2="32" y2="42" stroke="#0f172a" stroke-width="4"/>
-              </g>
-              <g transform="translate(840, 34)">
-                <rect x="10" y="15" width="110" height="82" rx="18" fill="#0f172a" opacity="0.85"/>
-                <text x="65" y="62" text-anchor="middle" font-family="Arial, sans-serif" font-weight="900" font-size="25" fill="#f59e0b">MDL</text>
-                <text x="65" y="82" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="11" fill="#ffffff">FOYER ÉLÈVES</text>
-              </g>
-            </svg>
-            <div class="hero-caption">
-              <span class="hero-tag">Club Musique • Section Sportive • Maison des Lycéens</span>
-            </div>
-          </div>
-
-          <div class="card-body">
-            <h2 class="step-heading">3. La Vie au Lycée : Clubs, Sport et Foyer</h2>
-            <div class="info-pill">
-              <strong>Mission découverte :</strong> place aux coulisses du lycée ! Montre que tu as bien exploré l'ambiance du Club Musique, de la Section Sportive et du Foyer (MDL) en sélectionnant tes réponses ci-dessous.
-            </div>
-
-            <div class="fields-grid">
-              <div class="field-group" id="fg-musique">
-                <label class="field-label" for="musique">
-                  <span class="q-icon">🎸</span> Au Club Musique : qu'as-tu découvert lors de ton passage ?
-                </label>
-                <select id="musique">
-                  <option value="">-- Choisis ta réponse --</option>
-                  <option value="Un groupe qui répète en live (guitare, batterie, chant)">Un groupe qui répète en live (guitare, batterie, chant)</option>
-                  <option value="Des instruments disponibles pour tous les niveaux">Des instruments disponibles pour tous les niveaux</option>
-                  <option value="La préparation des concerts et spectacles du lycée">La préparation des concerts et spectacles du lycée</option>
-                </select>
-                <div class="error-msg">Sélectionne ta réponse pour le Club Musique.</div>
-              </div>
-
-              <div class="field-group" id="fg-sport">
-                <label class="field-label" for="sport">
-                  <span class="q-icon">⚽</span> À la Section Sportive : quel est le point fort présenté par les élèves ?
-                </label>
-                <select id="sport">
-                  <option value="">-- Choisis ta réponse --</option>
-                  <option value="Des entraînements réguliers intégrés à l'emploi du temps">Des entraînements réguliers intégrés à l'emploi du temps</option>
-                  <option value="La participation aux compétitions UNSS">La participation aux compétitions UNSS</option>
-                  <option value="La cohésion d'équipe et le dépassement de soi">La cohésion d'équipe et le dépassement de soi</option>
-                  <option value="La diversité des sports proposés au lycée">La diversité des sports proposés au lycée</option>
-                </select>
-                <div class="error-msg">Sélectionne ta réponse pour la Section Sportive.</div>
-              </div>
-
-              <div class="field-group field-span-2" id="fg-foyer">
-                <label class="field-label" for="foyer">
-                  <span class="q-icon">🕹️</span> Au Foyer des Élèves (MDL) : quelle activité a le plus de succès auprès des lycéens ?
-                </label>
-                <select id="foyer">
-                  <option value="">-- Sélectionne l'activité du Foyer --</option>
-                  <option value="Les tournois de baby-foot et de tennis de table">Les tournois de baby-foot et de tennis de table</option>
-                  <option value="Le bal de fin d'année et les journées à thème">Le bal de fin d'année et les journées à thème</option>
-                  <option value="Les jeux de société et l'espace détente entre les cours">Les jeux de société et l'espace détente entre les cours</option>
-                  <option value="Les projets culturels et solidaires financés par la MDL">Les projets culturels et solidaires financés par la MDL</option>
-                </select>
-                <div class="error-msg">Sélectionne ta réponse pour le Foyer des Élèves.</div>
-              </div>
-            </div>
-
-            <div class="btn-row">
-              <button type="button" class="btn btn-secondary" onclick="prevStep(2)">← Retour</button>
-              <button type="button" class="btn btn-primary" onclick="goToStep(4)">Valider et passer au Bilan →</button>
-            </div>
-          </div>
-        </section>
-
-        <!-- ===================================================== -->
-        <!-- ÉTAPE 4 : BILAN FINAL                                 -->
-        <!-- ===================================================== -->
-        <section class="step-panel" id="step4">
-          <div class="card-body">
-            <h2 class="step-heading">4. Dernière étape avant ton certificat !</h2>
-            <div class="info-pill">
-              <strong>Ton avis compte :</strong> donne ton ressenti sur cette matinée au Lycée Colbert et débloque immédiatement ton certificat officiel.
-            </div>
-
-            <div class="fields-grid">
-              <div class="field-group" id="fg-impression">
-                <label class="field-label" for="impression">
-                  <span class="q-icon">✨</span> Comment as-tu trouvé le Lycée Colbert aujourd'hui ?
-                </label>
-                <select id="impression">
-                  <option value="">-- Choisis ton impression --</option>
-                  <option value="Accueillant et rassurant">Accueillant et rassurant</option>
-                  <option value="Dynamique avec plein de projets">Dynamique avec plein de projets</option>
-                  <option value="Moderne et bien équipé">Moderne et bien équipé</option>
-                  <option value="Très grand mais bien organisé">Très grand mais bien organisé</option>
-                </select>
-                <div class="error-msg">Sélectionne ton impression générale.</div>
-              </div>
-
-              <div class="field-group" id="fg-envieClub">
-                <label class="field-label" for="envieClub">
-                  <span class="q-icon">🎯</span> As-tu envie de rejoindre un club ou la section sportive l'an prochain ?
-                </label>
-                <select id="envieClub">
-                  <option value="">-- Choisis ta réponse --</option>
-                  <option value="Oui, le Club Musique m'intéresse">Oui, le Club Musique m'intéresse</option>
-                  <option value="Oui, la Section Sportive m'intéresse">Oui, la Section Sportive m'intéresse</option>
-                  <option value="Oui, j'aimerais m'investir au Foyer (MDL)">Oui, j'aimerais m'investir au Foyer (MDL)</option>
-                  <option value="Peut-être, je verrai à la rentrée">Peut-être, je verrai à la rentrée</option>
-                </select>
-                <div class="error-msg">Sélectionne une option dans la liste.</div>
-              </div>
-
-              <div class="field-group field-span-2" id="fg-projet">
-                <label class="field-label" for="projet">
-                  <span class="q-icon">🏫</span> Après cette visite, envisages-tu de venir étudier au Lycée Colbert ?
-                </label>
-                <select id="projet">
-                  <option value="">-- Choisis ta réponse --</option>
-                  <option value="Oui, c'est mon premier choix !">Oui, c'est mon premier choix !</option>
-                  <option value="Oui, cela me donne vraiment envie">Oui, cela me donne vraiment envie</option>
-                  <option value="J'hésite encore entre plusieurs lycées">J'hésite encore entre plusieurs lycées</option>
-                </select>
-                <div class="error-msg">Sélectionne une réponse pour terminer.</div>
-              </div>
-
-              <div class="field-group field-span-2" id="fg-commentaire">
-                <label class="field-label" for="commentaire">
-                  <span class="q-icon">💬</span> Y a-t-il quelque chose qui t'a moins plu, ou que tu aurais aimé voir autrement ?
-                  <span class="optional-tag">(facultatif)</span>
-                </label>
-                <textarea id="commentaire" maxlength="500" placeholder="Écris librement ici : ce qui t'a moins plu, ce qui manquait, tes suggestions…"></textarea>
-              </div>
-            </div>
-
-            <div class="btn-row">
-              <button type="button" class="btn btn-secondary" onclick="prevStep(3)">← Retour</button>
-              <button type="button" class="btn btn-success" onclick="finishGame()">Obtenir mon Certificat officiel</button>
-            </div>
-          </div>
-        </section>
-
-        <!-- ===================================================== -->
-        <!-- ÉCRAN FINAL : CERTIFICAT DE RÉUSSITE                  -->
-        <!-- ===================================================== -->
-        <section class="step-panel" id="step5">
-          <div class="card-body">
-            <div class="info-pill no-print" style="background:#ecfdf5; border-left-color:#059669;">
-              <strong style="color:#059669;">Bravo, parcours validé !</strong> Télécharge ton certificat sur ton téléphone ou imprime-le pour le garder en souvenir.
-            </div>
-
-            <div class="cert-wrapper" id="certificateCard">
-              <div class="cert-logo-box">
-                <svg width="210" height="104" viewBox="0 0 240 118" xmlns="http://www.w3.org/2000/svg" aria-label="Logo Lycée Colbert Tourcoing">
-                  <g transform="translate(65, 2)">
-                    <path d="M55 48 C40 36, 18 36, 2 44 L16 12 C32 4, 48 6, 55 18 Z" fill="#9b1b30"/>
-                    <path d="M55 48 C70 36, 92 36, 108 44 L94 12 C78 4, 62 6, 55 18 Z" fill="#b92b42"/>
-                    <path d="M16 12 L2 44 M28 9 L18 40 M41 11 L35 39 M55 18 L55 48 M69 11 L75 39 M82 9 L92 40 M94 12 L108 44" stroke="#ffffff" stroke-width="1.6"/>
-                    <path d="M12 22 C30 14, 45 16, 55 26 C65 16, 80 14, 98 22 M7 33 C27 25, 43 27, 55 37 C67 27, 83 25, 103 33" stroke="#ffffff" stroke-width="1.6" fill="none"/>
-                    <rect x="96" y="4" width="7" height="7" fill="#781223" transform="rotate(12 96 4)"/>
-                    <rect x="106" y="1" width="6" height="6" fill="#9b1b30" transform="rotate(18 106 1)"/>
-                    <rect x="108" y="11" width="7" height="7" fill="#4a0a14" transform="rotate(8 108 11)"/>
-                    <rect x="118" y="7" width="6" height="6" fill="#9b1b30" transform="rotate(22 118 7)"/>
-                    <rect x="116" y="18" width="5" height="5" fill="#781223"/>
-                  </g>
-                  <text x="6" y="76" font-family="Arial, sans-serif" font-weight="900" font-size="27" fill="#1e293b" letter-spacing="1">COLBERT</text>
-                  <text x="6" y="93" font-family="Arial, sans-serif" font-weight="700" font-size="14" fill="#9b1b30">Lycée Numérique</text>
-                  <text x="6" y="105" font-family="Arial, sans-serif" font-size="7.5" fill="#334155">Enseignement général et technologique</text>
-                  <text x="6" y="114" font-family="Arial, sans-serif" font-size="7.5" fill="#334155">Enseignement professionnel</text>
-                  <circle cx="204" cy="68" r="14" fill="none" stroke="#f39200" stroke-width="3.2"/>
-                  <text x="199" y="73" font-family="Arial, sans-serif" font-weight="900" font-size="15" fill="#f39200">E</text>
-                  <text x="163" y="67" font-family="Arial, sans-serif" font-size="6.5" fill="#0284c7" font-weight="700">Lycée</text>
-                  <text x="155" y="74" font-family="Arial, sans-serif" font-size="6.5" fill="#0284c7" font-weight="700">Numérique</text>
-                  <rect x="186" y="88" width="8" height="10" fill="#002395"/>
-                  <rect x="194" y="88" width="8" height="10" fill="#ffffff"/>
-                  <rect x="202" y="88" width="8" height="10" fill="#ed2939"/>
-                  <rect x="186" y="88" width="24" height="10" fill="none" stroke="#cbd5e1" stroke-width="0.5"/>
-                  <line x1="146" y1="98" x2="146" y2="115" stroke="#64748b" stroke-width="1"/>
-                  <text x="150" y="104" font-family="Arial, sans-serif" font-size="7" fill="#334155">2 Parvis J.P. Colbert</text>
-                  <text x="150" y="113" font-family="Arial, sans-serif" font-size="7" fill="#334155">59208 Tourcoing</text>
-                </svg>
-              </div>
-
-              <div class="cert-badge">Lycée Colbert • Tourcoing</div>
-              <div class="cert-title">Certificat de Réussite</div>
-              <div style="font-size:0.94rem; color:#475569; font-weight:700;">Parcours Découverte des Formations et de la Vie Lycéenne</div>
-
-              <div class="cert-student" id="certName">Prénom</div>
-              <div class="cert-college" id="certCollege">Collège d'origine</div>
-
-              <p class="cert-body">
-                A accompli avec succès toutes les étapes du parcours de découverte des formations, des clubs et de la vie lycéenne.<br />
-                <strong>Ce certificat officiel l'autorise à rejoindre le Lycée Colbert de Tourcoing l'année prochaine !</strong>
-              </p>
-
-              <div class="cert-footer">
-                <div class="ticket-box" id="certCode">Passeport N° CLB-0000</div>
-                <div id="certDate" style="font-weight:700;"></div>
-                <div class="stamp">Validé • Lycée Colbert</div>
-              </div>
-            </div>
-
-
-            <div class="qr-card no-print" id="qrCertBox">
-              <div class="qr-img" id="qrCert"></div>
-              <div>
-                <h3>📲 Récupère ton attestation sur ton téléphone</h3>
-                <p>Scanne ce QR code avec ton téléphone : ton certificat s'affiche et tu peux le télécharger en image pour le garder.</p>
-              </div>
-            </div>
-
-            <div class="btn-row no-print">
-              <button type="button" class="btn btn-primary" onclick="downloadCertificatePNG()">Télécharger mon Certificat (Image)</button>
-              <button type="button" class="btn btn-secondary" onclick="window.print()">Imprimer / PDF</button>
-            </div>
-            <div style="text-align:center; margin-top:20px;" class="no-print" id="resetBox">
-              <button type="button" class="btn-admin" onclick="resetForNextStudent()">Nouvel élève (recommencer le parcours)</button>
-            </div>
-          </div>
-        </section>
-      </div>
-    </div>
-
-    <!-- ===================================================== -->
-    <!-- VUE ORGANISATEUR / PROFESSEURS (CODE : 59200)         -->
-    <!-- ===================================================== -->
-    <div id="adminSection">
-      <div class="card">
-        <div class="card-body">
-          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:18px;">
-            <h2 class="step-heading" style="margin:0;">Espace Profs — Résultats</h2>
-            <button type="button" class="btn-admin" onclick="closeAdminView()">← Retour au parcours élève</button>
-          </div>
-
-          <!-- BARRE DE FILTRE ET EXPORT -->
-          <div class="admin-toolbar">
-            <div class="admin-filter-box">
-              <label for="adminCollegeFilter">Afficher le bilan de :</label>
-              <select id="adminCollegeFilter" onchange="renderAdminStats()">
-                <option value="ALL">Tous les collèges réunis</option>
-              </select>
-            </div>
-            <label class="admin-check">
-              <input type="checkbox" id="adminOnlyComments" onchange="renderAdminStats()">
+<div class="cert-wrapper" id="certificateCard">
+<div class="cert-logo-box">
+<svg aria-label="Logo Lycée Colbert Tourcoing" height="104" viewbox="0 0 240 118" width="210" xmlns="http://www.w3.org/2000/svg">
+<g transform="translate(65, 2)">
+<path d="M55 48 C40 36, 18 36, 2 44 L16 12 C32 4, 48 6, 55 18 Z" fill="#9b1b30"></path>
+<path d="M55 48 C70 36, 92 36, 108 44 L94 12 C78 4, 62 6, 55 18 Z" fill="#b92b42"></path>
+<path d="M16 12 L2 44 M28 9 L18 40 M41 11 L35 39 M55 18 L55 48 M69 11 L75 39 M82 9 L92 40 M94 12 L108 44" stroke="#ffffff" stroke-width="1.6"></path>
+<path d="M12 22 C30 14, 45 16, 55 26 C65 16, 80 14, 98 22 M7 33 C27 25, 43 27, 55 37 C67 27, 83 25, 103 33" fill="none" stroke="#ffffff" stroke-width="1.6"></path>
+<rect fill="#781223" height="7" transform="rotate(12 96 4)" width="7" x="96" y="4"></rect>
+<rect fill="#9b1b30" height="6" transform="rotate(18 106 1)" width="6" x="106" y="1"></rect>
+<rect fill="#4a0a14" height="7" transform="rotate(8 108 11)" width="7" x="108" y="11"></rect>
+<rect fill="#9b1b30" height="6" transform="rotate(22 118 7)" width="6" x="118" y="7"></rect>
+<rect fill="#781223" height="5" width="5" x="116" y="18"></rect>
+</g>
+<text fill="#1e293b" font-family="Arial, sans-serif" font-size="27" font-weight="900" letter-spacing="1" x="6" y="76">COLBERT</text>
+<text fill="#9b1b30" font-family="Arial, sans-serif" font-size="14" font-weight="700" x="6" y="93">Lycée Numérique</text>
+<text fill="#334155" font-family="Arial, sans-serif" font-size="7.5" x="6" y="105">Enseignement général et technologique</text>
+<text fill="#334155" font-family="Arial, sans-serif" font-size="7.5" x="6" y="114">Enseignement professionnel</text>
+<circle cx="204" cy="68" fill="none" r="14" stroke="#f39200" stroke-width="3.2"></circle>
+<text fill="#f39200" font-family="Arial, sans-serif" font-size="15" font-weight="900" x="199" y="73">E</text>
+<text fill="#0284c7" font-family="Arial, sans-serif" font-size="6.5" font-weight="700" x="163" y="67">Lycée</text>
+<text fill="#0284c7" font-family="Arial, sans-serif" font-size="6.5" font-weight="700" x="155" y="74">Numérique</text>
+<rect fill="#002395" height="10" width="8" x="186" y="88"></rect>
+<rect fill="#ffffff" height="10" width="8" x="194" y="88"></rect>
+<rect fill="#ed2939" height="10" width="8" x="202" y="88"></rect>
+<rect fill="none" height="10" stroke="#cbd5e1" stroke-width="0.5" width="24" x="186" y="88"></rect>
+<line stroke="#64748b" stroke-width="1" x1="146" x2="146" y1="98" y2="115"></line>
+<text fill="#334155" font-family="Arial, sans-serif" font-size="7" x="150" y="104">2 Parvis J.P. Colbert</text>
+<text fill="#334155" font-family="Arial, sans-serif" font-size="7" x="150" y="113">59208 Tourcoing</text>
+</svg>
+</div>
+<div class="cert-badge">Lycée Colbert • Tourcoing</div>
+<div class="cert-title">Attestation de participation</div>
+<div style="font-size:0.94rem; color:#475569; font-weight:700;">Parcours de découverte du Lycée Colbert</div>
+<div class="cert-student" id="certName">Prénom</div>
+<div class="cert-college" id="certCollege">Collège d'origine</div>
+<p class="cert-body">A participé au parcours de découverte des formations, des espaces et de la vie lycéenne du Lycée Colbert de Tourcoing.</p>
+<div class="cert-footer">
+<div class="ticket-box" id="certCode">Passeport N° CLB-0000</div>
+<div id="certDate" style="font-weight:700;"></div>
+<div class="stamp">Validé • Lycée Colbert</div>
+</div>
+</div>
+<div class="qr-card no-print" id="qrCertBox">
+<div class="qr-img" id="qrCert"></div>
+<div>
+<h3>📲 Récupère ton attestation sur ton téléphone</h3>
+<p>Scanne ce QR code avec ton téléphone : ton attestation s'affiche et tu peux la télécharger en image pour la garder.</p>
+</div>
+</div>
+<div class="btn-row no-print">
+<button class="btn btn-primary" onclick="downloadCertificatePNG()" type="button">Télécharger mon attestation (Image)</button>
+<button class="btn btn-secondary" onclick="window.print()" type="button">Imprimer / PDF</button>
+</div>
+<div class="no-print" id="resetBox" style="text-align:center; margin-top:20px;">
+<button class="btn-admin" onclick="resetForNextStudent()" type="button">Nouvel élève (recommencer le parcours)</button>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- ===================================================== -->
+<!-- VUE ORGANISATEUR / PROFESSEURS (CODE : 59200)         -->
+<!-- ===================================================== -->
+<div id="adminSection">
+<div class="card">
+<div class="card-body">
+<div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:18px;">
+<h2 class="step-heading" style="margin:0;">Espace Profs — Résultats</h2>
+<button class="btn-admin" onclick="closeAdminView()" type="button">← Retour au parcours élève</button>
+</div>
+<!-- BARRE DE FILTRE ET EXPORT -->
+<div class="admin-toolbar">
+<div class="admin-filter-box">
+<label for="adminCollegeFilter">Afficher le bilan de :</label>
+<select id="adminCollegeFilter" onchange="renderAdminStats()">
+<option value="ALL">Tous les collèges réunis</option>
+</select>
+</div>
+<label class="admin-check">
+<input id="adminOnlyComments" onchange="renderAdminStats()" type="checkbox"/>
               Afficher seulement les élèves ayant écrit un commentaire
             </label>
-            <div style="display:flex; gap:10px; flex-wrap:wrap;">
-              <button type="button" class="btn btn-success" style="padding:10px 16px; font-size:0.88rem;" onclick="exportCSV()">Exporter Excel (.csv)</button>
-              <button type="button" class="btn btn-secondary" style="padding:10px 16px; font-size:0.88rem;" onclick="clearAllData()">Effacer les données</button>
-            </div>
-          </div>
-
-          <!-- INDICATEURS -->
-          <div class="stats-grid" style="grid-template-columns: repeat(2, 1fr);">
-            <div class="stat-card">
-              <div class="stat-num" id="statTotal">0</div>
-              <div class="stat-lbl">Élèves ayant répondu</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-num" id="statColleges">0</div>
-              <div class="stat-lbl">Collèges représentés</div>
-            </div>
-          </div>
-
-          <!-- TABLEAU PAR COLLÈGE -->
-          <h3 style="font-size:1.05rem; font-weight:900; margin:18px 0 6px; color:var(--colbert-navy);">🏫 Nombre d'élèves par collège</h3>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Collège</th>
-                  <th>Élèves</th>
-                </tr>
-              </thead>
-              <tbody id="collegeStatsBody">
-                <tr><td colspan="2" style="text-align:center; color:#64748b;">Aucune réponse enregistrée pour le moment.</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <!-- SYNTHÈSE DES RÉPONSES DU BILAN -->
-          <h3 class="admin-section-title">📊 Synthèse du bilan <span id="bilanScope" style="font-weight:700; color:var(--colbert-red); font-size:0.9rem;"></span></h3>
-          <div class="question-stats-grid">
-            <div class="q-stat-card">
-              <div class="q-stat-title">✨ Impression sur le lycée</div>
-              <div id="statImpression"></div>
-            </div>
-            <div class="q-stat-card">
-              <div class="q-stat-title">🎯 Envie de rejoindre un club / la section sportive</div>
-              <div id="statEnvieClub"></div>
-            </div>
-            <div class="q-stat-card" style="grid-column: 1 / -1;">
-              <div class="q-stat-title">🏫 Envisage de venir étudier au Lycée Colbert</div>
-              <div id="statProjet"></div>
-            </div>
-          </div>
-
-          <!-- RETOURS DES ÉLÈVES -->
-          <h3 class="admin-section-title">💬 Retours des élèves <span id="fbCount" style="font-weight:700; color:#64748b; font-size:0.9rem;"></span></h3>
-          <div class="feedback-list" id="feedbackList">
-            <div class="fb-empty">Aucune donnée.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <footer class="site-footer">
+<div style="display:flex; gap:10px; flex-wrap:wrap;">
+<button class="btn btn-success" onclick="exportCSV()" style="padding:10px 16px; font-size:0.88rem;" type="button">Exporter Excel (.csv)</button>
+<button class="btn btn-secondary" onclick="clearAllData()" style="padding:10px 16px; font-size:0.88rem;" type="button">Effacer les données</button>
+</div>
+</div>
+<!-- INDICATEURS -->
+<div class="stats-grid" style="grid-template-columns: repeat(2, 1fr);">
+<div class="stat-card">
+<div class="stat-num" id="statTotal">0</div>
+<div class="stat-lbl">Élèves ayant répondu</div>
+</div>
+<div class="stat-card">
+<div class="stat-num" id="statColleges">0</div>
+<div class="stat-lbl">Collèges représentés</div>
+</div>
+</div>
+<!-- TABLEAU PAR COLLÈGE -->
+<h3 style="font-size:1.05rem; font-weight:900; margin:18px 0 6px; color:var(--colbert-navy);">🏫 Nombre d'élèves par collège</h3>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Collège</th>
+<th>Élèves</th>
+</tr>
+</thead>
+<tbody id="collegeStatsBody">
+<tr><td colspan="2" style="text-align:center; color:#64748b;">Aucune réponse enregistrée pour le moment.</td></tr>
+</tbody>
+</table>
+</div>
+<!-- SYNTHÈSE DES RÉPONSES DU BILAN -->
+<h3 class="admin-section-title">📊 Synthèse du bilan <span id="bilanScope" style="font-weight:700; color:var(--colbert-red); font-size:0.9rem;"></span></h3>
+<div class="question-stats-grid">
+<div class="q-stat-card">
+<div class="q-stat-title">✨ Impression sur le lycée</div>
+<div id="statImpression"></div>
+</div>
+<div class="q-stat-card">
+<div class="q-stat-title">🎯 Envie de rejoindre un club / la section sportive</div>
+<div id="statEnvieClub"></div>
+</div>
+<div class="q-stat-card" style="grid-column: 1 / -1;">
+<div class="q-stat-title">🏫 Envisage de venir étudier au Lycée Colbert</div>
+<div id="statProjet"></div>
+</div>
+</div>
+<!-- RETOURS DES ÉLÈVES -->
+<h3 class="admin-section-title">💬 Retours des élèves <span id="fbCount" style="font-weight:700; color:#64748b; font-size:0.9rem;"></span></h3>
+<div class="feedback-list" id="feedbackList">
+<div class="fb-empty">Aucune donnée.</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="site-footer">
     Professeur : <strong>M. DJEFFAL</strong>
-  </footer>
-
-  <canvas id="certCanvas" width="1000" height="720" style="display:none;"></canvas>
-
-  <!-- Générateur de QR codes intégré (Kazuhiko Arase, licence MIT) : aucun service externe nécessaire -->
-  <script>
+</footer>
+<canvas height="720" id="certCanvas" style="display:none;" width="1000"></canvas>
+<!-- Générateur de QR codes intégré (Kazuhiko Arase, licence MIT) : aucun service externe nécessaire -->
+<script>
 (function(){var __m={};function __req(n){n=n.replace('./','');if(__m[n].l)return __m[n].e;var mod={exports:{}};__m[n].l=1;__m[n].e=mod.exports;__m[n].f(mod,mod.exports,__req);__m[n].e=mod.exports;return mod.exports;}
 __m['QRMode']={l:0,e:null,f:function(module,exports,__req){module.exports = {
     MODE_NUMBER :       1 << 0,
@@ -2571,16 +2448,15 @@ module.exports = QRCode;
 var QRCode=__req('index');window.QRCodeLib=QRCode;
 window.makeQRSvg=function(text,size,ecl){var qr=new QRCode(-1,ecl==null?0:ecl);qr.addData(text);qr.make();var n=qr.getModuleCount(),q=4,t=n+q*2,p=[];for(var r=0;r<n;r++)for(var c=0;c<n;c++)if(qr.isDark(r,c))p.push('M'+(c+q)+' '+(r+q)+'h1v1h-1z');return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+t+' '+t+'" width="'+size+'" height="'+size+'" shape-rendering="crispEdges" role="img" aria-label="QR code"><rect width="'+t+'" height="'+t+'" fill="#fff"/><path d="'+p.join('')+'" fill="#0f172a"/></svg>';};})();
   </script>
-
-  <script>
+<script>
     const STORAGE_KEY = 'colbert_parcours_v4';
     const ADMIN_PIN = '59200';
 
     const stepFields = {
-      1: ['prenom', 'college', 'niveau'],
+      1: ['nom', 'prenom', 'college', 'niveau'],
       2: ['standMetier', 'attraitFormation', 'equipement'],
       3: ['musique', 'sport', 'foyer'],
-      4: ['impression', 'envieClub', 'projet']
+      4: ['impression', 'envieClub', 'projet', 'commentaire']
     };
 
     function toggleFullscreen() {
@@ -2707,6 +2583,8 @@ window.makeQRSvg=function(text,size,ecl){var qr=new QRCode(-1,ecl==null?0:ecl);q
       if (!validateStep(4)) return;
 
       const prenom = document.getElementById('prenom').value.trim();
+      const nom = document.getElementById('nom').value.trim().toUpperCase();
+      const nomComplet = prenom + ' ' + nom;
       const college = document.getElementById('college').value;
       const niveau = document.getElementById('niveau').value;
       const code = 'CLB-' + Math.floor(1000 + Math.random() * 9000);
@@ -2717,6 +2595,7 @@ window.makeQRSvg=function(text,size,ecl){var qr=new QRCode(-1,ecl==null?0:ecl);q
         id: code,
         date: now.toLocaleString('fr-FR'),
         prenom: prenom,
+        nom: nom,
         college: college,
         niveau: niveau,
         standMetier: document.getElementById('standMetier').value,
@@ -2733,12 +2612,12 @@ window.makeQRSvg=function(text,size,ecl){var qr=new QRCode(-1,ecl==null?0:ecl);q
 
       saveSubmission(entry);
 
-      document.getElementById('certName').textContent = prenom;
+      document.getElementById('certName').textContent = nomComplet;
       document.getElementById('certCollege').textContent = college + ' (' + niveau + ')';
       document.getElementById('certCode').textContent = 'Passeport N° ' + code;
       document.getElementById('certDate').textContent = 'Tourcoing, le ' + dateStr;
 
-      renderCertQR({ p: prenom, c: college, n: niveau, k: code, d: dateStr });
+      renderCertQR({ p: nomComplet, c: college, n: niveau, k: code, d: dateStr });
       showPanel(5);
     }
 
@@ -2856,7 +2735,7 @@ window.makeQRSvg=function(text,size,ecl){var qr=new QRCode(-1,ecl==null?0:ecl);q
 
       ctx.fillStyle = '#475569';
       ctx.font = 'bold 20px Arial, sans-serif';
-      ctx.fillText('Parcours Découverte des Formations et de la Vie Lycéenne', 500, 268);
+      ctx.fillText('Parcours de découverte du Lycée Colbert', 500, 268);
 
       const prenom = document.getElementById('certName').textContent;
       const college = document.getElementById('certCollege').textContent;
@@ -2871,10 +2750,10 @@ window.makeQRSvg=function(text,size,ecl){var qr=new QRCode(-1,ecl==null?0:ecl);q
 
       ctx.fillStyle = '#0f172a';
       ctx.font = '21px Arial, sans-serif';
-      ctx.fillText('A accompli avec succès toutes les étapes du parcours de découverte.', 500, 450);
+      ctx.fillText('A participé au parcours de découverte du Lycée Colbert.', 500, 450);
       ctx.font = 'bold 23px Arial, sans-serif';
-      ctx.fillText('Ce certificat officiel l’autorise à rejoindre le Lycée Colbert', 500, 492);
-      ctx.fillText('de Tourcoing l’année prochaine !', 500, 524);
+      ctx.fillText('Cette attestation témoigne de sa participation au parcours de découverte', 500, 492);
+      ctx.fillText('du Lycée Colbert de Tourcoing.', 500, 524);
 
       const code = document.getElementById('certCode').textContent;
       const dateStr = document.getElementById('certDate').textContent;
@@ -3000,7 +2879,7 @@ window.makeQRSvg=function(text,size,ecl){var qr=new QRCode(-1,ecl==null?0:ecl);q
         : shown.slice().reverse().map(r => `
           <div class="fb-card">
             <div class="fb-head">
-              <span class="fb-name">${esc(r.prenom)}</span>
+              <span class="fb-name">${esc(r.prenom)} ${esc(r.nom || '')}</span>
               <span class="fb-level">${esc(r.niveau)}</span>
             </div>
             <div class="fb-college">${esc(r.college)}</div>
@@ -3019,9 +2898,9 @@ window.makeQRSvg=function(text,size,ecl){var qr=new QRCode(-1,ecl==null?0:ecl);q
         alert('Aucune donnée à exporter.');
         return;
       }
-      const headers = ['Date', 'Prenom', 'College', 'Niveau', 'Section_Preferee', 'Attrait_Formation', 'Equipement', 'Club_Musique', 'Section_Sportive', 'Foyer_MDL', 'Impression', 'Commentaire_Libre', 'Envie_Club', 'Projet_Lycee'];
+      const headers = ['Date', 'Nom', 'Prenom', 'College', 'Niveau', 'Section_Preferee', 'Attrait_Formation', 'Equipement', 'Club_Musique', 'Section_Sportive', 'Foyer_MDL', 'Impression', 'Commentaire_Libre', 'Envie_Club', 'Projet_Lycee'];
       const rows = data.map(r => [
-        r.date, r.prenom, r.college, r.niveau, r.standMetier, r.attraitFormation, r.equipement, r.musique, r.sport, r.foyer, r.impression, r.commentaire, r.envieClub, r.projet
+        r.date, r.nom || '', r.prenom, r.college, r.niveau, r.standMetier, r.attraitFormation, r.equipement, r.musique, r.sport, r.foyer, r.impression, r.commentaire, r.envieClub, r.projet
       ].map(v => '"' + String(v || '').replace(/"/g, '""') + '"').join(';'));
 
       const csvContent = '\uFEFF' + [headers.join(';'), ...rows].join('\n');
